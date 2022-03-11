@@ -1,0 +1,126 @@
+import 'package:flutter/material.dart';
+
+import '../../Widgets/dashboard_nav.dart';
+
+class WorkOutScreen extends StatelessWidget {
+  const WorkOutScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xff222831),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 30),
+                    width: 200,
+                    child: Text(
+                      "Your Dashboard",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 36,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 16),
+                    child: Text(
+                      "View and explore...",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              DashboadNav(),
+              Container(
+                margin: EdgeInsets.only(top: 48),
+                width: MediaQuery.of(context).size.width,
+                height: 48,
+                child: ElevatedButton(
+                  child: Text("Start Empty Workout"),
+                  onPressed: () {},
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 24),
+                child: Text(
+                  "Choose your workouts as you go",
+                  style: TextStyle(color: Colors.grey, fontSize: 18),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 32),
+                child: Text(
+                  "OR",
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 32),
+                width: MediaQuery.of(context).size.width,
+                height: 48,
+                child: ElevatedButton(
+                  child: Text("Browse Community Routines"),
+                  onPressed: () {},
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 24),
+                child: Text(
+                  "Browse routines created by the community",
+                  style: TextStyle(color: Colors.grey, fontSize: 18),
+                ),
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 130,
+                    margin: EdgeInsets.only(top: 64),
+                    child: Text(
+                      "Your Folders",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                child: Text(
+                  "A folder stores multiple routines. Routines are made up of different exercises",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 24, bottom: 100),
+                width: MediaQuery.of(context).size.width,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Create Folder"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Workouts/workout_screen.dart';
 import 'package:pangains/Screens/splash_screen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       theme: ThemeData(
         colorScheme: ColorScheme(
-          primary: Color(0xff050918),
+          primary: Color(0xff335Ef5),
           onPrimary: Colors.white,
           background: Colors.white,
           onBackground: Colors.white,
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.black,
           brightness: Brightness.light,
         ),
-
-// this is the only code in ThemeData.light().copyWith()
       ),
+      routes: {
+        '/workouts': (context) => WorkOutScreen(),
+      },
     );
   }
 }
