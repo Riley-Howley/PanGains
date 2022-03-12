@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Community/community_screen.dart';
+import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
 import 'package:pangains/Screens/Workouts/workout_screen.dart';
 import 'package:pangains/Screens/splash_screen.dart';
 
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
+        '/accounts': (context) => HomeDashboardScreen(),
         '/workouts': (context) => WorkOutScreen(),
+        '/community': (context) => CommunityScreen(),
       },
     );
   }

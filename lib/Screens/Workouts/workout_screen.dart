@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
 
 import '../../Widgets/dashboard_nav.dart';
 
@@ -51,7 +52,11 @@ class WorkOutScreen extends StatelessWidget {
                 height: 48,
                 child: ElevatedButton(
                   child: Text("Start Empty Workout"),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => EmptyWorkoutScreen(),
+                    ));
+                  },
                 ),
               ),
               Container(
