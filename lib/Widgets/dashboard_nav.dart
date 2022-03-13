@@ -16,7 +16,9 @@ class DashboadNav extends StatelessWidget {
           Container(
             width: 100,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.popAndPushNamed(context, "/accounts");
+              },
               child: Text("Account"),
             ),
           ),
@@ -39,7 +41,7 @@ class DashboadNav extends StatelessWidget {
             ),
           ),
           Container(
-            width: 100,
+            width: 110,
             child: TextButton(
               onPressed: () {},
               child: Text("Leaderboard"),

@@ -92,7 +92,7 @@ class WorkOutScreen extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: 130,
+                    width: 140,
                     margin: EdgeInsets.only(top: 64),
                     child: Text(
                       "Your Folders",
