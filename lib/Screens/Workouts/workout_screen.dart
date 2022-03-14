@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
+import 'package:pangains/Screens/Workouts/workout_history.dart';
 
 import '../../Widgets/dashboard_nav.dart';
 
@@ -114,12 +115,53 @@ class WorkOutScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 24, bottom: 100),
+                margin: EdgeInsets.only(
+                  top: 24,
+                ),
                 width: MediaQuery.of(context).size.width,
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Text("Create Folder"),
+                ),
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 160,
+                    margin: EdgeInsets.only(top: 64),
+                    child: Text(
+                      "Workout History",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                child: Text(
+                  "Browse workouts that you or your friends have completed previously",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 24, bottom: 100),
+                width: MediaQuery.of(context).size.width,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => WorkoutHistoryScreen(),
+                      ),
+                    );
+                  },
+                  child: Text("Show History"),
                 ),
               ),
             ],
