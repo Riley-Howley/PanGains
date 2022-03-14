@@ -12,11 +12,11 @@ class HomeDashboardScreen extends StatefulWidget {
 
 class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
   final List<WorkoutsPerWeek> data = [
-    WorkoutsPerWeek("Mon", 4, charts.ColorUtil.fromDartColor(Colors.blue)),
+    WorkoutsPerWeek("Mon", 8, charts.ColorUtil.fromDartColor(Colors.blue)),
     WorkoutsPerWeek("Tue", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
     WorkoutsPerWeek("Wed", 2, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Thu", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Fri", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
+    WorkoutsPerWeek("Thu", 4, charts.ColorUtil.fromDartColor(Colors.blue)),
+    WorkoutsPerWeek("Fri", 3, charts.ColorUtil.fromDartColor(Colors.blue)),
     WorkoutsPerWeek("Sat", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
     WorkoutsPerWeek("Sun", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
   ];

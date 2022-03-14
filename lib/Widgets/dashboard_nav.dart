@@ -43,7 +43,9 @@ class DashboadNav extends StatelessWidget {
           Container(
             width: 110,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.popAndPushNamed(context, "/leaderboard");
+              },
               child: Text("Leaderboard"),
             ),
           ),

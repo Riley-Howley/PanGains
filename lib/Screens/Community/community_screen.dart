@@ -52,7 +52,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                 ],
               ),
               DashboadNav(),
-              home == true
+              home == false
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -132,7 +132,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         ),
                       ],
                     ),
-              home == false ? community_popular_widget() : CommunityHome(),
+              home == true ? CommunityPopular() : CommunityHome(),
             ],
           ),
         ),

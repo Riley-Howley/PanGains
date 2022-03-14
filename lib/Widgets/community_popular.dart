@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Widgets/routine_widget.dart';
 
 import 'dashboard_nav.dart';
 
-class community_popular_widget extends StatelessWidget {
-  const community_popular_widget({
+class CommunityPopular extends StatelessWidget {
+  const CommunityPopular({
     Key? key,
   }) : super(key: key);
 
@@ -11,6 +12,22 @@ class community_popular_widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          child: TextField(
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xffBDBDBD))),
+              hintText: "Search for...",
+              hintStyle: TextStyle(
+                color: Colors.white,
+              ),
+              suffixIcon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
         Row(
           children: [
             Container(
@@ -82,6 +99,14 @@ class community_popular_widget extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        RoutineWidgets(),
+        RoutineWidgets(),
+        RoutineWidgets(),
+        RoutineWidgets(),
+        RoutineWidgets(),
+        Container(
+          height: 50,
         ),
       ],
     );
