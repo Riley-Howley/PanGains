@@ -6,10 +6,81 @@ class EmptyWorkoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future saveWorkoutDialog() => showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Color(0xff222831),
+            child: Container(
+              height: MediaQuery.of(context).size.height / 3,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 20, left: 20),
+                        child: Text(
+                          "Save Workout",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20, top: 16),
+                        child: Text(
+                          "Name your routine",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffBDBDBD))),
+                        hintText: "Search for...",
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff222831),
         elevation: 0,
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 20),
+            child: TextButton(
+              onPressed: () {
+                saveWorkoutDialog();
+              },
+              child: Text(
+                "Save Workout",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
       ),
       backgroundColor: Color(0xff222831),
       body: Padding(

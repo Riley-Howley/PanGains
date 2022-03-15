@@ -15,7 +15,7 @@ class LeaderboardWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 32),
               child: Image.asset(
-                "/Users/invisionit/Documents/GitHub/PanGains/assets/images/gold.png",
+                "assets/images/diamond.png",
                 width: 36,
                 height: 24,
               ),

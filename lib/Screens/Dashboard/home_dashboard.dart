@@ -5,6 +5,8 @@ import 'package:pangains/Widgets/workout_week_chart.dart';
 import '../../Widgets/dashboard_nav.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../Widgets/row_user_widget.dart';
+
 class HomeDashboardScreen extends StatefulWidget {
   @override
   State<HomeDashboardScreen> createState() => _HomeDashboardScreenState();
@@ -31,6 +33,149 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future followersDialog() => showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Color(0xff222831),
+            child: Column(
+              children: [
+                Card(
+                  color: Color(0xff222831),
+                  elevation: 8.0,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 42,
+                              ),
+                              child: Text(
+                                "Followers",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 42),
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Divider(
+                            color: Colors.white,
+                            thickness: 2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 1.6,
+                    child: ListView(
+                      children: [
+                        RowUserWidget("Sally Burger", "assets/images/1.jpeg"),
+                        RowUserWidget("Lancy Smooth", "assets/images/2.jpeg"),
+                        RowUserWidget("Aila File", "assets/images/3.jpeg"),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.8,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Close",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+
+    Future followingDialog() => showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Color(0xff222831),
+            child: Column(
+              children: [
+                Card(
+                  color: Color(0xff222831),
+                  elevation: 8.0,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 42,
+                              ),
+                              child: Text(
+                                "Following",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 42),
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Divider(
+                            color: Colors.white,
+                            thickness: 2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 1.6,
+                    child: ListView(
+                      children: [
+                        RowUserWidget("Sally Burger", "assets/images/1.jpeg"),
+                        RowUserWidget("Lancy Smooth", "assets/images/2.jpeg"),
+                        RowUserWidget("Aila File", "assets/images/3.jpeg"),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.8,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Close",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(
@@ -92,7 +237,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   "Set an account description here",
                   style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 12,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -162,47 +307,60 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 32),
-                    child: Text(
-                      "200",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
+                  GestureDetector(
+                    onTap: () {
+                      followersDialog();
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 32),
+                          child: Text(
+                            "200",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Followers",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 32),
-                    child: Text(
-                      "5",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    child: Text(
-                      "Followers",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      "Following",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 24,
-                      ),
+                  GestureDetector(
+                    onTap: () {
+                      followingDialog();
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 32),
+                          child: Text(
+                            "5",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Following",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

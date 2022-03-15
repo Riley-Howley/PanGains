@@ -139,6 +139,22 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                 margin: EdgeInsets.only(top: 64),
                 child: ExerciseTableWidget(),
               ),
+              Container(
+                margin: EdgeInsets.only(top: 64),
+                child: ExerciseTableWidget(),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 64),
+                child: ExerciseTableWidget(),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 64),
+                child: ExerciseTableWidget(),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 64),
+                child: ExerciseTableWidget(),
+              ),
             ],
           ),
         ),
