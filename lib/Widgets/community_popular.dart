@@ -49,10 +49,15 @@ class CommunityPopular extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              Container(
-                child: CircleAvatar(
-                  radius: 32,
-                  backgroundImage: AssetImage("assets/images/1.jpeg"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed("/publicAccount");
+                },
+                child: Container(
+                  child: CircleAvatar(
+                    radius: 32,
+                    backgroundImage: AssetImage("assets/images/1.jpeg"),
+                  ),
                 ),
               ),
               Container(

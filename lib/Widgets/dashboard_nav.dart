@@ -14,12 +14,15 @@ class DashboadNav extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           Container(
-            width: 100,
+            width: 89,
             child: TextButton(
               onPressed: () {
                 Navigator.popAndPushNamed(context, "/accounts");
               },
-              child: Text("Account"),
+              child: Text(
+                "Account",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
           Container(
@@ -28,25 +31,34 @@ class DashboadNav extends StatelessWidget {
               onPressed: () {
                 Navigator.popAndPushNamed(context, "/workouts");
               },
-              child: Text("Workouts"),
+              child: Text(
+                "Workouts",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
           Container(
-            width: 100,
+            width: 120,
             child: TextButton(
               onPressed: () {
                 Navigator.popAndPushNamed(context, "/community");
               },
-              child: Text("Community"),
+              child: Text(
+                "Community",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
           Container(
-            width: 110,
+            width: 130,
             child: TextButton(
               onPressed: () {
                 Navigator.popAndPushNamed(context, "/leaderboard");
               },
-              child: Text("Leaderboard"),
+              child: Text(
+                "Leaderboard",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
         ],

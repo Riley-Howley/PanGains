@@ -8,7 +8,7 @@ class RoutineWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 32),
+      margin: EdgeInsets.only(top: 64),
       child: Column(
         children: [
           Row(
@@ -35,7 +35,7 @@ class RoutineWidgets extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: "Steven Steve",
+                        text: "Sally Burger",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -131,7 +131,7 @@ class RoutineWidgets extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(left: 8),
                       child: Text(
-                        "12k",
+                        "10B",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
