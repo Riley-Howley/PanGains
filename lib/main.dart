@@ -3,6 +3,7 @@ import 'package:pangains/Screens/Community/community_screen.dart';
 import 'package:pangains/Screens/Community/public_account_screen.dart';
 import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
 import 'package:pangains/Screens/LeaderBoard/leaderboard_screen.dart';
+import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_screen.dart';
 import 'package:pangains/Screens/splash_screen.dart';
 
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/community': (context) => CommunityScreen(),
         '/leaderboard': (context) => LeaderboardScreen(),
         '/publicAccount': (context) => PublicAccountScreen(),
+        '/populatedWorkout': (context) => PopulatedWorkoutScreen(),
       },
     );
   }

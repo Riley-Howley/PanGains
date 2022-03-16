@@ -38,6 +38,18 @@ class DashboadNav extends StatelessWidget {
             ),
           ),
           Container(
+            width: 110,
+            child: TextButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, "");
+              },
+              child: Text(
+                "Messages",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
+          Container(
             width: 120,
             child: TextButton(
               onPressed: () {

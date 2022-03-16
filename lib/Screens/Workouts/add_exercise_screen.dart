@@ -93,7 +93,9 @@ class AddExerciseScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: 48,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, '/populatedWorkout');
+                },
                 child: Text("Add Exercise"),
               ),
             ),
