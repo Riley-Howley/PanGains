@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
 
 class PopulatedWorkoutScreen extends StatelessWidget {
   const PopulatedWorkoutScreen({Key? key}) : super(key: key);
@@ -14,9 +15,15 @@ class PopulatedWorkoutScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(right: 20),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => WorkoutFinishScreen(),
+                  ),
+                );
+              },
               child: Text(
-                "Save workout",
+                "Finish",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -126,75 +133,183 @@ class PopulatedWorkoutScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: Text(
-                    "Set",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Set",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "1",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "2",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "3",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  child: Text(
-                    "Previous",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  Column(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Previous",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "-",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "-",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "-",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  child: Text(
-                    "Kg",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  Column(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Kg",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "10",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "20",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "30",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  child: Text(
-                    "Reps",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  Column(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Reps",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "20",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "30",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "40",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  child: Text(
-                    "Done",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  Column(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Done",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      Container(
+                        height: 28,
+                        child: Checkbox(value: true, onChanged: (check) {}),
+                      ),
+                      Container(
+                        height: 28,
+                        child: Checkbox(value: true, onChanged: (check) {}),
+                      ),
+                      Container(
+                        height: 28,
+                        child: Checkbox(value: true, onChanged: (check) {}),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  child: Text(
-                    "1",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+            Container(
+              margin: EdgeInsets.only(top: 64),
+              width: MediaQuery.of(context).size.width,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  "Add Set",
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff222831),
+                  side: BorderSide(
+                    width: 2,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                Container(
-                  child: Text(
-                    "-",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 64),
+              width: MediaQuery.of(context).size.width,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text("Add Exercise"),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 100),
+              child: Text(
+                "Cancel Workout",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
                 ),
-                Container(
-                  child: Text(
-                    "0",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    "0",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
-                Container(
-                  child: Checkbox(
-                    onChanged: (check) {},
-                    value: true,
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),
