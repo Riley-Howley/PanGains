@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Auth%20Screens/upload_image.dart';
 import 'package:pangains/Screens/T&CS/t&cs_screen.dart';
@@ -9,6 +10,21 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var fname = TextEditingController();
+    var lname = TextEditingController();
+    var email = TextEditingController();
+    var password = TextEditingController();
+
+    Future errorDialog() => showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Color(0xff222831),
+            child: Column(
+              children: [],
+            ),
+          ),
+        );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -132,6 +148,7 @@ class SignupScreen extends StatelessWidget {
                 ],
               ),
               TextField(
+                controller: fname,
                 decoration: InputDecoration(
                   hintText: "Enter your first name",
                 ),
@@ -148,6 +165,7 @@ class SignupScreen extends StatelessWidget {
                 ],
               ),
               TextField(
+                controller: lname,
                 decoration: InputDecoration(
                   hintText: "Enter your last name",
                 ),
@@ -164,6 +182,7 @@ class SignupScreen extends StatelessWidget {
                 ],
               ),
               TextField(
+                controller: email,
                 decoration: InputDecoration(
                   hintText: "Enter your email",
                 ),
@@ -180,6 +199,7 @@ class SignupScreen extends StatelessWidget {
                 ],
               ),
               TextField(
+                controller: password,
                 decoration: InputDecoration(
                   hintText: "Enter your password",
                 ),
@@ -223,12 +243,18 @@ class SignupScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => UploadImageScreen(),
-                      ),
-                    );
+                  onPressed: () async {
+                    await Register(
+                        fname.text, lname.text, email.text, password.text);
+                    if (code != 200) {
+                      print("Error");
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => UploadImageScreen(),
+                        ),
+                      );
+                    }
                   },
                   child: Text("Sign Up"),
                 ),
