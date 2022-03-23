@@ -15,14 +15,14 @@ HttpClient client = new HttpClient();
 ////////////////////////////////////////////////////////////////////////////////
 Future Register(
     String Fname, String Lname, String email, String password) async {
-  String emailCode = Uri.encodeComponent(email);
-  String passwordCode = Uri.encodeComponent(password);
+  // String emailCode = Uri.encodeComponent(email);
+  // String passwordCode = Uri.encodeComponent(password);
 
   Map<String, dynamic> account = {
     "fname": Fname,
     "lname": Lname,
-    "email": emailCode,
-    "password": passwordCode
+    "email": email,
+    "password": password
   };
 
   client.badCertificateCallback =
@@ -40,12 +40,12 @@ Future Register(
 ///Login Method
 ////////////////////////////////////////////////////////////////////////////////
 Future Login(String email, String password) async {
-  String emailCode = Uri.encodeComponent(email);
-  String passwordCode = Uri.encodeComponent(password);
+  // String emailCode = Uri.encodeComponent(email);
+  // String passwordCode = Uri.encodeComponent(password);
 
   Map<String, dynamic> account = {
-    "email": emailCode,
-    "password": passwordCode,
+    "email": email,
+    "password": password,
   };
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);

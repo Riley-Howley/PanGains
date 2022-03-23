@@ -12,7 +12,7 @@ class SignInScreen extends StatelessWidget {
     var passwordController = TextEditingController();
     const snackBar = SnackBar(
       content: Text(
-        'Error, Register Failed',
+        'Error, Login Failed',
         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
       ),
     );
@@ -165,10 +165,8 @@ class SignInScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          if (_formKey.currentState!.validate()) {
-                            await Login(
-                                emailController.text, passwordController.text);
-                          }
+                          await Login(
+                              emailController.text, passwordController.text);
                           if (code != 200) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
