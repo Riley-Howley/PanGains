@@ -6,8 +6,11 @@ import 'package:pangains/Screens/LeaderBoard/leaderboard_screen.dart';
 import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_screen.dart';
 import 'package:pangains/Screens/splash_screen.dart';
+import 'package:pangains/app.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 void main() {
+  final client = StreamChatClient(streamKey);
   runApp(const MyApp());
 }
 

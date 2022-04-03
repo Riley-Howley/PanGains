@@ -137,7 +137,8 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  TextField(
+                  TextFormField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       hintText: "Enter your email",
                     ),
@@ -153,7 +154,8 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  TextField(
+                  TextFormField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                       hintText: "Enter your password",
                     ),
