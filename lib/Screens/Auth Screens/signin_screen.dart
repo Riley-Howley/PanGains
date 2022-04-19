@@ -179,6 +179,8 @@ class SignInScreen extends StatelessWidget {
                               ),
                             );
                           }
+                        } else {
+                          print("Error");
                         }
                       },
                       child: Text("Sign In"),
