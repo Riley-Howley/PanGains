@@ -1488,6 +1488,10 @@ Future updateSpecificCompletedWorkout(
   print(result.statusCode);
 }
 
+//==============================================================================
+//                  Register Method
+//==============================================================================
+
 Future Register(
     String Fname, String Lname, String email, String password) async {
   // String emailCode = Uri.encodeComponent(email);
@@ -1511,9 +1515,9 @@ Future Register(
   code = response.statusCode;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-///Login Method
-////////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//                  Login Method
+//==============================================================================
 Future Login(String email, String password) async {
   // String emailCode = Uri.encodeComponent(email);
   // String passwordCode = Uri.encodeComponent(password);
