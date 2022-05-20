@@ -34,7 +34,9 @@ List<Account> listSpecificAccount = [];
 Future getAllAccount() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
+
   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Accounts"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -79,13 +81,14 @@ Future getAllAccount() async {
   print(listAllAccounts);
 }
 
-Future getSpecificAccount(int accountID) async {
+Future getSpecificAccount(String name) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
-      await client.getUrl(Uri.parse("$ip/Accounts/$accountID"));
+      await client.getUrl(Uri.parse("$ip/Accounts/$name"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
-
+  print(result.statusCode);
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
@@ -149,6 +152,7 @@ Future postNewAccount(
       ((X509Certificate cert, String host, int port) => true);
 
   HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Accounts"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -185,6 +189,7 @@ Future updateSpecificAccount(
   // looks good bro
   HttpClientRequest request =
       await client.putUrl(Uri.parse("$ip/Accounts/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -197,6 +202,7 @@ Future deleteSpecificAccount(int accountID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Accounts/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -216,6 +222,7 @@ Future getAllDaysWorkedOut() async {
       await client.getUrl(Uri.parse("$ip/DaysWorkedOut"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
 
   if (result.statusCode == 200) {
@@ -256,6 +263,7 @@ Future getSpecificAllDaysWorkedOut(int accountID) async {
       await client.getUrl(Uri.parse("$ip/DaysWorkedOut/$accountID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -299,6 +307,7 @@ Future postDaysWorkedOut(int accountId, String day, int hours) async {
   };
   HttpClientRequest request =
       await client.postUrl(Uri.parse("$ip/DaysWorkedOut"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   // eshay bah
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
@@ -313,6 +322,7 @@ Future deleteDaysWorkedOut(int id) async {
 
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/DaysWorkedOut/$id"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -330,6 +340,7 @@ Future updateDaysWorkedOut(
   };
   HttpClientRequest request =
       await client.putUrl(Uri.parse("$ip/DaysWorkedOut/$daysWorkedOutID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -348,6 +359,7 @@ Future getAllStatistics() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Statistics"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -392,6 +404,7 @@ Future getSpecificStatistic(int accountID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/Statistics/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
@@ -442,6 +455,7 @@ Future postStatistic(int accountID, int totalWorkouts, int avgWorkoutTime,
   HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Statistics"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -453,6 +467,7 @@ Future deleteStatistic(int id) async {
 
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Statistics/$id"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -475,6 +490,7 @@ Future updateStatistics(int id, int accountID, int totalWorkouts,
       await client.putUrl(Uri.parse("$ip/Statistics/$id"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -492,6 +508,7 @@ Future getAllFolder() async {
       ((X509Certificate cert, String host, int port) => true);
 
   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Folders"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -528,6 +545,7 @@ Future getSpecificFolders(int id) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Folders/$id"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -565,6 +583,7 @@ Future DeleteFolder(int folderID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Folders/$folderID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -581,6 +600,7 @@ Future postNewFolder(int accountID, String folderName, int folderLikes) async {
   HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Folders"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -598,6 +618,7 @@ Future UpdateSpecificFolder(
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.putUrl(Uri.parse("$ip/Folders/$folderId"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -616,6 +637,7 @@ Future getAllRoutines() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Routines"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -651,6 +673,7 @@ Future getSpecificRoutine(int folderID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/Routines/$folderID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -692,6 +715,7 @@ Future postNewRoutine(int folderID, String routineName) async {
   HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Routines"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -702,6 +726,7 @@ Future deleteSpecificRoutine(int routineID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Routines/$routineID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -719,6 +744,7 @@ Future updateSpecificRoutine(
       await client.putUrl(Uri.parse("$ip/Routines/$routineID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -735,6 +761,7 @@ Future getAllExercises() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Exercises"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -768,6 +795,7 @@ Future getSpecificExercise(int exerciseID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/Exercises/$exerciseID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
@@ -802,6 +830,7 @@ Future postNewExercise(String exerciseName) async {
   HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Exercises"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -812,6 +841,7 @@ Future deleteSpecificExercise(int exerciseID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Exercises/$exerciseID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -827,6 +857,7 @@ Future updateSpecificExercise(int exerciseID, String exerciseName) async {
       await client.putUrl(Uri.parse("$ip/Exercises/$exerciseID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -844,6 +875,7 @@ Future getAllYourExercies() async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/YourExercises"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -879,6 +911,7 @@ Future getSpecificYourExercise(int routineID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/YourExercises/$routineID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -922,6 +955,7 @@ Future postNewYourExercise(int routineID, int exerciseID) async {
       await client.postUrl(Uri.parse("$ip/YourExercises"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -932,6 +966,7 @@ Future deleteSpecificYourExercise(int yourExerciseID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/YourExercises/$yourExerciseID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -947,6 +982,7 @@ Future updateSpecificYourExercise(
       await client.putUrl(Uri.parse("$ip/YourExercises/$yourExerciseID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -963,6 +999,7 @@ Future getAllSets() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client.putUrl(Uri.parse("$ip/Sets"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -1005,6 +1042,7 @@ Future getSpecificSets(int exerciseID) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client.putUrl(Uri.parse("$ip/Sets"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -1059,6 +1097,7 @@ Future postNewSet(int yourExerciseID, int setRow, String setType,
   HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Sets"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -1069,6 +1108,7 @@ Future deleteSpecificSet(int setID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Sets/$setID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -1094,6 +1134,7 @@ Future updateSpecificSet(
   HttpClientRequest request = await client.putUrl(Uri.parse("$ip/Sets/$setID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -1111,6 +1152,7 @@ Future getAllLeaderboards() async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/Leaderboards"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -1146,6 +1188,7 @@ Future getSpecificLeaderboard(String date) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/Leaderboards/$date"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
@@ -1183,6 +1226,7 @@ Future postNewLeaderboard(
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.postUrl(Uri.parse("$ip/Leaderboards"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -1195,6 +1239,7 @@ Future deleteSpecificLeaderboard(int leaderboardID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/Leaderboards/$leaderboardID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -1212,6 +1257,7 @@ Future updateSpecificLeaderboard(
       await client.putUrl(Uri.parse("$ip/Leaderboards/$leaderboardID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -1229,6 +1275,7 @@ Future getAllChallengeStats() async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.putUrl(Uri.parse("$ip/ChallengeStats"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -1266,6 +1313,7 @@ Future getSpecificChallengeStats(int accountID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.putUrl(Uri.parse("$ip/ChallengeStats/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
@@ -1306,6 +1354,7 @@ Future postNewChallengeStats(
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.postUrl(Uri.parse("$ip/ChallengeStats"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -1318,6 +1367,7 @@ Future deleteSpecificChallengeStat(int challengeStatID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.deleteUrl(Uri.parse("$ip/ChallengeStats/$challengeStatID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -1334,6 +1384,7 @@ Future updateSpecificChallengeStat(int challengeStatID, int accountID,
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.putUrl(Uri.parse("$ip/ChallengeStats/$challengeStatID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -1353,6 +1404,7 @@ Future getAllCompletedWorkouts() async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/CompletedWorkouts"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -1394,6 +1446,7 @@ Future getAllSpecificCompletedWorkouts(int accountID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.getUrl(Uri.parse("$ip/CompletedWorkouts/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
@@ -1444,7 +1497,7 @@ Future postNewCompletedWorkout(int accountID, int routineID,
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.postUrl(Uri.parse("$ip/CompletedWorkouts"));
-
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -1457,6 +1510,7 @@ Future deleteSpecificCompletedWorkout(int completedWorkoutID) async {
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request = await client
       .deleteUrl(Uri.parse("$ip/CompletedWorkouts/$completedWorkoutID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
 }
@@ -1481,6 +1535,7 @@ Future updateSpecificCompletedWorkout(
 
   HttpClientRequest request = await client
       .putUrl(Uri.parse("$ip/CompletedWorkouts/$completedWorkoutID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.add(utf8.encode(jsonEncode(map)));
@@ -1498,8 +1553,8 @@ Future Register(
   // String passwordCode = Uri.encodeComponent(password);
 
   Map<String, dynamic> account = {
-    "fname": Fname,
-    "lname": Lname,
+    "firstname": Fname,
+    "lastname": Lname,
     "email": email,
     "password": password
   };
@@ -1513,6 +1568,7 @@ Future Register(
   request.add(utf8.encode(jsonEncode(account)));
   HttpClientResponse response = await request.close();
   code = response.statusCode;
+  print(response.statusCode);
 }
 
 //==============================================================================
@@ -1541,7 +1597,5 @@ Future Login(String email, String password) async {
   }
   print(response.statusCode);
   jwt = contents.toString();
-  print(jwt);
-
   code = response.statusCode;
 }

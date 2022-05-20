@@ -49,147 +49,150 @@ class SignInScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          child: Column(children: [
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 64),
-                child: Image.asset("assets/images/PanGains-black.jpg"),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 32),
-              child: Text(
-                "Sign Up",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 64),
+                  child: Image.asset("assets/images/PanGains-black.jpg"),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 68),
-              width: MediaQuery.of(context).size.width,
-              height: 54,
-              child: SignInButton(
-                Buttons.FacebookNew,
-                onPressed: () {},
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 32),
-              width: MediaQuery.of(context).size.width,
-              height: 54,
-              child: SignInButton(
-                Buttons.Google,
-                onPressed: () {},
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 32, bottom: 70),
-              width: MediaQuery.of(context).size.width,
-              height: 54,
-              child: SignInButton(
-                Buttons.AppleDark,
-                onPressed: () {},
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 4,
-                  child: Divider(
-                    thickness: 2,
-                    color: Colors.black,
+              Container(
+                margin: EdgeInsets.only(top: 32),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 30, right: 30),
-                  child: Text(
-                    "Or",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 68),
+                width: MediaQuery.of(context).size.width,
+                height: 54,
+                child: SignInButton(
+                  Buttons.FacebookNew,
+                  onPressed: () {},
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 4,
-                  child: Divider(
-                    thickness: 2,
-                    color: Colors.black,
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 32),
+                width: MediaQuery.of(context).size.width,
+                height: 54,
+                child: SignInButton(
+                  Buttons.Google,
+                  onPressed: () {},
                 ),
-              ],
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 32, bottom: 70),
+                width: MediaQuery.of(context).size.width,
+                height: 54,
+                child: SignInButton(
+                  Buttons.AppleDark,
+                  onPressed: () {},
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 69),
-                        child: Text(
-                          "Email",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ],
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      hintText: "Enter your email",
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 69),
-                        child: Text(
-                          "Password",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ],
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      hintText: "Enter your password",
+                  Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    child: Divider(
+                      thickness: 2,
+                      color: Colors.black,
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 64, bottom: 50),
-                    width: MediaQuery.of(context).size.width,
-                    height: 48,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await Login(
-                              emailController.text, passwordController.text);
-                          if (code != 200) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } else if (code == 200) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => HomeDashboardScreen(),
-                              ),
-                            );
-                          }
-                        } else {
-                          print("Error");
-                        }
-                      },
-                      child: Text("Sign In"),
+                    margin: EdgeInsets.only(left: 30, right: 30),
+                    child: Text(
+                      "Or",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    child: Divider(
+                      thickness: 2,
+                      color: Colors.black,
                     ),
                   ),
                 ],
               ),
-            ),
-          ]),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 69),
+                          child: Text(
+                            "Email",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        hintText: "Enter your email",
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 69),
+                          child: Text(
+                            "Password",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TextFormField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        hintText: "Enter your password",
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 64, bottom: 50),
+                      width: MediaQuery.of(context).size.width,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await Login(
+                                emailController.text, passwordController.text);
+                            // await getSpecificAccount("Adam");
+                            if (code != 200) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else if (code == 200) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => HomeDashboardScreen(),
+                                ),
+                              );
+                            }
+                          } else {
+                            print("Error");
+                          }
+                        },
+                        child: Text("Sign In"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
