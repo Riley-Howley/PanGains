@@ -170,11 +170,14 @@ class SignInScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             await Login(
                                 emailController.text, passwordController.text);
-                            // await getSpecificAccount("Adam");
+
                             if (code != 200) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                             } else if (code == 200) {
+                              await getSpecificAccount(emailController.text);
+                              await getSpecificStatistic(
+                                  listSpecificAccount[0].accountID);
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => HomeDashboardScreen(),

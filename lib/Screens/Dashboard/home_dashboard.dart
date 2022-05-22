@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Models/workouts_perweek.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pangains/Widgets/workout_week_chart.dart';
@@ -224,7 +225,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               Container(
                 margin: EdgeInsets.only(top: 16),
                 child: Text(
-                  "Peaky Blinder",
+                  listSpecificAccount[0].firstName +
+                      " " +
+                      listSpecificAccount[0].lastName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 28,
@@ -234,7 +237,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               Container(
                 margin: EdgeInsets.only(top: 16),
                 child: Text(
-                  "Set an account description here",
+                  listSpecificAccount[0].description.isNotEmpty
+                      ? listSpecificAccount[0].description
+                      : "Set an account description here",
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
@@ -260,7 +265,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                       top: 16,
                     ),
                     child: Text(
-                      "New User",
+                      listSpecificAccount[0].title.isNotEmpty
+                          ? listSpecificAccount[0].title
+                          : "New User",
                       style: TextStyle(
                         color: Color.fromARGB(255, 4, 236, 205),
                         fontSize: 24,
@@ -385,7 +392,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "5 Workouts completed",
+                  listSpecificStatistic[0].TotalWorkouts.toString().isNotEmpty
+                      ? listSpecificStatistic[0].TotalWorkouts.toString()
+                      : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -395,7 +404,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "58 Minutes avg workout time",
+                  listSpecificStatistic[0].AvgWorkoutTime.toString().isNotEmpty
+                      ? "${listSpecificStatistic[0].AvgWorkoutTime} Minutes AVG Workout Time"
+                      : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -405,7 +416,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "3852 Kg total weight lifted",
+                  listSpecificStatistic[0].TotalLifted.toString().isNotEmpty
+                      ? "${listSpecificStatistic[0].TotalLifted} Total KG Lifted"
+                      : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

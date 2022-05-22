@@ -41,6 +41,7 @@ Future getAllAccount() async {
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
     if (listAllAccounts.isNotEmpty) {
       listAllAccounts.clear();
       for (var json in jsonData) {
@@ -49,6 +50,7 @@ Future getAllAccount() async {
             json["accountID"],
             json["firstname"],
             json["lastname"],
+            json["email"],
             json["title"],
             json["profilePicture"],
             json["description"],
@@ -66,6 +68,7 @@ Future getAllAccount() async {
             json["accountID"],
             json["firstname"],
             json["lastname"],
+            json["email"],
             json["title"],
             json["profilePicture"],
             json["description"],
@@ -81,11 +84,11 @@ Future getAllAccount() async {
   print(listAllAccounts);
 }
 
-Future getSpecificAccount(String name) async {
+Future getSpecificAccount(String email) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
-      await client.getUrl(Uri.parse("$ip/Accounts/$name"));
+      await client.getUrl(Uri.parse("$ip/Accounts/$email"));
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
@@ -99,6 +102,7 @@ Future getSpecificAccount(String name) async {
         jsonData["accountID"],
         jsonData["firstname"],
         jsonData["lastname"],
+        jsonData["email"],
         jsonData["title"],
         jsonData["profilePicture"],
         jsonData["description"],
@@ -112,6 +116,7 @@ Future getSpecificAccount(String name) async {
         jsonData["accountID"],
         jsonData["firstname"],
         jsonData["lastname"],
+        jsonData["email"],
         jsonData["title"],
         jsonData["profilePicture"],
         jsonData["description"],
@@ -128,6 +133,7 @@ Future getSpecificAccount(String name) async {
 Future postNewAccount(
     String firstname,
     String lastname,
+    String email,
     String title,
     String profilePicture,
     String description,
@@ -139,6 +145,7 @@ Future postNewAccount(
     "AccountID": 0,
     "Firstname": "$firstname",
     "Lastname": "$lastname",
+    "Email": "$email",
     "Title": "$title",
     "ProfilePicture": "$profilePicture",
     "Description": "$description",
@@ -164,6 +171,7 @@ Future updateSpecificAccount(
     int accountID,
     String firstname,
     String lastname,
+    String email,
     String title,
     String profilePicture,
     String description,
@@ -175,6 +183,7 @@ Future updateSpecificAccount(
     "AccountID": accountID,
     "Firstname": "$firstname",
     "Lastname": "$lastname",
+    "Email": "$email",
     "Title": "$title",
     "ProfilePicture": "$profilePicture",
     "Description": "$description",
