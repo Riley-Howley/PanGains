@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pangains/Models/test_model.dart';
+
 import '../Models/account.dart';
 import '../Models/days_worked_out.dart';
 import '../Models/exercise.dart';
@@ -84,6 +86,8 @@ Future getAllAccount() async {
   print(listAllAccounts);
 }
 
+List<TestModel> list = [];
+
 Future getSpecificAccount(String email) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
@@ -95,37 +99,22 @@ Future getSpecificAccount(String email) async {
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
-
     if (listSpecificAccount.isNotEmpty) {
       listSpecificAccount.clear();
-      listSpecificAccount.add(new Account(
-        jsonData["accountID"],
-        jsonData["firstname"],
-        jsonData["lastname"],
-        jsonData["email"],
-        jsonData["title"],
-        jsonData["profilePicture"],
-        jsonData["description"],
-        jsonData["private"],
-        jsonData["notifications"],
-        jsonData["averageChallengePos"],
-        jsonData["type"],
-      ));
-    } else {
-      listSpecificAccount.add(new Account(
-        jsonData["accountID"],
-        jsonData["firstname"],
-        jsonData["lastname"],
-        jsonData["email"],
-        jsonData["title"],
-        jsonData["profilePicture"],
-        jsonData["description"],
-        jsonData["private"],
-        jsonData["notifications"],
-        jsonData["averageChallengePos"],
-        jsonData["type"],
-      ));
     }
+    listSpecificAccount.add(new Account(
+      jsonData["accountID"],
+      jsonData["firstname"],
+      jsonData["lastname"],
+      jsonData["email"],
+      jsonData["title"],
+      "profilePictureURL",
+      jsonData["description"],
+      jsonData["private"],
+      jsonData["notifications"],
+      jsonData["averageChallengePos"],
+      jsonData["type"],
+    ));
   }
   print(listSpecificAccount);
 }

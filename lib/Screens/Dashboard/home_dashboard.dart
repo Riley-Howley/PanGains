@@ -177,6 +177,13 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
             ),
           ),
         );
+    var title = listSpecificAccount[0].title;
+    Icon icon;
+    if (title == "Personal Trainer") {
+      icon = Icon(Icons.medical_services);
+    } else {
+      icon = Icon(Icons.workspace_premium);
+    }
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(
@@ -253,11 +260,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     margin: EdgeInsets.only(
                       top: 16,
                     ),
-                    child: Image.asset(
-                      "assets/images/new.png",
-                      width: 30,
-                      height: 36,
-                    ),
+                    child: icon,
                   ),
                   Container(
                     margin: EdgeInsets.only(
@@ -393,7 +396,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 ),
                 title: Text(
                   listSpecificStatistic[0].TotalWorkouts.toString().isNotEmpty
-                      ? listSpecificStatistic[0].TotalWorkouts.toString()
+                      ? "${listSpecificStatistic[0].TotalWorkouts.toString()} Workouts Completed"
                       : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Auth%20Screens/signup_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -22,14 +23,21 @@ class SplashScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 40, right: 30),
-                    child: Text(
-                      "Sign In",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SignInScreen(),
+                      ));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 40, right: 30),
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
