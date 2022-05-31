@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Models/workouts_perweek.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:pangains/Screens/Test%20Screens/test_screen.dart';
 import 'package:pangains/Widgets/workout_week_chart.dart';
 import '../../Widgets/dashboard_nav.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -31,6 +32,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
   DateTime _dateTime = DateTime.now();
+  bool isSwitched = listSpecificAccount[0].private;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +182,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
     var title = listSpecificAccount[0].title;
     Icon icon;
     if (title == "Personal Trainer") {
-      icon = Icon(Icons.medical_services);
+      icon = Icon(Icons.medical_services, size: 40, color: Colors.white);
     } else {
       icon = Icon(Icons.workspace_premium);
     }
@@ -302,8 +304,27 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     ),
                   ),
                   Switch(
-                    value: true,
-                    onChanged: (swi) {},
+                    value: isSwitched,
+                    onChanged: (value) async {
+                      setState(() {
+                        isSwitched = value;
+                      });
+                      await updateSpecificAccount(
+                        listSpecificAccount[0].accountID,
+                        listSpecificAccount[0].firstName,
+                        listSpecificAccount[0].lastName,
+                        listSpecificAccount[0].email,
+                        listSpecificAccount[0].passwordHash,
+                        listSpecificAccount[0].passwordSalt,
+                        listSpecificAccount[0].title,
+                        "www.pictic.com",
+                        listSpecificAccount[0].description,
+                        value,
+                        listSpecificAccount[0].notifications,
+                        listSpecificAccount[0].averageChallengePos,
+                        listSpecificAccount[0].type,
+                      );
+                    },
                   ),
                   Text(
                     "Private",
@@ -545,7 +566,11 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TestScreen(),
+                    ));
+                  },
                   child: Text("Sign Out"),
                 ),
               ),
