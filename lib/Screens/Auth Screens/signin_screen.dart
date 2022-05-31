@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -175,6 +176,10 @@ class SignInScreen extends StatelessWidget {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                             } else if (code == 200) {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString('email', emailController.text);
+                              prefs.setString('pass', passwordController.text);
                               await getSpecificAccount(emailController.text);
                               await getSpecificStatistic(
                                   listSpecificAccount[0].accountID);
