@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
+import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
+import 'package:pangains/Screens/Workouts/workout_screen.dart';
 
-import '../../Widgets/exercise_widget.dart';
+import '../../Models/exercise.dart';
 
-class AddExerciseScreen extends StatelessWidget {
-  const AddExerciseScreen({Key? key}) : super(key: key);
+class AddExerciseScreen extends StatefulWidget {
+  @override
+  State<AddExerciseScreen> createState() => _AddExerciseScreenState();
+}
 
+class _AddExerciseScreenState extends State<AddExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,28 +73,45 @@ class AddExerciseScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 32),
-              height: MediaQuery.of(context).size.height / 2,
-              child: ListView(
-                children: [
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                  ExerciseWidget(),
-                ],
-              ),
-            ),
+                margin: EdgeInsets.only(top: 32),
+                height: MediaQuery.of(context).size.height / 2,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Text(
+                            listAllExercises[index].ExerciseName,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        Theme(
+                          data: ThemeData(
+                            unselectedWidgetColor:
+                                Color(0xffBDBDBD), // Your color
+                          ),
+                          child: IconButton(
+                            onPressed: () async {
+                              selectedExercise.add(listAllExercises[index]);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PopulatedWorkoutScreen(),
+                              ));
+                            },
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                  itemCount: listAllExercises.length,
+                )),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 48,

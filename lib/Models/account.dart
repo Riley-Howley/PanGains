@@ -3,8 +3,7 @@ class Account {
   String firstName;
   String lastName;
   String email;
-  String passwordHash;
-  String passwordSalt;
+  String password;
   String title;
   String profilePicUrl;
   String description;
@@ -18,8 +17,7 @@ class Account {
     this.firstName,
     this.lastName,
     this.email,
-    this.passwordHash,
-    this.passwordSalt,
+    this.password,
     this.title,
     this.profilePicUrl,
     this.description,

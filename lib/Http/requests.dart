@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:pangains/Models/test_model.dart';
+import 'package:pangains/Models/workouts_perweek.dart';
 
 import '../Models/account.dart';
 import '../Models/days_worked_out.dart';
@@ -34,6 +35,10 @@ String error = "";
 List<Account> listAllAccounts = [];
 List<Account> listSpecificAccount = [];
 
+//Populated Data
+List<WorkoutsPerWeek> dataList = [];
+List<Exercise> selectedExercise = [];
+
 Future getAllAccount() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
@@ -55,15 +60,14 @@ Future getAllAccount() async {
           json["firstname"],
           json["lastname"],
           json["email"],
-          json["passwordHash"],
-          json["passwordSalt"],
+          json["password"],
           json["title"],
           json["profilePicture"],
           json["description"],
           json["private"],
           json["notifications"],
           json["averageChallengePos"],
-          json["type"],
+          json["type"] == null ? "NO TYPE" : json["type"],
         ),
       );
     }
@@ -81,6 +85,7 @@ Future getSpecificAccount(String email) async {
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   print(result.statusCode);
+  code = result.statusCode;
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
@@ -93,15 +98,14 @@ Future getSpecificAccount(String email) async {
       jsonData["firstname"],
       jsonData["lastname"],
       jsonData["email"],
-      jsonData["passwordHash"],
-      jsonData["passwordSalt"],
+      jsonData["password"],
       jsonData["title"] == null ? "NO TITLE" : jsonData["title"],
-      "profilePictureURL",
+      jsonData["profilePicture"],
       jsonData["description"],
       jsonData["private"],
       jsonData["notifications"],
       jsonData["averageChallengePos"],
-      jsonData["type"],
+      jsonData["type"] == null ? "NO TYPE" : jsonData["type"],
     ));
   }
   print(listSpecificAccount);
@@ -149,8 +153,7 @@ Future updateSpecificAccount(
   String firstname,
   String lastname,
   String email,
-  String passwordHash,
-  String passwordSalt,
+  String password,
   String title,
   String profilePicture,
   String description,
@@ -164,8 +167,7 @@ Future updateSpecificAccount(
     "firstname": "$firstname",
     "lastname": "$lastname",
     "email": "$email",
-    "passwordHash": "$passwordHash",
-    "passwordSalt": "$passwordSalt",
+    "password": "$password",
     "Title": "$title",
     "ProfilePicture": "$profilePicture",
     "Description": "$description",
@@ -251,39 +253,28 @@ Future getSpecificAllDaysWorkedOut(int accountID) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
-      await client.getUrl(Uri.parse("$ip/DaysWorkedOut/$accountID/Monday"));
+      await client.getUrl(Uri.parse("$ip/DaysWorkedOut/$accountID"));
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
-    Map<String, dynamic> jsonData =
+    List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
     print(jsonData);
-    // if (listSpecificDaysWorkedOut.isNotEmpty) {
-    //   listSpecificDaysWorkedOut.clear();
-    //   for (var i in jsonData) {
-    //     listSpecificDaysWorkedOut.add(
-    //       new DaysWorkedOut(
-    //         i['DaysWorkedOutID'],
-    //         i['AccountID'],
-    //         i['day'],
-    //         i['hours'],
-    //       ),
-    //     );
-    //   }
-    // } else {
-    //   for (var i in jsonData) {
-    //     listSpecificDaysWorkedOut.add(
-    //       new DaysWorkedOut(
-    //         i['DaysWorkedOutID'],
-    //         i['AccountID'],
-    //         i['day'],
-    //         i['hours'],
-    //       ),
-    //     );
-    //   }
-    // }
+    if (listSpecificDaysWorkedOut.isNotEmpty) {
+      listSpecificDaysWorkedOut.clear();
+    }
+    for (var i in jsonData) {
+      listSpecificDaysWorkedOut.add(
+        new DaysWorkedOut(
+          i['daysWorkedOutID'],
+          i['accountID'],
+          i['day'],
+          i['hours'],
+        ),
+      );
+    }
   }
   print(listSpecificDaysWorkedOut);
 }

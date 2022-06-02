@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Http/requests.dart';
+
 class DashboadNav extends StatelessWidget {
   const DashboadNav({
     Key? key,
@@ -28,7 +30,8 @@ class DashboadNav extends StatelessWidget {
           Container(
             width: 100,
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
+                await getAllExercises();
                 Navigator.popAndPushNamed(context, "/workouts");
               },
               child: Text(

@@ -3,10 +3,13 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
+import '../../Models/workouts_perweek.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
   static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
@@ -169,8 +172,9 @@ class SignInScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            await Login(
-                                emailController.text, passwordController.text);
+                            //Login would go here but for the moment
+                            //I am using just the specific get account
+                            await getSpecificAccount(emailController.text);
 
                             if (code != 200) {
                               ScaffoldMessenger.of(context)
@@ -183,6 +187,16 @@ class SignInScreen extends StatelessWidget {
                               await getSpecificAccount(emailController.text);
                               await getSpecificStatistic(
                                   listSpecificAccount[0].accountID);
+                              await getSpecificAllDaysWorkedOut(
+                                  listSpecificAccount[0].accountID);
+
+                              for (var i in listSpecificDaysWorkedOut) {
+                                dataList.add(WorkoutsPerWeek(
+                                    i.day,
+                                    i.hours,
+                                    charts.ColorUtil.fromDartColor(
+                                        Colors.blue)));
+                              }
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => HomeDashboardScreen(),

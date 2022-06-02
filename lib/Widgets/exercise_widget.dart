@@ -1,34 +1,18 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class ExerciseWidget extends StatelessWidget {
-  const ExerciseWidget({
-    Key? key,
-  }) : super(key: key);
+// class ExerciseWidget extends StatefulWidget {
+//   String Exercisename;
+//   ExerciseWidget(this.Exercisename);
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Text(
-            "Hanging Knee Raises",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-        ),
-        Theme(
-          data: ThemeData(
-            unselectedWidgetColor: Color(0xffBDBDBD), // Your color
-          ),
-          child: Checkbox(
-            value: false,
-            onChanged: (val) {},
-          ),
-        )
-      ],
-    );
-  }
-}
+//   @override
+//   State<ExerciseWidget> createState() => _ExerciseWidgetState();
+// }
+
+// class _ExerciseWidgetState extends State<ExerciseWidget> {
+//   bool isChecked = false;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return 
+//   }
+// }
