@@ -18,6 +18,7 @@ import '../Models/challenge_stats.dart';
 import '../Models/completed_workout.dart';
 import '../Models/leaderboard.dart';
 import '../Models/set.dart';
+import '../Widgets/set_row.dart';
 
 HttpClient client = new HttpClient();
 
@@ -38,6 +39,9 @@ List<Account> listSpecificAccount = [];
 //Populated Data
 List<WorkoutsPerWeek> dataList = [];
 List<Exercise> selectedExercise = [];
+
+List<Set_row> listOfSets = [];
+List<Set_row> listFinishedSets = [];
 
 Future getAllAccount() async {
   client.badCertificateCallback =

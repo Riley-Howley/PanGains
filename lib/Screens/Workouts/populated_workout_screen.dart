@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
 
 import '../../Http/requests.dart';
+import '../../Widgets/formatted_set_table.dart';
+import '../../Widgets/set_row.dart';
 
-class PopulatedWorkoutScreen extends StatelessWidget {
+class PopulatedWorkoutScreen extends StatefulWidget {
   const PopulatedWorkoutScreen({Key? key}) : super(key: key);
 
+  @override
+  State<PopulatedWorkoutScreen> createState() => _PopulatedWorkoutScreenState();
+}
+
+class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,8 +129,51 @@ class PopulatedWorkoutScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              Column(
+                children: [
+                  Flexible(
+                    child: ListView(
+                      children: <Widget>[
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                              maxHeight:
+                                  1000), // **THIS is the important part**
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return listOfSets[index];
+                            },
+                            itemCount: listOfSets.length,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/** 
+ * 
+ * Container(
+                margin: EdgeInsets.only(top: 32),
+                child: ElevatedButton(
+                  onPressed: () {
+                    listOfSets.add(new Set_row(count++, 0, 0, false));
+                    setState(() {});
+                  },
+                  child: Text(
+                    "Add Set",
+                  ),
+                ),
+              ),
               Container(
-                margin: EdgeInsets.only(top: 64),
                 width: MediaQuery.of(context).size.width,
                 height: 48,
                 child: ElevatedButton(
@@ -140,10 +191,5 @@ class PopulatedWorkoutScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+ * 
+*/

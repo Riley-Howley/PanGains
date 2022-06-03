@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/add_exercise_screen.dart';
+import 'package:pangains/Widgets/set_row.dart';
 
-class EmptyWorkoutScreen extends StatelessWidget {
+import '../../Widgets/formatted_set_table.dart';
+
+class EmptyWorkoutScreen extends StatefulWidget {
   const EmptyWorkoutScreen({Key? key}) : super(key: key);
 
+  @override
+  State<EmptyWorkoutScreen> createState() => _EmptyWorkoutScreenState();
+}
+
+class _EmptyWorkoutScreenState extends State<EmptyWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     Future chooseFolder() => showDialog(
@@ -186,7 +195,7 @@ class EmptyWorkoutScreen extends StatelessWidget {
             ),
           ),
         );
-
+    int count = 1;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff222831),
