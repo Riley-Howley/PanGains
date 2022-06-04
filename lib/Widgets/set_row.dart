@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../Http/requests.dart';
+
+import '../Screens/Workouts/populated_workout_screen.dart';
 
 class Set_row extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class Set_row extends StatefulWidget {
 class _Set_rowState extends State<Set_row> {
   var kgController = TextEditingController();
   var repController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,16 +103,15 @@ class _Set_rowState extends State<Set_row> {
           !widget.isChecked
               ? IconButton(
                   onPressed: () {
-                    listFinishedSets.add(new Set_row(
-                        widget.id,
-                        int.parse(kgController.text),
-                        int.parse(repController.text),
-                        widget.isChecked));
+                    finishedSets.add(new Set_row(
+                      widget.id,
+                      int.parse(kgController.text),
+                      int.parse(repController.text),
+                      widget.isChecked,
+                    ));
                     setState(() {
                       widget.isChecked = !widget.isChecked;
                     });
-
-                    print(listFinishedSets);
                   },
                   icon: Icon(
                     Icons.check_box_outline_blank,
@@ -119,11 +120,10 @@ class _Set_rowState extends State<Set_row> {
                 )
               : IconButton(
                   onPressed: () {
-                    listFinishedSets.removeWhere((set) => set.id == widget.id);
+                    finishedSets.removeWhere((set) => set.id == widget.id);
                     setState(() {
                       widget.isChecked = !widget.isChecked;
                     });
-                    print(listFinishedSets);
                   },
                   icon: Icon(
                     Icons.check_box_rounded,

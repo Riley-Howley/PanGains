@@ -31,7 +31,7 @@ class DashboadNav extends StatelessWidget {
             width: 100,
             child: TextButton(
               onPressed: () async {
-                await getAllExercises();
+                // await getAllExercises();
                 Navigator.popAndPushNamed(context, "/workouts");
               },
               child: Text(

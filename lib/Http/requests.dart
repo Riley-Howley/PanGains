@@ -40,9 +40,6 @@ List<Account> listSpecificAccount = [];
 List<WorkoutsPerWeek> dataList = [];
 List<Exercise> selectedExercise = [];
 
-List<Set_row> listOfSets = [];
-List<Set_row> listFinishedSets = [];
-
 Future getAllAccount() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
@@ -744,68 +741,68 @@ Future updateSpecificRoutine(
 List<Exercise> listAllExercises = [];
 List<Exercise> listSpecificExercise = [];
 
-Future getAllExercises() async {
-  client.badCertificateCallback =
-      ((X509Certificate cert, String host, int port) => true);
-  HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Exercises"));
-  request.headers.add("Authorization", "Bearer " + jwt);
-  HttpClientResponse result = await request.close();
-  if (result.statusCode == 200) {
-    List<dynamic> jsonData =
-        jsonDecode(await result.transform(utf8.decoder).join());
-    if (listAllExercises.isNotEmpty) {
-      listAllExercises.clear();
-      for (var i in jsonData) {
-        listAllExercises.add(
-          new Exercise(
-            i['exerciseID'],
-            i['exerciseName'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listAllExercises.add(
-          new Exercise(
-            i['exerciseID'],
-            i['exerciseName'],
-          ),
-        );
-      }
-    }
-  }
-  print(listAllExercises);
-}
+// Future getAllExercises() async {
+//   client.badCertificateCallback =
+//       ((X509Certificate cert, String host, int port) => true);
+//   HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Exercises"));
+//   request.headers.add("Authorization", "Bearer " + jwt);
+//   HttpClientResponse result = await request.close();
+//   if (result.statusCode == 200) {
+//     List<dynamic> jsonData =
+//         jsonDecode(await result.transform(utf8.decoder).join());
+//     if (listAllExercises.isNotEmpty) {
+//       listAllExercises.clear();
+//       for (var i in jsonData) {
+//         listAllExercises.add(
+//           new Exercise(
+//             i['exerciseID'],
+//             i['exerciseName'],
+//           ),
+//         );
+//       }
+//     } else {
+//       for (var i in jsonData) {
+//         listAllExercises.add(
+//           new Exercise(
+//             i['exerciseID'],
+//             i['exerciseName'],
+//           ),
+//         );
+//       }
+//     }
+//   }
+//   print(listAllExercises);
+// }
 
-Future getSpecificExercise(int exerciseID) async {
-  client.badCertificateCallback =
-      ((X509Certificate cert, String host, int port) => true);
-  HttpClientRequest request =
-      await client.getUrl(Uri.parse("$ip/Exercises/$exerciseID"));
-  request.headers.add("Authorization", "Bearer " + jwt);
-  HttpClientResponse result = await request.close();
-  if (result.statusCode == 200) {
-    Map<String, dynamic> jsonData =
-        jsonDecode(await result.transform(utf8.decoder).join());
-    if (listSpecificExercise.isNotEmpty) {
-      listSpecificExercise.clear();
-      listSpecificExercise.add(
-        new Exercise(
-          jsonData['exerciseID'],
-          jsonData['exerciseName'],
-        ),
-      );
-    } else {
-      listSpecificExercise.add(
-        new Exercise(
-          jsonData['exerciseID'],
-          jsonData['exerciseName'],
-        ),
-      );
-    }
-  }
-  print(listSpecificExercise);
-}
+// Future getSpecificExercise(int exerciseID) async {
+//   client.badCertificateCallback =
+//       ((X509Certificate cert, String host, int port) => true);
+//   HttpClientRequest request =
+//       await client.getUrl(Uri.parse("$ip/Exercises/$exerciseID"));
+//   request.headers.add("Authorization", "Bearer " + jwt);
+//   HttpClientResponse result = await request.close();
+//   if (result.statusCode == 200) {
+//     Map<String, dynamic> jsonData =
+//         jsonDecode(await result.transform(utf8.decoder).join());
+//     if (listSpecificExercise.isNotEmpty) {
+//       listSpecificExercise.clear();
+//       listSpecificExercise.add(
+//         new Exercise(
+//           jsonData['exerciseID'],
+//           jsonData['exerciseName'],
+//         ),
+//       );
+//     } else {
+//       listSpecificExercise.add(
+//         new Exercise(
+//           jsonData['exerciseID'],
+//           jsonData['exerciseName'],
+//         ),
+//       );
+//     }
+//   }
+//   print(listSpecificExercise);
+// }
 
 Future postNewExercise(String exerciseName) async {
   Map<String, dynamic> map = {

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Models/exercise.dart';
 import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
+import 'package:pangains/Widgets/formatted_set_widget.dart';
 
-import '../../Http/requests.dart';
-import '../../Widgets/formatted_set_table.dart';
 import '../../Widgets/set_row.dart';
+
+List<Exercise> listExercises = [];
+List<Set_row> finishedSets = [];
 
 class PopulatedWorkoutScreen extends StatefulWidget {
   const PopulatedWorkoutScreen({Key? key}) : super(key: key);
@@ -129,27 +132,35 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Flexible(
-                    child: ListView(
-                      children: <Widget>[
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxHeight:
-                                  1000), // **THIS is the important part**
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return listOfSets[index];
-                            },
-                            itemCount: listOfSets.length,
-                          ),
-                        ),
-                      ],
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return FormattedSetWidget(index);
+                  },
+                  itemCount: listExercises.length,
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      listExercises.add(
+                        new Exercise("Bench Press"),
+                      );
+                    });
+                  },
+                  child: Text(
+                    "Add Exercise",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),
@@ -158,38 +169,3 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
     );
   }
 }
-
-/** 
- * 
- * Container(
-                margin: EdgeInsets.only(top: 32),
-                child: ElevatedButton(
-                  onPressed: () {
-                    listOfSets.add(new Set_row(count++, 0, 0, false));
-                    setState(() {});
-                  },
-                  child: Text(
-                    "Add Set",
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Add Exercise"),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 100),
-                child: Text(
-                  "Cancel Workout",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
- * 
-*/
