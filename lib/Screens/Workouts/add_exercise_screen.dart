@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
-import 'package:pangains/Screens/Workouts/workout_screen.dart';
-
-import '../../Models/exercise.dart';
 
 class AddExerciseScreen extends StatefulWidget {
   @override
@@ -73,53 +70,44 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: 32),
-                height: MediaQuery.of(context).size.height / 2,
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Text(
-                            listAllExercises[index].ExerciseName,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
+              margin: EdgeInsets.only(top: 32),
+              height: MediaQuery.of(context).size.height / 2,
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Text(
+                          listAllExercises[index].ExerciseName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
                           ),
                         ),
-                        Theme(
-                          data: ThemeData(
-                            unselectedWidgetColor:
-                                Color(0xffBDBDBD), // Your color
+                      ),
+                      Theme(
+                        data: ThemeData(
+                          unselectedWidgetColor:
+                              Color(0xffBDBDBD), // Your color
+                        ),
+                        child: IconButton(
+                          onPressed: () async {
+                            listExercises.add(listAllExercises[index]);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PopulatedWorkoutScreen(),
+                            ));
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.white,
                           ),
-                          child: IconButton(
-                            onPressed: () async {
-                              selectedExercise.add(listAllExercises[index]);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => PopulatedWorkoutScreen(),
-                              ));
-                            },
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
-                    );
-                  },
-                  itemCount: listAllExercises.length,
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 48,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.popAndPushNamed(context, '/populatedWorkout');
+                        ),
+                      )
+                    ],
+                  );
                 },
-                child: Text("Add Exercise"),
+                itemCount: listAllExercises.length,
               ),
             ),
           ],

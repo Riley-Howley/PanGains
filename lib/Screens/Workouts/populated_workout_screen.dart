@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Models/exercise.dart';
+import 'package:pangains/Screens/Workouts/add_exercise_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
 import 'package:pangains/Widgets/formatted_set_widget.dart';
 
+import '../../Http/requests.dart';
 import '../../Widgets/set_row.dart';
 
 List<Exercise> listExercises = [];
@@ -19,6 +21,108 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
   int count = 1;
   @override
   Widget build(BuildContext context) {
+    Future exercisesDialog() => showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            child: Container(
+              color: Color(0xff222831),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 200,
+                        child: Text(
+                          "Add An Exercise",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 36,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 16),
+                        child: Text(
+                          "Choose an exercise to add below",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 16),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffBDBDBD))),
+                        hintText: "Search for...",
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        suffixIcon: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 32),
+                      height: MediaQuery.of(context).size.height / 2,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Text(
+                                  listAllExercises[index].ExerciseName,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                              Theme(
+                                data: ThemeData(
+                                  unselectedWidgetColor:
+                                      Color(0xffBDBDBD), // Your color
+                                ),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      listExercises
+                                          .add(listAllExercises[index]);
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                        itemCount: listAllExercises.length,
+                      )),
+                ]),
+              ),
+            ),
+          ),
+        );
     return Scaffold(
       backgroundColor: Color(0xff222831),
       appBar: AppBar(
@@ -147,11 +251,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      listExercises.add(
-                        new Exercise("Bench Press"),
-                      );
-                    });
+                    exercisesDialog();
                   },
                   child: Text(
                     "Add Exercise",

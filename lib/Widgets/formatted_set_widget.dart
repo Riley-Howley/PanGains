@@ -14,9 +14,9 @@ class FormattedSetWidget extends StatefulWidget {
 
 class _FormattedSetWidgetState extends State<FormattedSetWidget> {
   List<Set_row> listSets = [];
+  int count = 1;
   @override
   Widget build(BuildContext context) {
-    int count = 1;
     return Column(
       children: [
         Align(

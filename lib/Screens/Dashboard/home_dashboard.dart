@@ -467,56 +467,6 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border:
-                      Border.all(color: Colors.white, style: BorderStyle.solid),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                margin: EdgeInsets.only(top: 64, bottom: 10),
-                width: MediaQuery.of(context).size.width / 1.2,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 16),
-                      child: Text(
-                        "Days worked out this month:",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ),
-                    TableCalendar(
-                      headerVisible: true,
-                      firstDay: DateTime.now(),
-                      lastDay: DateTime.now().add(
-                        Duration(days: 365),
-                      ),
-                      focusedDay: _focusedDay,
-                      calendarFormat: _calendarFormat,
-                      selectedDayPredicate: (day) {
-                        return isSameDay(_selectedDay, day);
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
-                        if (!isSameDay(_selectedDay, selectedDay)) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay = focusedDay;
-                          });
-                        }
-                      },
-                      onFormatChanged: (format) {
-                        if (_calendarFormat != format) {
-                          setState(() {
-                            _calendarFormat = format;
-                          });
-                        }
-                      },
-                      onPageChanged: (focusedDay) {
-                        _focusedDay = focusedDay;
-                      },
-                    ),
-                  ],
-                ),
-              ),
               Row(
                 children: [
                   Container(

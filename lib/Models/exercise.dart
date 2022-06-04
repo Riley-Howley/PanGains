@@ -1,5 +1,6 @@
 class Exercise {
+  int id;
   String ExerciseName;
 
-  Exercise(this.ExerciseName);
+  Exercise(this.id, this.ExerciseName);
 }
