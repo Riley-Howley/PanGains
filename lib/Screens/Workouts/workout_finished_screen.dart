@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 
 class WorkoutFinishScreen extends StatelessWidget {
   const WorkoutFinishScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var kgCount = 0;
+    var repCount = 0;
+    for (var i in finishedSets) {
+      kgCount += i.kg;
+      repCount += i.rep;
+    }
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(
@@ -65,7 +72,7 @@ class WorkoutFinishScreen extends StatelessWidget {
               Container(
                 child: Text.rich(
                   TextSpan(
-                    text: "3852 Kg ",
+                    text: "${kgCount} Kg ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -87,7 +94,7 @@ class WorkoutFinishScreen extends StatelessWidget {
               Container(
                 child: Text.rich(
                   TextSpan(
-                    text: "128 ",
+                    text: "${repCount} ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,

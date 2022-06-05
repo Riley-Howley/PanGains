@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../Screens/Workouts/populated_workout_screen.dart';
 
+var PREVIOUSKG = 0;
+var PREVIOUSREP = 0;
+
 class Set_row extends StatefulWidget {
   @override
   int id;
@@ -53,6 +56,9 @@ class _Set_rowState extends State<Set_row> {
           Container(
             width: 26,
             child: TextField(
+              onChanged: ((value) {
+                PREVIOUSKG = int.parse(value);
+              }),
               controller: kgController,
               keyboardType: TextInputType.number,
               style: TextStyle(
@@ -65,7 +71,7 @@ class _Set_rowState extends State<Set_row> {
                 enabledBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
-                hintText: "0",
+                hintText: PREVIOUSKG == 0 ? "0" : PREVIOUSKG.toString(),
                 hintStyle: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -80,6 +86,9 @@ class _Set_rowState extends State<Set_row> {
           Container(
             width: 26,
             child: TextField(
+              onChanged: ((value) {
+                PREVIOUSREP = int.parse(value);
+              }),
               controller: repController,
               keyboardType: TextInputType.number,
               style: TextStyle(
@@ -92,7 +101,7 @@ class _Set_rowState extends State<Set_row> {
                 enabledBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
-                hintText: "0",
+                hintText: PREVIOUSREP == 0 ? "0" : PREVIOUSREP.toString(),
                 hintStyle: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -105,8 +114,12 @@ class _Set_rowState extends State<Set_row> {
                   onPressed: () {
                     finishedSets.add(new Set_row(
                       widget.id,
-                      int.parse(kgController.text),
-                      int.parse(repController.text),
+                      PREVIOUSKG == 0
+                          ? int.parse(kgController.text)
+                          : PREVIOUSKG,
+                      PREVIOUSREP == 0
+                          ? int.parse(repController.text)
+                          : PREVIOUSREP,
                       widget.isChecked,
                     ));
                     setState(() {

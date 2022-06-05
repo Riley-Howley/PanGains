@@ -60,8 +60,8 @@ class _FormattedSetWidgetState extends State<FormattedSetWidget> {
             onPressed: () {
               listSets.add(new Set_row(
                 count++,
-                0,
-                0,
+                PREVIOUSKG == 0 ? 0 : PREVIOUSKG,
+                PREVIOUSREP == 0 ? 0 : PREVIOUSREP,
                 false,
               ));
               setState(() {});

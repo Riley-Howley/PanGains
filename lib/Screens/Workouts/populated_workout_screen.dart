@@ -140,7 +140,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                 );
               },
               child: Text(
-                "Finish",
+                "Save Workout",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,

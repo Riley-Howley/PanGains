@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Models/folder.dart';
 
 import '../Http/requests.dart';
 
 class FolderWidget extends StatefulWidget {
-  const FolderWidget({
-    Key? key,
-  }) : super(key: key);
+  String folderName;
+  int likes;
+
+  FolderWidget(this.folderName, this.likes);
 
   @override
   State<FolderWidget> createState() => _FolderState();
@@ -33,7 +35,7 @@ class _FolderState extends State<FolderWidget> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Monday Workout",
+                    widget.folderName,
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
