@@ -23,6 +23,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
 
   DateTime _dateTime = DateTime.now();
   bool isSwitched = listSpecificAccount[0].private;
+  bool isNotification = listSpecificAccount[0].notifications;
 
   @override
   Widget build(BuildContext context) {
@@ -494,8 +495,26 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   Container(
                     margin: EdgeInsets.only(top: 32),
                     child: Switch(
-                      onChanged: (swe) {},
-                      value: false,
+                      value: isNotification,
+                      onChanged: (value) async {
+                        setState(() {
+                          isNotification = value;
+                        });
+                        await updateSpecificAccount(
+                          listSpecificAccount[0].accountID,
+                          listSpecificAccount[0].firstName,
+                          listSpecificAccount[0].lastName,
+                          listSpecificAccount[0].email,
+                          listSpecificAccount[0].password,
+                          listSpecificAccount[0].title,
+                          listSpecificAccount[0].profilePicUrl,
+                          listSpecificAccount[0].description,
+                          listSpecificAccount[0].private,
+                          value,
+                          listSpecificAccount[0].averageChallengePos,
+                          listSpecificAccount[0].type,
+                        );
+                      },
                     ),
                   ),
                 ],

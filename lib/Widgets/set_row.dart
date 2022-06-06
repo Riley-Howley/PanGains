@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 import '../Screens/Workouts/populated_workout_screen.dart';
 
@@ -112,6 +113,8 @@ class _Set_rowState extends State<Set_row> {
           !widget.isChecked
               ? IconButton(
                   onPressed: () {
+                    countDownTimer.onExecute.add(StopWatchExecute.reset);
+                    countDownTimer.onExecute.add(StopWatchExecute.start);
                     finishedSets.add(new Set_row(
                       widget.id,
                       PREVIOUSKG == 0

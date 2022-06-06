@@ -32,6 +32,7 @@ class DashboadNav extends StatelessWidget {
             child: TextButton(
               onPressed: () async {
                 await getAllExercises();
+                await getSpecificFolders(listSpecificAccount[0].accountID);
                 Navigator.popAndPushNamed(context, "/workouts");
               },
               child: Text(

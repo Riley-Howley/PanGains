@@ -20,6 +20,7 @@ class _FolderState extends State<FolderWidget> {
     return Column(
       children: [
         Container(
+          margin: EdgeInsets.only(bottom: 30),
           width: MediaQuery.of(context).size.width,
           height: 200,
           decoration: BoxDecoration(
@@ -42,50 +43,24 @@ class _FolderState extends State<FolderWidget> {
                         color: Colors.white),
                   ),
                 ),
-                // Container(
-                //   child: ListView.builder(
-                //     itemBuilder: (context, index) {
-                //       return Align(
-                //         alignment: Alignment.centerLeft,
-                //         child: Text("Pull - Easy",
-                //             style: TextStyle(
-                //                 color: Colors.white, fontSize: 16)),
-                //       );
-                //     },
-                //     itemCount: listSpecificAllFolders.length,
-                //   ),
-                // ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: 100,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Text("Pull - Easy",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16));
+                      },
+                      itemCount: 3,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
-        Row(
-          children: [
-            isLiked == false
-                ? IconButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          isLiked = true;
-                        },
-                      );
-                    },
-                    icon: Icon(Icons.favorite_border),
-                    iconSize: 40,
-                  )
-                : IconButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          isLiked = false;
-                        },
-                      );
-                    },
-                    icon: Icon(Icons.favorite_rounded),
-                    color: Colors.red,
-                    iconSize: 40,
-                  ),
-          ],
         ),
       ],
     );

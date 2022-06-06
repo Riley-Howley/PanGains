@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_history.dart';
 
@@ -105,26 +106,48 @@ class WorkOutScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                child: Text(
-                  "A folder stores multiple routines. Routines are made up of different exercises",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 24,
-                ),
-                width: MediaQuery.of(context).size.width,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Create Folder"),
-                ),
-              ),
+              listSpecificAllFolders.isEmpty
+                  ? Container(
+                      child: Text(
+                        "You have no Folders! A folder stores multiple routines. Routines are made up of different exercises",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      child: Text(
+                        "View your folders below. A folder stores multiple routines. Routines are made up of different exercises",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+              listSpecificAllFolders.isEmpty
+                  ? Container(
+                      margin: EdgeInsets.only(
+                        top: 24,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Create Folder"),
+                      ),
+                    )
+                  : Container(
+                      margin: EdgeInsets.only(
+                        top: 24,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("View Your Folders"),
+                      ),
+                    ),
               Row(
                 children: [
                   Container(

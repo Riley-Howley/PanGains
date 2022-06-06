@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 
 class WorkoutFinishScreen extends StatelessWidget {
-  const WorkoutFinishScreen({Key? key}) : super(key: key);
+  String workoutTime;
+  WorkoutFinishScreen(
+    this.workoutTime,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,7 @@ class WorkoutFinishScreen extends StatelessWidget {
                 margin: EdgeInsets.only(top: 32),
                 child: Text.rich(
                   TextSpan(
-                    text: "58 Minutes ",
+                    text: "${workoutTime} ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -58,7 +61,7 @@ class WorkoutFinishScreen extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: "Workout time",
+                        text: "Total workout time",
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 18,

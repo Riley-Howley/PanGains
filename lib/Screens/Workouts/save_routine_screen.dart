@@ -26,7 +26,7 @@ class SaveRoutineScreen extends StatelessWidget {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 300,
+              height: MediaQuery.of(context).size.height / 1.5,
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return FolderWidget(
