@@ -22,7 +22,7 @@ class _FolderState extends State<FolderWidget> {
         Container(
           margin: EdgeInsets.only(bottom: 30),
           width: MediaQuery.of(context).size.width,
-          height: 200,
+          height: 100,
           decoration: BoxDecoration(
             color: Color(0xff222831),
             borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -41,21 +41,6 @@ class _FolderState extends State<FolderWidget> {
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: 100,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Text("Pull - Easy",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16));
-                      },
-                      itemCount: 3,
-                    ),
                   ),
                 ),
               ],

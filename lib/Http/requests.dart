@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/services.dart';
-import 'package:pangains/Models/test_model.dart';
-import 'package:pangains/Models/workouts_perweek.dart';
-
+import '../Models/AccountFolder.dart';
+import '../Models/AccountRoutine.dart';
 import '../Models/account.dart';
 import '../Models/days_worked_out.dart';
 import '../Models/exercise.dart';
 import '../Models/folder.dart';
 import '../Models/routine.dart';
 import '../Models/statistic.dart';
+import '../Models/workouts_perweek.dart';
 import '../Models/your_exercise.dart';
 
 import '../Models/challenge_stats.dart';
@@ -35,6 +33,7 @@ String error = "";
 
 List<Account> listAllAccounts = [];
 List<Account> listSpecificAccount = [];
+List<Folder> listAccountFolders = [];
 
 //Populated Data
 List<WorkoutsPerWeek> dataList = [];
@@ -75,8 +74,6 @@ Future getAllAccount() async {
   }
   print(listAllAccounts);
 }
-
-List<TestModel> list = [];
 
 Future getSpecificAccount(String email) async {
   client.badCertificateCallback =
@@ -536,27 +533,16 @@ Future getSpecificFolders(int id) async {
         jsonDecode(await result.transform(utf8.decoder).join());
     if (listSpecificAllFolders.isNotEmpty) {
       listSpecificAllFolders.clear();
-      for (var i in jsonData) {
-        listSpecificAllFolders.add(
-          new Folder(
-            i['folderID'],
-            i['accountID'],
-            i['folderName'],
-            i['folderLikes'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listSpecificAllFolders.add(
-          new Folder(
-            i['folderID'],
-            i['accountID'],
-            i['folderName'],
-            i['folderLikes'],
-          ),
-        );
-      }
+    }
+    for (var i in jsonData) {
+      listSpecificAllFolders.add(
+        new Folder(
+          i['folderID'],
+          i['accountID'],
+          i['folderName'],
+          i['folderLikes'],
+        ),
+      );
     }
   }
   print(listSpecificAllFolders);
@@ -615,7 +601,7 @@ Future UpdateSpecificFolder(
 //==============================================================================
 
 List<Routine> listAllRoutines = [];
-List<Routine> listSpecificRoutine = [];
+List<AccountRoutine> listSpecificRoutine = [];
 
 Future getAllRoutines() async {
   client.badCertificateCallback =
@@ -664,25 +650,15 @@ Future getSpecificRoutine(int folderID) async {
         jsonDecode(await result.transform(utf8.decoder).join());
     if (listSpecificRoutine.isNotEmpty) {
       listSpecificRoutine.clear();
-      for (var i in jsonData) {
-        listSpecificRoutine.add(
-          new Routine(
-            i['routineID'],
-            i['folderID'],
-            i['routineName'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listSpecificRoutine.add(
-          new Routine(
-            i['routineID'],
-            i['folderID'],
-            i['routineName'],
-          ),
-        );
-      }
+    }
+    for (var i in jsonData) {
+      listSpecificRoutine.add(
+        new AccountRoutine(
+          i['routineID'],
+          i['routineName'],
+          i['exercises'],
+        ),
+      );
     }
   }
   print(listSpecificRoutine);
@@ -784,22 +760,12 @@ Future getSpecificExercise(int exerciseID) async {
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
-    if (listSpecificExercise.isNotEmpty) {
-      listSpecificExercise.clear();
-      listSpecificExercise.add(
-        new Exercise(
-          jsonData['exerciseID'],
-          jsonData['exerciseName'],
-        ),
-      );
-    } else {
-      listSpecificExercise.add(
-        new Exercise(
-          jsonData['exerciseID'],
-          jsonData['exerciseName'],
-        ),
-      );
-    }
+    listSpecificExercise.add(
+      new Exercise(
+        jsonData['exerciseID'],
+        jsonData['exerciseName'],
+      ),
+    );
   }
   print(listSpecificExercise);
 }
@@ -900,27 +866,14 @@ Future getSpecificYourExercise(int routineID) async {
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
-    if (listAllSpecificYourExercises.isNotEmpty) {
-      listAllSpecificYourExercises.clear();
-      for (var i in jsonData) {
-        listAllSpecificYourExercises.add(
-          new YourExercise(
-            i['yourExerciseID'],
-            i['routineID'],
-            i['exerciseID'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listAllSpecificYourExercises.add(
-          new YourExercise(
-            i['yourExerciseID'],
-            i['routineID'],
-            i['exerciseID'],
-          ),
-        );
-      }
+    for (var i in jsonData) {
+      listAllSpecificYourExercises.add(
+        new YourExercise(
+          i['yourExerciseID'],
+          i['routineID'],
+          i['exerciseID'],
+        ),
+      );
     }
   }
   print(listAllSpecificYourExercises);

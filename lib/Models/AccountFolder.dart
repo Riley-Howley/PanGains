@@ -1,8 +1,11 @@
 import 'package:pangains/Models/routine.dart';
 
+import 'AccountRoutine.dart';
+
 class AccountFolder {
   int folderID;
-  List<Routine> routines;
+  String folderName;
+  List<AccountRoutine> routines;
 
-  AccountFolder(this.folderID, this.routines);
+  AccountFolder(this.folderID, this.folderName, this.routines);
 }

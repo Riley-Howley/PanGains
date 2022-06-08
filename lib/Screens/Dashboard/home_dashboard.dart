@@ -4,6 +4,7 @@ import 'package:pangains/Models/workouts_perweek.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pangains/Screens/Test%20Screens/test_screen.dart';
 import 'package:pangains/Widgets/workout_week_chart.dart';
+import '../../Functions/PopulateAccountFolders.dart';
 import '../../Widgets/dashboard_nav.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -525,9 +526,11 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TestScreen(),
-                    ));
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (context) => TestScreen(),
+                    // ));
+                    //getSpecificRoutine(listSpecificAccount[0].accountID);
+                    //getSpecificFolders(listSpecificAccount[0].accountID);
                   },
                   child: Text("Sign Out"),
                 ),

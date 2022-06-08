@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Functions/PopulateAccountFolders.dart';
 import 'Http/requests.dart';
 import 'Screens/Community/community_screen.dart';
 import 'Screens/Community/public_account_screen.dart';
@@ -13,7 +14,6 @@ import 'Screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // var email = prefs.getString('email');
   // var pass = prefs.getString('pass');

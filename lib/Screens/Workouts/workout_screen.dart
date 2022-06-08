@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_history.dart';
+import 'package:pangains/Widgets/folder_widget.dart';
 
 import '../../Widgets/dashboard_nav.dart';
 
@@ -117,14 +118,19 @@ class WorkOutScreen extends StatelessWidget {
                       ),
                     )
                   : Container(
-                      child: Text(
-                        "View your folders below. A folder stores multiple routines. Routines are made up of different exercises",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {},
+                            child: FolderWidget(
+                                listSpecificAllFolders[index].FolderName,
+                                listSpecificAllFolders[index].FolderLikes),
+                          );
+                        },
+                        itemCount: listSpecificAllFolders.length,
+                      )),
               listSpecificAllFolders.isEmpty
                   ? Container(
                       margin: EdgeInsets.only(
