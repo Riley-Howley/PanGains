@@ -25,7 +25,7 @@ class _FolderState extends State<FolderWidget> {
           height: 100,
           decoration: BoxDecoration(
             color: Color(0xff222831),
-            borderRadius: BorderRadius.all(Radius.circular(25)),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
             border: Border.all(color: Colors.white),
           ),
           child: Padding(

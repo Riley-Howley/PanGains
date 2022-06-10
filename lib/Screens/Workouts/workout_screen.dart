@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
+import 'package:pangains/Screens/Workouts/display_account_routines_screen.dart';
 import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_history.dart';
 import 'package:pangains/Widgets/folder_widget.dart';
@@ -123,7 +124,16 @@ class WorkOutScreen extends StatelessWidget {
                       child: ListView.builder(
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              await getSpecificRoutine(
+                                  listSpecificAllFolders[index].FolderID);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    DisplayAccountRoutinesScreen(
+                                        listSpecificAllFolders[index]
+                                            .FolderName),
+                              ));
+                            },
                             child: FolderWidget(
                                 listSpecificAllFolders[index].FolderName,
                                 listSpecificAllFolders[index].FolderLikes),
