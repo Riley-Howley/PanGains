@@ -61,8 +61,10 @@ Future getAllAccount() async {
           json["lastname"],
           json["email"],
           json["password"],
-          json["title"],
-          json["profilePicture"],
+          json["title"] == null ? "NO TITLE" : json["title"],
+          json["profilePicture"] == null
+              ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+              : json["profilePicture"],
           json["description"],
           json["private"],
           json["notifications"],
@@ -1535,4 +1537,94 @@ Future Login(String email, String password) async {
   print(response.statusCode);
   jwt = contents.toString();
   code = response.statusCode;
+}
+
+//==============================================================================
+//                  Followers Method
+//==============================================================================
+
+List<Account> getAccountFollowers = [];
+
+Future getAllFollowersAccount(int accountID) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+
+  HttpClientRequest request =
+      await client.getUrl(Uri.parse("$ip/Followers/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
+  HttpClientResponse result = await request.close();
+  if (result.statusCode == 200) {
+    List<dynamic> jsonData =
+        jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
+    if (getAccountFollowers.isNotEmpty) {
+      getAccountFollowers.clear();
+    }
+    for (var json in jsonData) {
+      getAccountFollowers.add(
+        new Account(
+          json["accountID"],
+          json["firstname"],
+          json["lastname"],
+          json["email"],
+          json["password"],
+          json["title"] == null ? "NO TITLE" : json["title"],
+          json["profilePicture"] == null
+              ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+              : json["profilePicture"],
+          json["description"],
+          json["private"],
+          json["notifications"],
+          json["averageChallengePos"],
+          json["type"] == null ? "NO TYPE" : json["type"],
+        ),
+      );
+    }
+  }
+  print(getAccountFollowers);
+}
+
+//==============================================================================
+//                  Following Method
+//==============================================================================
+
+List<Account> getAccountFollowing = [];
+
+Future getAllFollowingsAccount(int accountID) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+
+  HttpClientRequest request =
+      await client.getUrl(Uri.parse("$ip/Socials/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
+  HttpClientResponse result = await request.close();
+  if (result.statusCode == 200) {
+    List<dynamic> jsonData =
+        jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
+    if (getAccountFollowing.isNotEmpty) {
+      getAccountFollowing.clear();
+    }
+    for (var json in jsonData) {
+      getAccountFollowing.add(
+        new Account(
+          json["accountID"],
+          json["firstname"],
+          json["lastname"],
+          json["email"],
+          json["password"],
+          json["title"] == null ? "NO TITLE" : json["title"],
+          json["profilePicture"] == null
+              ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+              : json["profilePicture"],
+          json["description"],
+          json["private"],
+          json["notifications"],
+          json["averageChallengePos"],
+          json["type"] == null ? "NO TYPE" : json["type"],
+        ),
+      );
+    }
+  }
+  print(getAccountFollowing);
 }

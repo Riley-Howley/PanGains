@@ -50,7 +50,6 @@ void main() async {
       '/workouts': (context) => WorkOutScreen(),
       '/community': (context) => CommunityScreen(),
       '/leaderboard': (context) => LeaderboardScreen(),
-      '/publicAccount': (context) => PublicAccountScreen(),
       '/populatedWorkout': (context) => PopulatedWorkoutScreen(),
     },
   ));

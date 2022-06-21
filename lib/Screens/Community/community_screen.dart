@@ -11,9 +11,9 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
+  bool home = true;
   @override
   Widget build(BuildContext context) {
-    bool home = true;
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(
@@ -52,87 +52,52 @@ class _CommunityScreenState extends State<CommunityScreen> {
                 ],
               ),
               DashboadNav(),
-              home == false
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                home == true;
-                              });
-                            },
-                            child: Text(
-                              "Home",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          home = true;
+                        });
+                      },
+                      child: Text(
+                        "Home",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          decoration: home == true
+                              ? TextDecoration.underline
+                              : TextDecoration.none,
                         ),
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                home == false;
-                              });
-                            },
-                            child: Text(
-                              "Popular",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                home == true;
-                              });
-                            },
-                            child: Text(
-                              "Home",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                home == false;
-                              });
-                            },
-                            child: Text(
-                              "Popular",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-              home == true ? CommunityPopular() : CommunityHome(),
+                  ),
+                  Container(
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          home = false;
+                        });
+                      },
+                      child: Text(
+                        "Popular",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          decoration: home == false
+                              ? TextDecoration.underline
+                              : TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              home == false ? CommunityPopular() : CommunityHome(),
             ],
           ),
         ),

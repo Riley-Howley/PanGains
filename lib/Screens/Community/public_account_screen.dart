@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Widgets/exercise_table_widget.dart';
 import 'package:pangains/Widgets/routine_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import '../../Models/account.dart';
 import '../../Models/workouts_perweek.dart';
 import '../../Widgets/dashboard_nav.dart';
 import '../../Widgets/row_user_widget.dart';
 import '../../Widgets/workout_week_chart.dart';
 
 class PublicAccountScreen extends StatefulWidget {
-  const PublicAccountScreen({Key? key}) : super(key: key);
+  Account account;
+  PublicAccountScreen(this.account);
 
   @override
   State<PublicAccountScreen> createState() => _PublicAccountScreenState();
@@ -35,6 +38,8 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
   DateTime _dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    getAllFollowersAccount(widget.account.accountID);
+    getAllFollowingsAccount(widget.account.accountID);
     Future followersDialog() => showDialog(
           context: context,
           builder: (context) => Dialog(
@@ -226,7 +231,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
               Container(
                 margin: EdgeInsets.only(top: 32),
                 child: Text(
-                  "Sally Burger",
+                  widget.account.firstName + " " + widget.account.lastName,
                   style: TextStyle(color: Colors.white, fontSize: 36),
                 ),
               ),
@@ -249,7 +254,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                       top: 16,
                     ),
                     child: Text(
-                      "Outstanding User",
+                      widget.account.title,
                       style: TextStyle(
                         color: Color(0xffADD8E6),
                         fontSize: 24,
@@ -310,7 +315,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                         Container(
                           margin: EdgeInsets.only(top: 32),
                           child: Text(
-                            "100M",
+                            getAccountFollowers.length.toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -338,7 +343,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                         Container(
                           margin: EdgeInsets.only(top: 32),
                           child: Text(
-                            "0",
+                            getAccountFollowing.length.toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,

@@ -74,12 +74,16 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView(
-                      children: [
-                        RowUserWidget("Sally Burger", "assets/images/1.jpeg"),
-                        RowUserWidget("Lancy Smooth", "assets/images/2.jpeg"),
-                        RowUserWidget("Aila File", "assets/images/3.jpeg"),
-                      ],
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return RowUserWidget(
+                          getAccountFollowers[index].firstName +
+                              " " +
+                              getAccountFollowers[index].lastName,
+                          getAccountFollowers[index].profilePicUrl,
+                        );
+                      },
+                      itemCount: getAccountFollowers.length,
                     ),
                   ),
                 ),
@@ -146,12 +150,16 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView(
-                      children: [
-                        RowUserWidget("Sally Burger", "assets/images/1.jpeg"),
-                        RowUserWidget("Lancy Smooth", "assets/images/2.jpeg"),
-                        RowUserWidget("Aila File", "assets/images/3.jpeg"),
-                      ],
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return RowUserWidget(
+                          getAccountFollowing[index].firstName +
+                              " " +
+                              getAccountFollowing[index].lastName,
+                          getAccountFollowing[index].profilePicUrl,
+                        );
+                      },
+                      itemCount: getAccountFollowing.length,
                     ),
                   ),
                 ),
@@ -338,7 +346,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                         Container(
                           margin: EdgeInsets.only(top: 32),
                           child: Text(
-                            "200",
+                            getAccountFollowers.length.toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -366,7 +374,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                         Container(
                           margin: EdgeInsets.only(top: 32),
                           child: Text(
-                            "5",
+                            getAccountFollowing.length.toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,

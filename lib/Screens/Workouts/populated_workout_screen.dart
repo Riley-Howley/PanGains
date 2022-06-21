@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Models/exercise.dart';
-import 'package:pangains/Screens/Workouts/add_exercise_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
 import 'package:pangains/Widgets/formatted_set_widget.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';

@@ -13,7 +13,7 @@ class RowUserWidget extends StatelessWidget {
           margin: EdgeInsets.only(top: 16),
           child: CircleAvatar(
             radius: 30,
-            backgroundImage: AssetImage(url),
+            backgroundImage: NetworkImage(url),
           ),
         ),
         Container(
