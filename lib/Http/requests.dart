@@ -1588,6 +1588,7 @@ Future getAllFollowersAccount(int accountID) async {
 //==============================================================================
 
 List<Account> getAccountFollowing = [];
+List<Account> signInUsersFollowing = [];
 
 Future getAllFollowingsAccount(int accountID) async {
   client.badCertificateCallback =
@@ -1626,4 +1627,71 @@ Future getAllFollowingsAccount(int accountID) async {
     }
   }
   print(getAccountFollowing);
+}
+
+Future getAllSignedInFollowingsAccount(int accountID) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+
+  HttpClientRequest request =
+      await client.getUrl(Uri.parse("$ip/Socials/$accountID"));
+  request.headers.add("Authorization", "Bearer " + jwt);
+  HttpClientResponse result = await request.close();
+  if (result.statusCode == 200) {
+    List<dynamic> jsonData =
+        jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
+    if (signInUsersFollowing.isNotEmpty) {
+      signInUsersFollowing.clear();
+    }
+    for (var json in jsonData) {
+      signInUsersFollowing.add(
+        new Account(
+          json["accountID"],
+          json["firstname"],
+          json["lastname"],
+          json["email"],
+          json["password"],
+          json["title"] == null ? "NO TITLE" : json["title"],
+          json["profilePicture"] == null
+              ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+              : json["profilePicture"],
+          json["description"],
+          json["private"],
+          json["notifications"],
+          json["averageChallengePos"],
+          json["type"] == null ? "NO TYPE" : json["type"],
+        ),
+      );
+    }
+  }
+  print(getAccountFollowing);
+}
+
+Future postNewSocialMedia(int accountID, int followingAccountID) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+  Map<String, dynamic> map = {
+    "socialID": 0,
+    "accountID": accountID,
+    "followingID": followingAccountID,
+  };
+  HttpClientRequest request = await client.postUrl(Uri.parse("$ip/Socials"));
+
+  request.headers.add("Authorization", "Bearer " + jwt);
+  request.headers.add("Content-Type", "application/json");
+  request.headers.add("Accept", "*/*");
+  request.headers.add("Charset", "utf-8");
+  request.add(utf8.encode(jsonEncode(map)));
+  HttpClientResponse response = await request.close();
+  print(response.statusCode);
+}
+
+Future deleteSocialMedia(int yourID, theirID) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+  HttpClientRequest request =
+      await client.deleteUrl(Uri.parse("$ip/Socials/$yourID/$theirID"));
+  HttpClientResponse response = await request.close();
+  print(response.statusCode);
 }

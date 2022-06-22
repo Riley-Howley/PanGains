@@ -10,7 +10,6 @@ import '../../Models/account.dart';
 import '../../Models/workouts_perweek.dart';
 import '../../Widgets/dashboard_nav.dart';
 import '../../Widgets/following_dialog_widget.dart';
-import '../../Widgets/row_user_widget.dart';
 import '../../Widgets/workout_week_chart.dart';
 
 class PublicAccountScreen extends StatefulWidget {
@@ -22,8 +21,23 @@ class PublicAccountScreen extends StatefulWidget {
 }
 
 class _PublicAccountScreenState extends State<PublicAccountScreen> {
+  bool checkContains() {
+    bool isInList = false;
+    for (var i in signInUsersFollowing) {
+      if (i.accountID == widget.account.accountID) {
+        isInList = true;
+      } else {
+        continue;
+      }
+    }
+    return isInList;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("${widget.account.accountID}");
+
+    print(signInUsersFollowing.contains(widget.account));
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(
@@ -104,46 +118,66 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(top: 48),
-                width: MediaQuery.of(context).size.width,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Following",
-                    style: TextStyle(
-                      fontSize: 18,
+              checkContains()
+                  ? Container(
+                      margin: EdgeInsets.only(top: 48),
+                      width: MediaQuery.of(context).size.width,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await deleteSocialMedia(
+                              listSpecificAccount[0].accountID,
+                              widget.account.accountID);
+                          await getAllSignedInFollowingsAccount(
+                              listSpecificAccount[0].accountID);
+                          await getAllFollowersAccount(
+                              widget.account.accountID);
+                          await getAllFollowingsAccount(
+                              widget.account.accountID);
+                          setState(() {});
+                        },
+                        child: Text(
+                          "Following",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(
+                            0xff222831,
+                          ),
+                          side: BorderSide(
+                            width: 2,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      margin: EdgeInsets.only(top: 48),
+                      width: MediaQuery.of(context).size.width,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await postNewSocialMedia(
+                              listSpecificAccount[0].accountID,
+                              widget.account.accountID);
+                          await getAllSignedInFollowingsAccount(
+                              listSpecificAccount[0].accountID);
+                          await getAllFollowersAccount(
+                              widget.account.accountID);
+                          await getAllFollowingsAccount(
+                              widget.account.accountID);
+                          setState(() {});
+                        },
+                        child: Text(
+                          "Follow",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(
-                      0xff222831,
-                    ),
-                    side: BorderSide(
-                      width: 2,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 36),
-                width: MediaQuery.of(context).size.width,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Report",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xffEB5757),
-                  ),
-                ),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
