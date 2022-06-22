@@ -12,6 +12,13 @@ class CommunityPopular extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          width: MediaQuery.of(context).size.width / 3,
+          child: Divider(
+            color: Colors.white,
+            thickness: 2,
+          ),
+        ),
         Row(
           children: [
             Container(

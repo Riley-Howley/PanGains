@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pangains/Screens/Test%20Screens/test_screen.dart';
+import 'package:pangains/Widgets/followers_dialog_widget.dart';
+import 'package:pangains/Widgets/following_dialog_widget.dart';
 import 'package:pangains/Widgets/workout_week_chart.dart';
 import '../../Widgets/dashboard_nav.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -26,157 +28,6 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Future followersDialog() => showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            backgroundColor: Color(0xff222831),
-            child: Column(
-              children: [
-                Card(
-                  color: Color(0xff222831),
-                  elevation: 8.0,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 42,
-                              ),
-                              child: Text(
-                                "Followers",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 42),
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Divider(
-                            color: Colors.white,
-                            thickness: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return RowUserWidget(
-                          getAccountFollowers[index].firstName +
-                              " " +
-                              getAccountFollowers[index].lastName,
-                          getAccountFollowers[index].profilePicUrl,
-                        );
-                      },
-                      itemCount: getAccountFollowers.length,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.8,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Close",
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-
-    Future followingDialog() => showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            backgroundColor: Color(0xff222831),
-            child: Column(
-              children: [
-                Card(
-                  color: Color(0xff222831),
-                  elevation: 8.0,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 42,
-                              ),
-                              child: Text(
-                                "Following",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 42),
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Divider(
-                            color: Colors.white,
-                            thickness: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return RowUserWidget(
-                          getAccountFollowing[index].firstName +
-                              " " +
-                              getAccountFollowing[index].lastName,
-                          getAccountFollowing[index].profilePicUrl,
-                        );
-                      },
-                      itemCount: getAccountFollowing.length,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.8,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Close",
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
     var title = listSpecificAccount[0].title;
     Icon icon;
     if (title == "Personal Trainer") {
@@ -337,7 +188,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      followersDialog();
+                      showDialog(
+                          context: context,
+                          builder: (context) => FollowersDialogWidget());
                     },
                     child: Column(
                       children: [
@@ -365,7 +218,9 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      followingDialog();
+                      showDialog(
+                          context: context,
+                          builder: (context) => FollowingDialogWidget());
                     },
                     child: Column(
                       children: [
@@ -449,7 +304,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "128 Average workout reps",
+                  "${listSpecificStatistic[0].AvgReps} Average workout reps",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

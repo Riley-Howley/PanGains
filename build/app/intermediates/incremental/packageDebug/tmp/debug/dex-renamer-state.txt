@@ -1,0 +1,4 @@
+#Wed Jun 22 15:42:51 NZST 2022
+base.0=C\:\\Users\\howle\\Documents\\GitHub\\PanGains\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

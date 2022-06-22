@@ -93,35 +93,41 @@ Future getSpecificAccount(String email) async {
     if (listSpecificAccount.isNotEmpty) {
       listSpecificAccount.clear();
     }
-    listSpecificAccount.add(new Account(
-      jsonData["accountID"],
-      jsonData["firstname"],
-      jsonData["lastname"],
-      jsonData["email"],
-      jsonData["password"],
-      jsonData["title"] == null ? "NO TITLE" : jsonData["title"],
-      jsonData["profilePicture"],
-      jsonData["description"],
-      jsonData["private"],
-      jsonData["notifications"],
-      jsonData["averageChallengePos"],
-      jsonData["type"] == null ? "NO TYPE" : jsonData["type"],
-    ));
+    listSpecificAccount.add(
+      new Account(
+        jsonData["accountID"],
+        jsonData["firstname"],
+        jsonData["lastname"],
+        jsonData["email"],
+        jsonData["password"],
+        jsonData["title"] == null ? "NO TITLE" : jsonData["title"],
+        jsonData["profilePicture"] == null
+            ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+            : jsonData["profilePicture"],
+        jsonData["description"],
+        jsonData["private"],
+        jsonData["notifications"],
+        jsonData["averageChallengePos"],
+        jsonData["type"] == null ? "NO TYPE" : jsonData["type"],
+      ),
+    );
   }
   print(listSpecificAccount);
 }
 
 Future postNewAccount(
-    String firstname,
-    String lastname,
-    String email,
-    String title,
-    String profilePicture,
-    String description,
-    bool private,
-    bool notifications,
-    int averageChallengePos,
-    String type) async {
+  String firstname,
+  String lastname,
+  String email,
+  String title,
+  String profilePicture,
+  String description,
+  bool private,
+  bool notifications,
+  int averageChallengePos,
+  String type,
+  String password,
+) async {
   Map<String, dynamic> map = {
     "AccountID": 0,
     "Firstname": "$firstname",
@@ -134,6 +140,7 @@ Future postNewAccount(
     "Notifications": notifications,
     "AverageChallengePos": 1,
     "Type": "$type",
+    "Password": "$password"
   };
 
   client.badCertificateCallback =
@@ -383,6 +390,7 @@ Future getAllStatistics() async {
 }
 
 Future getSpecificStatistic(int accountID) async {
+  print("TRYING TO GET ME");
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
@@ -392,32 +400,23 @@ Future getSpecificStatistic(int accountID) async {
   if (result.statusCode == 200) {
     Map<String, dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
+    print("===================");
+    print(jsonData);
+    print("===================");
     if (listSpecificStatistic.isNotEmpty) {
       listSpecificStatistic.clear();
-      listSpecificStatistic.add(
-        new Statistics(
-          jsonData['statisticsID'],
-          jsonData['accountID'],
-          jsonData['totalWorkouts'],
-          jsonData['avgWorkoutTime'],
-          jsonData['totalLifted'],
-          jsonData['avgReps'],
-          jsonData['avgSets'],
-        ),
-      );
-    } else {
-      listSpecificStatistic.add(
-        new Statistics(
-          jsonData['statisticsID'],
-          jsonData['accountID'],
-          jsonData['totalWorkouts'],
-          jsonData['avgWorkoutTime'],
-          jsonData['totalLifted'],
-          jsonData['avgReps'],
-          jsonData['avgSets'],
-        ),
-      );
     }
+    listSpecificStatistic.add(
+      new Statistics(
+        jsonData['statisticsID'] == null ? "0" : jsonData['statisticsID'],
+        jsonData['accountID'] == null ? "0" : jsonData['accountID'],
+        jsonData['totalWorkouts'] == null ? "0" : jsonData['totalWorkouts'],
+        jsonData['avgWorkoutTime'] == null ? "0" : jsonData['avgWorkoutTime'],
+        jsonData['totalLifted'] == null ? "0" : jsonData['totalLifted'],
+        jsonData['avgReps'] == null ? "0" : jsonData['avgReps'],
+        jsonData['avgSets'] == null ? "0" : jsonData['avgSets'],
+      ),
+    );
   }
   print(listSpecificStatistic);
 }

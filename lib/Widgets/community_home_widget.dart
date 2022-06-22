@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Models/account.dart';
 import 'package:pangains/Screens/Community/public_account_screen.dart';
-
+import 'package:charts_flutter/flutter.dart' as charts;
+import '../Models/workouts_perweek.dart';
 import 'row_user_widget.dart';
 
 class CommunityHome extends StatefulWidget {
@@ -29,7 +30,7 @@ class _CommunityHomeState extends State<CommunityHome> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(bottom: 40, top: 20),
+          margin: EdgeInsets.only(top: 20),
           width: 350,
           child: TextField(
             style: TextStyle(color: Colors.white),
@@ -55,8 +56,17 @@ class _CommunityHomeState extends State<CommunityHome> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () async {
+                    dataList.clear();
                     await getAllFollowersAccount(accounts[index].accountID);
                     await getAllFollowingsAccount(accounts[index].accountID);
+                    await getSpecificStatistic(accounts[index].accountID);
+                    await getSpecificAllDaysWorkedOut(
+                        accounts[index].accountID);
+                    for (var i in listSpecificDaysWorkedOut) {
+                      dataList.add(WorkoutsPerWeek(i.day, i.hours,
+                          charts.ColorUtil.fromDartColor(Colors.blue)));
+                    }
+                    await getSpecificFolders(accounts[index].accountID);
 
                     Navigator.of(context).push(
                       MaterialPageRoute(

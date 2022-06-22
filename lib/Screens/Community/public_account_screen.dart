@@ -1,14 +1,15 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Widgets/exercise_table_widget.dart';
+import 'package:pangains/Widgets/folder_widget.dart';
+import 'package:pangains/Widgets/followers_dialog_widget.dart';
 import 'package:pangains/Widgets/routine_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import '../../Models/account.dart';
 import '../../Models/workouts_perweek.dart';
 import '../../Widgets/dashboard_nav.dart';
+import '../../Widgets/following_dialog_widget.dart';
 import '../../Widgets/row_user_widget.dart';
 import '../../Widgets/workout_week_chart.dart';
 
@@ -21,192 +22,8 @@ class PublicAccountScreen extends StatefulWidget {
 }
 
 class _PublicAccountScreenState extends State<PublicAccountScreen> {
-  final List<WorkoutsPerWeek> data = [
-    WorkoutsPerWeek("Mon", 8, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Tue", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Wed", 2, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Thu", 4, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Fri", 3, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Sat", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
-    WorkoutsPerWeek("Sun", 0, charts.ColorUtil.fromDartColor(Colors.blue)),
-  ];
-
-  DateTime _focusedDay = DateTime.now();
-
-  DateTime? _selectedDay;
-
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-
-  DateTime _dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    Future followersDialog() => showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            backgroundColor: Color(0xff222831),
-            child: Column(
-              children: [
-                Card(
-                  color: Color(0xff222831),
-                  elevation: 8.0,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 42,
-                              ),
-                              child: Text(
-                                "Followers",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 42),
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Divider(
-                            color: Colors.white,
-                            thickness: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PublicAccountScreen(
-                                  getAccountFollowers[index]),
-                            ));
-                          },
-                          child: RowUserWidget(
-                            getAccountFollowers[index].firstName +
-                                " " +
-                                getAccountFollowers[index].lastName,
-                            getAccountFollowers[index].profilePicUrl,
-                          ),
-                        );
-                      },
-                      itemCount: getAccountFollowers.length,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.8,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Close",
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-
-    Future followingDialog() => showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            backgroundColor: Color(0xff222831),
-            child: Column(
-              children: [
-                Card(
-                  color: Color(0xff222831),
-                  elevation: 8.0,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 42,
-                              ),
-                              child: Text(
-                                "Following",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 42),
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Divider(
-                            color: Colors.white,
-                            thickness: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PublicAccountScreen(
-                                  getAccountFollowing[index]),
-                            ));
-                          },
-                          child: RowUserWidget(
-                            getAccountFollowing[index].firstName +
-                                " " +
-                                getAccountFollowing[index].lastName,
-                            getAccountFollowing[index].profilePicUrl,
-                          ),
-                        );
-                      },
-                      itemCount: getAccountFollowing.length,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.8,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Close",
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(
@@ -332,7 +149,9 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      followersDialog();
+                      showDialog(
+                          context: context,
+                          builder: (context) => FollowersDialogWidget());
                     },
                     child: Column(
                       children: [
@@ -360,7 +179,9 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      followingDialog();
+                      showDialog(
+                          context: context,
+                          builder: (context) => FollowingDialogWidget());
                     },
                     child: Column(
                       children: [
@@ -393,7 +214,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   Container(
                     margin: EdgeInsets.only(top: 64),
                     child: Text(
-                      "Your Stats:",
+                      "${widget.account.firstName}'s Stats:",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -408,7 +229,9 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "5 Workouts completed",
+                  listSpecificStatistic[0].TotalWorkouts.toString().isNotEmpty
+                      ? "${listSpecificStatistic[0].TotalWorkouts.toString()} Workouts Completed"
+                      : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -418,7 +241,9 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "58 Minutes avg workout time",
+                  listSpecificStatistic[0].AvgWorkoutTime.toString().isNotEmpty
+                      ? "${listSpecificStatistic[0].AvgWorkoutTime} Minutes AVG Workout Time"
+                      : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -428,7 +253,9 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "3852 Kg total weight lifted",
+                  listSpecificStatistic[0].TotalLifted.toString().isNotEmpty
+                      ? "${listSpecificStatistic[0].TotalLifted} Total KG Lifted"
+                      : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -438,7 +265,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   color: Colors.white,
                 ),
                 title: Text(
-                  "128 Average workout reps",
+                  "${listSpecificStatistic[0].AvgReps} Average workout reps",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -460,7 +287,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
-                    Expanded(child: WorkoutWeekChart(data)),
+                    Expanded(child: WorkoutWeekChart(dataList)),
                   ],
                 ),
               ),
@@ -469,7 +296,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   Container(
                     margin: EdgeInsets.only(top: 64),
                     child: Text(
-                      "Sally Burger's Folders",
+                      "${widget.account.firstName}'s Folders",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -479,24 +306,28 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   ),
                 ],
               ),
-              Container(
-                child: RoutineWidgets(),
-              ),
-              Container(
-                child: RoutineWidgets(),
-              ),
-              Container(
-                child: RoutineWidgets(),
-              ),
-              Container(
-                child: RoutineWidgets(),
-              ),
-              Container(
-                child: RoutineWidgets(),
-              ),
-              Container(
-                child: RoutineWidgets(),
-              ),
+              listSpecificAllFolders.isEmpty
+                  ? Container(
+                      height: 100,
+                      child: Center(
+                        child: Text(
+                          "NO FOLDERS",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 400,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return FolderWidget(
+                              listSpecificAllFolders[index].FolderName,
+                              listSpecificAllFolders[index].FolderLikes);
+                        },
+                        itemCount: listSpecificAllFolders.length,
+                      ),
+                    ),
             ],
           ),
         ),

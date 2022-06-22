@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pangains/Http/requests.dart';
+import 'package:pangains/Screens/Auth%20Screens/signup_screen.dart';
 import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -38,7 +39,11 @@ class SignInScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(right: 24),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SignupScreen(),
+                ));
+              },
               child: Text(
                 "Sign Up",
                 style: TextStyle(

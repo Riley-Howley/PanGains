@@ -21,6 +21,7 @@ class DashboadNav extends StatelessWidget {
               onPressed: () async {
                 await getAllFollowersAccount(listSpecificAccount[0].accountID);
                 await getAllFollowingsAccount(listSpecificAccount[0].accountID);
+                await getSpecificStatistic(listSpecificAccount[0].accountID);
                 Navigator.popAndPushNamed(context, "/accounts");
               },
               child: Text(
