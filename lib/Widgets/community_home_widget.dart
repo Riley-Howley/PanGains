@@ -15,33 +15,6 @@ class CommunityHome extends StatefulWidget {
 }
 
 class _CommunityHomeState extends State<CommunityHome> {
-  // List<Account> _foundAccount = [];
-  // @override
-  // initState() {
-  //   // at the beginning, all users are shown
-  //   _foundAccount = listAllAccounts;
-  //   super.initState();
-  // }
-
-  // void _runFilter(String enteredKeyword) {
-  //   List<Account> results = [];
-  //   if (enteredKeyword.isEmpty) {
-  //     // if the search field is empty or only contains white-space, we'll display all users
-  //     results = listAllAccounts;
-  //   } else {
-  //     results = listAllAccounts
-  //         .where((account) => account.firstName
-  //             .toLowerCase()
-  //             .contains(enteredKeyword.toLowerCase()))
-  //         .toList();
-  //     // we use the toLowerCase() method to make it case-insensitive
-  //   }
-
-  //   // Refresh the UI
-  //   setState(() {
-  //     _foundAccount = results;
-  //   });
-  // }
   List<Account> accounts = listAllAccounts;
 
   @override
@@ -81,7 +54,10 @@ class _CommunityHomeState extends State<CommunityHome> {
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    await getAllFollowersAccount(accounts[index].accountID);
+                    await getAllFollowingsAccount(accounts[index].accountID);
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Widgets/exercise_table_widget.dart';
@@ -38,8 +40,6 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
   DateTime _dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    getAllFollowersAccount(widget.account.accountID);
-    getAllFollowingsAccount(widget.account.accountID);
     Future followersDialog() => showDialog(
           context: context,
           builder: (context) => Dialog(
@@ -86,12 +86,24 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView(
-                      children: [
-                        RowUserWidget("Sally Burger", "assets/images/1.jpeg"),
-                        RowUserWidget("Lancy Smooth", "assets/images/2.jpeg"),
-                        RowUserWidget("Aila File", "assets/images/3.jpeg"),
-                      ],
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PublicAccountScreen(
+                                  getAccountFollowers[index]),
+                            ));
+                          },
+                          child: RowUserWidget(
+                            getAccountFollowers[index].firstName +
+                                " " +
+                                getAccountFollowers[index].lastName,
+                            getAccountFollowers[index].profilePicUrl,
+                          ),
+                        );
+                      },
+                      itemCount: getAccountFollowers.length,
                     ),
                   ),
                 ),
@@ -158,12 +170,24 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                   padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 1.6,
-                    child: ListView(
-                      children: [
-                        RowUserWidget("Sally Burger", "assets/images/1.jpeg"),
-                        RowUserWidget("Lancy Smooth", "assets/images/2.jpeg"),
-                        RowUserWidget("Aila File", "assets/images/3.jpeg"),
-                      ],
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PublicAccountScreen(
+                                  getAccountFollowing[index]),
+                            ));
+                          },
+                          child: RowUserWidget(
+                            getAccountFollowing[index].firstName +
+                                " " +
+                                getAccountFollowing[index].lastName,
+                            getAccountFollowing[index].profilePicUrl,
+                          ),
+                        );
+                      },
+                      itemCount: getAccountFollowing.length,
                     ),
                   ),
                 ),
@@ -225,7 +249,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                 margin: EdgeInsets.only(top: 48),
                 child: CircleAvatar(
                   radius: 74,
-                  backgroundImage: AssetImage("assets/images/1.jpeg"),
+                  backgroundImage: NetworkImage(widget.account.profilePicUrl),
                 ),
               ),
               Container(
@@ -437,56 +461,6 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                       ),
                     ),
                     Expanded(child: WorkoutWeekChart(data)),
-                  ],
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border:
-                      Border.all(color: Colors.white, style: BorderStyle.solid),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                margin: EdgeInsets.only(top: 64, bottom: 10),
-                width: MediaQuery.of(context).size.width / 1.2,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 16),
-                      child: Text(
-                        "Days worked out this month:",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ),
-                    TableCalendar(
-                      headerVisible: true,
-                      firstDay: DateTime.now(),
-                      lastDay: DateTime.now().add(
-                        Duration(days: 365),
-                      ),
-                      focusedDay: _focusedDay,
-                      calendarFormat: _calendarFormat,
-                      selectedDayPredicate: (day) {
-                        return isSameDay(_selectedDay, day);
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
-                        if (!isSameDay(_selectedDay, selectedDay)) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay = focusedDay;
-                          });
-                        }
-                      },
-                      onFormatChanged: (format) {
-                        if (_calendarFormat != format) {
-                          setState(() {
-                            _calendarFormat = format;
-                          });
-                        }
-                      },
-                      onPageChanged: (focusedDay) {
-                        _focusedDay = focusedDay;
-                      },
-                    ),
                   ],
                 ),
               ),
