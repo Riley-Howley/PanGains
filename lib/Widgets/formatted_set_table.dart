@@ -34,32 +34,6 @@ class _FormattedSetTableState extends State<FormattedSetTable> {
           "Checked",
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
-
-        // Container(
-        //   width: MediaQuery.of(context).size.width,
-        //   height: 300,
-        //   child: ListView.builder(
-        //     itemBuilder: (context, index) {
-        //       return listOfSets[index];
-        //     },
-        //     itemCount: listOfSets.length,
-        //   ),
-        // ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     // listOfSets.add(new Set_row(count++, 0, 0, false));
-        //     setState(() {});
-        //   },
-        //   child: Text(
-        //     "Add Set",
-        //   ),
-        // ),
-        // ElevatedButton(
-        //   onPressed: () {},
-        //   child: Text(
-        //     "Finish Workout",
-        //   ),
-        // ),
       ],
     ));
   }

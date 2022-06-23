@@ -12,14 +12,47 @@ class DisplayAccountRoutinesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
+        backgroundColor: Color(0xff222831),
+      ),
+      backgroundColor: Color(0xff222831),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: Text(
-                "${name} Folder Routines",
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 200,
+                child: Text(
+                  "${name} Folder",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36,
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 200,
+                margin: EdgeInsets.only(bottom: 20, top: 20),
+                child: Text(
+                  "Your Routines",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 20,
+                  ),
+                ),
               ),
             ),
             Container(

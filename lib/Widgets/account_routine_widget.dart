@@ -6,14 +6,16 @@ class AccountRoutineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 40),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 43, 43, 43),
+        color: Color(0xff222831),
         borderRadius: BorderRadius.all(
-          Radius.circular(25),
+          Radius.circular(5),
         ),
+        border: Border.all(color: Colors.white),
       ),
       width: MediaQuery.of(context).size.width,
-      height: 150,
+      height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -24,11 +26,6 @@ class AccountRoutineWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
-          ),
-          Icon(
-            Icons.fitness_center,
-            color: Colors.white,
-            size: 60,
           ),
         ],
       ),

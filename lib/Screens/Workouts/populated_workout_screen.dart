@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Models/exercise.dart';
+import 'package:pangains/Models/folder.dart';
 import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
+import 'package:pangains/Widgets/account_routine_widget.dart';
 import 'package:pangains/Widgets/formatted_set_widget.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -71,11 +73,16 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
     // _stopWatchTimer.setPresetTime(mSec: 1234);
   }
 
+  TextEditingController folderNameController = TextEditingController();
+  TextEditingController routineNameController = TextEditingController();
+
   @override
   void dispose() async {
     super.dispose();
     await _stopWatchTimer.dispose();
     await countDownTimer.dispose();
+    folderNameController.dispose();
+    routineNameController.dispose();
   }
 
   int count = 1;
@@ -251,6 +258,265 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
             ),
           ),
         );
+
+    Future nameRoutine(int id) => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+              child: Container(
+                color: Color(0xff222831),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        child: Text(
+                          "Enter Name to call Routine",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      TextField(
+                        controller: routineNameController,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "Routine Name",
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 20),
+                        width: MediaQuery.of(context).size.width,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            id == 0
+                                ? listSpecificAllFolders[
+                                        listSpecificAllFolders.length - 1]
+                                    .FolderID
+                                : id;
+                            await postNewRoutine(
+                                id, routineNameController.text);
+                            await getSpecificRoutine(id);
+                            for (var i in listExercises) {
+                              postNewYourExercise(
+                                  listSpecificRoutine[
+                                          listSpecificRoutine.length - 1]
+                                      .routineID,
+                                  i.id);
+                            }
+                            Navigator.pop(context);
+                          },
+                          child: Text("Save"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ));
+
+    Future nameFolderDialog() => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+              child: Container(
+                color: Color(0xff222831),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        child: Text(
+                          "Enter Name to call Folder",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                      ),
+                      TextField(
+                        controller: folderNameController,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "Folder Name",
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 20),
+                        width: MediaQuery.of(context).size.width,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await postNewFolder(
+                                listSpecificAccount[0].accountID,
+                                folderNameController.text,
+                                0);
+                            await getSpecificFolders(
+                                listSpecificAccount[0].accountID);
+                            nameRoutine(0);
+                          },
+                          child: Text("Save"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ));
+
+    Future createFolderOrPush() => showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            child: Container(
+              color: Color(0xff222831),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 40),
+                        child: Text(
+                          "Select Folder or create new to save",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            "Pick Folder:",
+                            style: TextStyle(color: Colors.grey, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 300,
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                nameRoutine(
+                                    listSpecificAllFolders[index].FolderID);
+                              },
+                              child: AccountRoutineWidget(
+                                  listSpecificAllFolders[index].FolderName),
+                            );
+                          },
+                          itemCount: listSpecificAllFolders.length,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            "Or create new:",
+                            style: TextStyle(color: Colors.grey, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            nameFolderDialog();
+                          },
+                          child: Text("Create New Folder"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+    Future saveWorkoutDialog() => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+              child: Container(
+                color: Color(0xff222831),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        child: Text(
+                          "Do you want to save this workout?",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.green),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              createFolderOrPush();
+                            },
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(
+                                fontSize: 24,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.red),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => WorkoutFinishScreen(
+                                    totalTime,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "No",
+                              style: TextStyle(
+                                fontSize: 24,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ));
+
     return Scaffold(
       backgroundColor: Color(0xff222831),
       appBar: AppBar(
@@ -262,13 +528,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
             child: TextButton(
               onPressed: () {
                 _stopWatchTimer.dispose();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => WorkoutFinishScreen(
-                      totalTime,
-                    ),
-                  ),
-                );
+                saveWorkoutDialog();
               },
               child: Text(
                 "Finish Workout",

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import '../Models/AccountFolder.dart';
 import '../Models/AccountRoutine.dart';
 import '../Models/account.dart';
 import '../Models/days_worked_out.dart';
@@ -54,24 +53,28 @@ Future getAllAccount() async {
       listAllAccounts.clear();
     }
     for (var json in jsonData) {
-      listAllAccounts.add(
-        new Account(
-          json["accountID"],
-          json["firstname"],
-          json["lastname"],
-          json["email"],
-          json["password"],
-          json["title"] == null ? "NO TITLE" : json["title"],
-          json["profilePicture"] == null
-              ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
-              : json["profilePicture"],
-          json["description"],
-          json["private"],
-          json["notifications"],
-          json["averageChallengePos"],
-          json["type"] == null ? "NO TYPE" : json["type"],
-        ),
-      );
+      if (json["private"] == true) {
+        continue;
+      } else {
+        listAllAccounts.add(
+          new Account(
+            json["accountID"],
+            json["firstname"],
+            json["lastname"],
+            json["email"],
+            json["password"],
+            json["title"] == null ? "NO TITLE" : json["title"],
+            json["profilePicture"] == null
+                ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+                : json["profilePicture"],
+            json["description"],
+            json["private"],
+            json["notifications"],
+            json["averageChallengePos"],
+            json["type"] == null ? "NO TYPE" : json["type"],
+          ),
+        );
+      }
     }
   }
   print(listAllAccounts);
@@ -1687,11 +1690,12 @@ Future postNewSocialMedia(int accountID, int followingAccountID) async {
   print(response.statusCode);
 }
 
-Future deleteSocialMedia(int yourID, theirID) async {
+Future deleteSocialMedia(int yourID, int theirID) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
-  HttpClientRequest request =
-      await client.deleteUrl(Uri.parse("$ip/Socials/$yourID/$theirID"));
+
+  HttpClientRequest request = await client
+      .deleteUrl(Uri.parse("$ip/Socials/$yourID?followingID=$theirID"));
   HttpClientResponse response = await request.close();
   print(response.statusCode);
 }
