@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Models/exercise.dart';
 import 'package:pangains/Models/folder.dart';
 import 'package:pangains/Screens/Workouts/workout_finished_screen.dart';
+import 'package:pangains/Screens/Workouts/workout_screen.dart';
 import 'package:pangains/Widgets/account_routine_widget.dart';
 import 'package:pangains/Widgets/formatted_set_widget.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -73,22 +74,19 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
     // _stopWatchTimer.setPresetTime(mSec: 1234);
   }
 
-  TextEditingController folderNameController = TextEditingController();
-  TextEditingController routineNameController = TextEditingController();
-
   @override
   void dispose() async {
     super.dispose();
     await _stopWatchTimer.dispose();
     await countDownTimer.dispose();
-    folderNameController.dispose();
-    routineNameController.dispose();
   }
 
   int count = 1;
   String totalTime = "";
   @override
   Widget build(BuildContext context) {
+    TextEditingController folderNameController = TextEditingController();
+    TextEditingController routineNameController = TextEditingController();
     Future restTimerDialog(int currentTime) => showDialog(
           context: context,
           builder: (context) => Dialog(
@@ -294,11 +292,11 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                         height: 48,
                         child: ElevatedButton(
                           onPressed: () async {
-                            id == 0
-                                ? listSpecificAllFolders[
+                            id == -1
+                                ? id = listSpecificAllFolders[
                                         listSpecificAllFolders.length - 1]
                                     .FolderID
-                                : id;
+                                : id = id;
                             await postNewRoutine(
                                 id, routineNameController.text);
                             await getSpecificRoutine(id);
@@ -309,7 +307,10 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                                       .routineID,
                                   i.id);
                             }
-                            Navigator.pop(context);
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => WorkOutScreen(),
+                            ));
                           },
                           child: Text("Save"),
                         ),
@@ -361,7 +362,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                                 0);
                             await getSpecificFolders(
                                 listSpecificAccount[0].accountID);
-                            nameRoutine(0);
+                            nameRoutine(-1);
                           },
                           child: Text("Save"),
                         ),
@@ -411,8 +412,8 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                         child: ListView.builder(
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () {
-                                nameRoutine(
+                              onTap: () async {
+                                await nameRoutine(
                                     listSpecificAllFolders[index].FolderID);
                               },
                               child: AccountRoutineWidget(
