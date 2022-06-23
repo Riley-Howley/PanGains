@@ -14,6 +14,7 @@ class WorkoutFinishScreen extends StatelessWidget {
     for (var i in finishedSets) {
       kgCount += i.kg;
       repCount += i.rep;
+      print(i.exerciseId);
     }
     return Scaffold(
       backgroundColor: Color(0xff222831),

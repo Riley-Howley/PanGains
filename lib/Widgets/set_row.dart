@@ -12,11 +12,13 @@ class Set_row extends StatefulWidget {
   int kg;
   int rep;
   bool isChecked;
+  int exerciseId;
   Set_row(
     this.id,
     this.kg,
     this.rep,
     this.isChecked,
+    this.exerciseId,
   );
   State<Set_row> createState() => _Set_rowState();
 }
@@ -124,6 +126,7 @@ class _Set_rowState extends State<Set_row> {
                           ? int.parse(repController.text)
                           : PREVIOUSREP,
                       widget.isChecked,
+                      widget.exerciseId,
                     ));
                     setState(() {
                       widget.isChecked = !widget.isChecked;

@@ -523,12 +523,21 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xff222831),
+        leading: IconButton(
+            onPressed: () {
+              listExercises.clear();
+              listAllSets.clear();
+              _stopWatchTimer.dispose();
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back)),
         actions: [
           Container(
             margin: EdgeInsets.only(right: 20),
             child: TextButton(
               onPressed: () {
                 _stopWatchTimer.dispose();
+
                 saveWorkoutDialog();
               },
               child: Text(

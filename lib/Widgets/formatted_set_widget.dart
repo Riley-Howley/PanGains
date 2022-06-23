@@ -63,6 +63,7 @@ class _FormattedSetWidgetState extends State<FormattedSetWidget> {
                 PREVIOUSKG == 0 ? 0 : PREVIOUSKG,
                 PREVIOUSREP == 0 ? 0 : PREVIOUSREP,
                 false,
+                listExercises[widget.nameIndex].id,
               ));
               setState(() {});
               print(listSets.length);
