@@ -1431,8 +1431,8 @@ Future postNewCompletedWorkout(int accountID, int routineID,
     "completedWorkoutID": 0,
     "accountID": accountID,
     "routineID": routineID,
-    "dateCompleted": "$dateCompleted",
-    "duration": "$duration",
+    "dateCompleted": dateCompleted,
+    "duration": duration,
     "totalWeightLifted": totalWeightLifted,
   };
   HttpClientRequest request =

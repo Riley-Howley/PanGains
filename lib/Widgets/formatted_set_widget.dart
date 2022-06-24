@@ -66,7 +66,6 @@ class _FormattedSetWidgetState extends State<FormattedSetWidget> {
                 listExercises[widget.nameIndex].id,
               ));
               setState(() {});
-              print(listSets.length);
             },
             child: Text(
               "Add Set",

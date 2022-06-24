@@ -16,14 +16,14 @@ List<Set_row> finishedSets = [];
 final StopWatchTimer countDownTimer = StopWatchTimer(
   mode: StopWatchMode.countDown,
   presetMillisecond: StopWatchTimer.getMilliSecFromSecond(0),
-  onChange: (value) => print('onChange $value'),
-  onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
-  onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
+  // onChange: (value) => print('onChange $value'),
+  // onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
+  // onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
   onStop: () {
-    print('onStop');
+    // print('onStop');
   },
   onEnded: () {
-    print('onEnded');
+    // print('onEnded');
   },
 );
 
@@ -40,36 +40,36 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
 
   final StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countUp,
-    onChange: (value) => print('onChange $value'),
-    onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
-    onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
+    // onChange: (value) => print('onChange $value'),
+    // onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
+    // onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
     onStop: () {
-      print('onStop');
+      // print('onStop');
     },
     onEnded: () {
-      print('onEnded');
+      // print('onEnded');
     },
   );
 
   @override
   void initState() {
     super.initState();
-    _stopWatchTimer.rawTime.listen((value) =>
-        print('rawTime $value ${StopWatchTimer.getDisplayTime(value)}'));
-    _stopWatchTimer.minuteTime.listen((value) => print('minuteTime $value'));
-    _stopWatchTimer.secondTime.listen((value) => print('secondTime $value'));
-    _stopWatchTimer.records.listen((value) => print('records $value'));
-    _stopWatchTimer.fetchStop.listen((value) => print('stop from stream'));
-    _stopWatchTimer.fetchEnded.listen((value) => print('ended from stream'));
+    //_stopWatchTimer.rawTime.listen((value) =>
+    //print('rawTime $value ${StopWatchTimer.getDisplayTime(value)}'));
+    // _stopWatchTimer.minuteTime.listen((value) => print('minuteTime $value'));
+    // _stopWatchTimer.secondTime.listen((value) => print('secondTime $value'));
+    // _stopWatchTimer.records.listen((value) => print('records $value'));
+    // _stopWatchTimer.fetchStop.listen((value) => print('stop from stream'));
+    // _stopWatchTimer.fetchEnded.listen((value) => print('ended from stream'));
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
 
-    countDownTimer.rawTime.listen((value) =>
-        print('rawTime $value ${StopWatchTimer.getDisplayTime(value)}'));
-    countDownTimer.minuteTime.listen((value) => print('minuteTime $value'));
-    countDownTimer.secondTime.listen((value) => print('secondTime $value'));
-    countDownTimer.records.listen((value) => print('records $value'));
-    countDownTimer.fetchStop.listen((value) => print('stop from stream'));
-    countDownTimer.fetchEnded.listen((value) => print('ended from stream'));
+    //countDownTimer.rawTime.listen((value) =>
+    //print('rawTime $value ${StopWatchTimer.getDisplayTime(value)}'));
+    // countDownTimer.minuteTime.listen((value) => print('minuteTime $value'));
+    // countDownTimer.secondTime.listen((value) => print('secondTime $value'));
+    // countDownTimer.records.listen((value) => print('records $value'));
+    // countDownTimer.fetchStop.listen((value) => print('stop from stream'));
+    // countDownTimer.fetchEnded.listen((value) => print('ended from stream'));
 
     /// Can be set preset time. This case is "00:01.23".
     // _stopWatchTimer.setPresetTime(mSec: 1234);
@@ -78,8 +78,8 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
   @override
   void dispose() async {
     super.dispose();
-    await _stopWatchTimer.dispose();
-    await countDownTimer.dispose();
+    // await _stopWatchTimer.dispose();
+    // await countDownTimer.dispose();
   }
 
   int count = 1;
@@ -534,8 +534,13 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
             onPressed: () {
               listExercises.clear();
               listAllSets.clear();
-              _stopWatchTimer.dispose();
-              Navigator.pop(context);
+              // _stopWatchTimer.dispose();
+              // countDownTimer.dispose();
+              countDownTimer.clearPresetTime();
+              PREVIOUSKG = 0;
+              PREVIOUSREP = 0;
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/workouts", (r) => false);
             },
             icon: Icon(Icons.arrow_back)),
         actions: [

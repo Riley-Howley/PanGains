@@ -18,8 +18,7 @@ class _TestScreenState extends State<TestScreen> {
             ElevatedButton(
               onPressed: () {
                 //getAllSpecificCompletedWorkouts(1);
-                postNewCompletedWorkout(
-                    1, 1, DateTime.now().toString(), "0:0:15:12", 42);
+                postNewCompletedWorkout(1, 1, "2022-06-24", "no", 10);
               },
               child: Text("CLICK ME BITCH"),
             )
