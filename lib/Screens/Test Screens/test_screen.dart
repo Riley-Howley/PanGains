@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 
 class TestScreen extends StatefulWidget {
   @override
@@ -15,10 +16,13 @@ class _TestScreenState extends State<TestScreen> {
         child: Column(
           children: [
             ElevatedButton(
-                onPressed: () {
-                  print(DateTime.now().hour);
-                },
-                child: Text("CLICK ME BITCH"),)
+              onPressed: () {
+                //getAllSpecificCompletedWorkouts(1);
+                postNewCompletedWorkout(
+                    1, 1, DateTime.now().toString(), "0:0:15:12", 42);
+              },
+              child: Text("CLICK ME BITCH"),
+            )
           ],
         ),
       ),

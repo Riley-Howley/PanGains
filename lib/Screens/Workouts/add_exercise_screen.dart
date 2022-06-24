@@ -95,7 +95,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                           onPressed: () async {
                             listExercises.add(listAllExercises[index]);
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PopulatedWorkoutScreen(),
+                              builder: (context) => PopulatedWorkoutScreen(0),
                             ));
                           },
                           icon: Icon(

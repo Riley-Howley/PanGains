@@ -64,10 +64,11 @@ class DisplayAccountRoutinesScreen extends StatelessWidget {
                     onTap: () {
                       listExercises.clear();
                       for (var i in listSpecificRoutine[index].exercises) {
-                        listExercises.add(new Exercise(0, i));
+                        listExercises.add(new Exercise(i.id, i.ExerciseName));
                       }
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PopulatedWorkoutScreen(),
+                        builder: (context) => PopulatedWorkoutScreen(
+                            listSpecificRoutine[index].routineID),
                       ));
                     },
                     child: AccountRoutineWidget(

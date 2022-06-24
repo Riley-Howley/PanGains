@@ -655,17 +655,28 @@ Future getSpecificRoutine(int folderID) async {
     if (listSpecificRoutine.isNotEmpty) {
       listSpecificRoutine.clear();
     }
+
     for (var i in jsonData) {
       listSpecificRoutine.add(
         new AccountRoutine(
           i['routineID'],
           i['routineName'],
-          i['exercises'],
+          getAllTheExercises(i),
         ),
       );
     }
   }
   print(listSpecificRoutine);
+}
+
+List<Exercise> getAllTheExercises(dynamic i) {
+  List<Exercise> ex = [];
+  var exercise = new Exercise(0, "");
+  for (var e in i['exercises']) {
+    ex.add(new Exercise(
+        listAllExercises.firstWhere((ex) => ex.ExerciseName == e).id, e));
+  }
+  return ex;
 }
 
 Future postNewRoutine(int folderID, String routineName) async {
@@ -1394,53 +1405,41 @@ Future getAllSpecificCompletedWorkouts(int accountID) async {
         jsonDecode(await result.transform(utf8.decoder).join());
     if (listSpecificCompletedWorkouts.isNotEmpty) {
       listSpecificCompletedWorkouts.clear();
-      for (var i in jsonData) {
-        listSpecificCompletedWorkouts.add(
-          new CompletedWorkout(
-            i['CompletedWorkoutID'],
-            i['AccountID'],
-            i['RoutineID'],
-            i['date'],
-            i['duration'],
-            i['totalWeightLifted'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listSpecificCompletedWorkouts.add(
-          new CompletedWorkout(
-            i['CompletedWorkoutID'],
-            i['AccountID'],
-            i['RoutineID'],
-            i['date'],
-            i['duration'],
-            i['totalWeightLifted'],
-          ),
-        );
-      }
+    }
+    for (var i in jsonData) {
+      listSpecificCompletedWorkouts.add(
+        new CompletedWorkout(
+          i['completedWorkoutID'],
+          i['accountID'],
+          i['routineID'],
+          i['dateCompleted'],
+          i['duration'],
+          i['totalWeightLifted'],
+        ),
+      );
     }
   }
+
   print(listSpecificCompletedWorkouts);
 }
 
 Future postNewCompletedWorkout(int accountID, int routineID,
-    String dateCompleted, int duration, int totalWeightLifted) async {
+    String dateCompleted, String duration, int totalWeightLifted) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
   Map<String, dynamic> map = {
     "completedWorkoutID": 0,
     "accountID": accountID,
     "routineID": routineID,
     "dateCompleted": "$dateCompleted",
-    "duration": duration,
+    "duration": "$duration",
     "totalWeightLifted": totalWeightLifted,
   };
-  client.badCertificateCallback =
-      ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
       await client.postUrl(Uri.parse("$ip/CompletedWorkouts"));
-  request.headers.add("Authorization", "Bearer " + jwt);
   request.headers.add("Content-Type", "application/json");
   request.headers.add("Accept", "*/*");
+  request.headers.add("Authorization", "Bearer " + jwt);
   request.add(utf8.encode(jsonEncode(map)));
   HttpClientResponse result = await request.close();
   print(result.statusCode);

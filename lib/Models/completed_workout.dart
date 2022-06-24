@@ -3,7 +3,7 @@ class CompletedWorkout {
   int AccountID;
   int RoutineID;
   String date;
-  int duration;
+  String duration;
   int totalWeightLifted;
 
   CompletedWorkout(this.CompletedWorkoutID, this.AccountID, this.RoutineID,

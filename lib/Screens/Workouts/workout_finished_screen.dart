@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 
 class WorkoutFinishScreen extends StatelessWidget {
   String workoutTime;
+  int routineId;
+  int hour;
   WorkoutFinishScreen(
     this.workoutTime,
+    this.routineId,
+    this.hour,
   );
 
   @override
   Widget build(BuildContext context) {
     var kgCount = 0;
     var repCount = 0;
+    getSpecificYourExercise(routineId);
+    for (var i in listAllSpecificYourExercises) {
+      for (var s in finishedSets) {
+        //postNewSet(i.YourExerciseID, s.id, "", "", s.kg, s.rep);
+      }
+    }
+
     for (var i in finishedSets) {
       kgCount += i.kg;
       repCount += i.rep;
-      print(i.exerciseId);
     }
+    print("New Completed Workout");
+    print(routineId);
+    postNewCompletedWorkout(listSpecificAccount[0].accountID, routineId,
+        DateTime.now().toString(), workoutTime, kgCount);
+
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(

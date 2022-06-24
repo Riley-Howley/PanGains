@@ -28,7 +28,8 @@ final StopWatchTimer countDownTimer = StopWatchTimer(
 );
 
 class PopulatedWorkoutScreen extends StatefulWidget {
-  const PopulatedWorkoutScreen({Key? key}) : super(key: key);
+  int routineId;
+  PopulatedWorkoutScreen(this.routineId);
 
   @override
   State<PopulatedWorkoutScreen> createState() => _PopulatedWorkoutScreenState();
@@ -83,6 +84,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
 
   int count = 1;
   String totalTime = "";
+  int hour = 0;
   @override
   Widget build(BuildContext context) {
     TextEditingController folderNameController = TextEditingController();
@@ -309,7 +311,13 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                             }
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => WorkOutScreen(),
+                              builder: (context) => WorkoutFinishScreen(
+                                totalTime,
+                                listSpecificRoutine[
+                                        listSpecificRoutine.length - 1]
+                                    .routineID,
+                                hour,
+                              ),
                             ));
                           },
                           child: Text("Save"),
@@ -498,8 +506,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => WorkoutFinishScreen(
-                                    totalTime,
-                                  ),
+                                      totalTime, widget.routineId, hour),
                                 ),
                               );
                             },
@@ -613,6 +620,7 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                                 value,
                                 hours: _isHours);
                             totalTime = displayTime;
+                            hour = _stopWatchTimer.rawTime.value;
                             return Column(
                               children: <Widget>[
                                 Padding(
