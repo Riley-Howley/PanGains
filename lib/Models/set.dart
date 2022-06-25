@@ -2,8 +2,8 @@ class Sets {
   int SetID;
   int YourExerciseID;
   int SetRow;
-  int SetType;
-  int previous;
+  String SetType;
+  String previous;
   int kg;
   int reps;
 

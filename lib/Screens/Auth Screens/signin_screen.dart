@@ -6,6 +6,7 @@ import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+import '../../Models/completed_workout_history.dart';
 import '../../Models/workouts_perweek.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -201,6 +202,7 @@ class SignInScreen extends StatelessWidget {
                               await getAllAccount();
                               await getAllSignedInFollowingsAccount(
                                   listSpecificAccount[0].accountID);
+                              await getAllRoutines();
 
                               for (var i in listSpecificDaysWorkedOut) {
                                 dataList.add(WorkoutsPerWeek(

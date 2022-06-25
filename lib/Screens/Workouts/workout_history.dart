@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
+import 'package:pangains/Models/completed_workout_history.dart';
+import 'package:pangains/Screens/Workouts/workout_screen.dart';
 
 import '../../Widgets/exercise_table_widget.dart';
 
 class WorkoutHistoryScreen extends StatefulWidget {
-  const WorkoutHistoryScreen({Key? key}) : super(key: key);
-
   @override
   State<WorkoutHistoryScreen> createState() => _WorkoutHistoryScreenState();
 }
@@ -134,26 +135,15 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                         ),
                       ],
                     ),
-              ExerciseTableWidget(),
-              Container(
-                margin: EdgeInsets.only(top: 64),
-                child: ExerciseTableWidget(),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 64),
-                child: ExerciseTableWidget(),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 64),
-                child: ExerciseTableWidget(),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 64),
-                child: ExerciseTableWidget(),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 64),
-                child: ExerciseTableWidget(),
+              Column(
+                children: [
+                  for (int i = 0; i < listHistory.length; i++)
+                    ExerciseTableWidget(
+                      listHistory[i],
+                    ),
+                  // listSpecificCompletedWorkouts[i] listAllRoutinesToBeSortedByRoutineID
+                  // ExerciseTableWidget(date, routineName, duration, totalKg, reps, exerciseName, setid, kg, rep);
+                ],
               ),
             ],
           ),
@@ -161,4 +151,8 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
       ),
     );
   }
+}
+
+String getExerciseName(int id) {
+  return listAllExercises.firstWhere((e) => e.id == id).ExerciseName;
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
+import 'package:pangains/Models/completed_workout_history.dart';
+import 'package:pangains/Models/set.dart';
 import 'package:pangains/Screens/Workouts/display_account_routines_screen.dart';
 import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_history.dart';
@@ -7,11 +9,14 @@ import 'package:pangains/Widgets/folder_widget.dart';
 
 import '../../Widgets/dashboard_nav.dart';
 
+List<CompletedWorkoutHistory> listHistory = [];
+
 class WorkOutScreen extends StatelessWidget {
   const WorkOutScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var historyObj = CompletedWorkoutHistory("", "", "", "", "", "", []);
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: Padding(
@@ -193,7 +198,27 @@ class WorkOutScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await getAllSpecificCompletedWorkouts(
+                        listSpecificAccount[0].accountID);
+                    for (var i in listSpecificCompletedWorkouts) {
+                      historyObj.date = i.date;
+                      historyObj.routineName = getRoutineName(i.RoutineID);
+                      historyObj.totalWorkoutTime = i.duration;
+                      historyObj.weightLifted = i.totalWeightLifted.toString();
+                      historyObj.workoutReps = 999.toString();
+
+                      await getAllSpecificRoutinesForHistory(i.RoutineID);
+                      await getSpecificYourExercise(i.RoutineID);
+                    }
+                    for (var i in listAllSpecificYourExercises) {
+                      historyObj.exerciseName = getExerciseName(i.ExerciseID);
+                      await getSpecificSets(i.ExerciseID);
+                    }
+                    for (var i in listAllSpecificSets) {
+                      historyObj.sets.add(new Sets(i.SetID, i.YourExerciseID,
+                          i.SetRow, i.SetType, i.previous, i.kg, i.reps));
+                    }
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => WorkoutHistoryScreen(),
@@ -209,4 +234,10 @@ class WorkOutScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+String getRoutineName(int routineID) {
+  return listAllRoutines
+      .firstWhere((element) => element.RoutineID == routineID)
+      .RoutineName;
 }

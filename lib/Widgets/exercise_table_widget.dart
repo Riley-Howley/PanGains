@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Models/completed_workout_history.dart';
+
+import '../Http/requests.dart';
 
 class ExerciseTableWidget extends StatelessWidget {
-  const ExerciseTableWidget({
-    Key? key,
-  }) : super(key: key);
+  CompletedWorkoutHistory historyObj;
+
+  ExerciseTableWidget(
+    this.historyObj,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class ExerciseTableWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              "14/03/2022",
+              historyObj.date,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -25,7 +30,7 @@ class ExerciseTableWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Text(
-                "Pull - Medium",
+                historyObj.routineName,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -41,7 +46,7 @@ class ExerciseTableWidget extends StatelessWidget {
               margin: EdgeInsets.only(top: 8),
               child: Text.rich(
                 TextSpan(
-                  text: "58 Minutes ",
+                  text: "${historyObj.totalWorkoutTime} ",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -67,7 +72,7 @@ class ExerciseTableWidget extends StatelessWidget {
             Container(
               child: Text.rich(
                 TextSpan(
-                  text: "3852 Kg ",
+                  text: "${historyObj.weightLifted} Kg ",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -93,7 +98,7 @@ class ExerciseTableWidget extends StatelessWidget {
             Container(
               child: Text.rich(
                 TextSpan(
-                  text: "128 ",
+                  text: "${historyObj.workoutReps} ",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -119,7 +124,7 @@ class ExerciseTableWidget extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 32),
               child: Text(
-                "Bicep Curls",
+                "${historyObj.exerciseName}",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -161,105 +166,40 @@ class ExerciseTableWidget extends StatelessWidget {
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 30, left: 10),
-              child: Text(
-                "1",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: Text(
-                "10x7",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: Text(
-                "10",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30, right: 10),
-              child: Text(
-                "8",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 10, left: 10),
-              child: Text(
-                "2",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text(
-                "10x7",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text(
-                "10",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10, right: 10),
-              child: Text(
-                "8",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 10, left: 10),
-              child: Text(
-                "3",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text(
-                "10x7",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text(
-                "10",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10, right: 10),
-              child: Text(
-                "8",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-          ],
-        ),
+        // for (int i = 0; i < historyObj.sets.length; i++)
+        //   Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Container(
+        //         margin: EdgeInsets.only(top: 30, left: 10),
+        //         child: Text(
+        //           historyObj.sets[i].SetID.toString(),
+        //           style: TextStyle(color: Colors.white, fontSize: 18),
+        //         ),
+        //       ),
+        //       Container(
+        //         margin: EdgeInsets.only(top: 30),
+        //         child: Text(
+        //           "---------",
+        //           style: TextStyle(color: Colors.white, fontSize: 18),
+        //         ),
+        //       ),
+        //       Container(
+        //         margin: EdgeInsets.only(top: 30),
+        //         child: Text(
+        //           historyObj.sets[i].kg.toString(),
+        //           style: TextStyle(color: Colors.white, fontSize: 18),
+        //         ),
+        //       ),
+        //       Container(
+        //         margin: EdgeInsets.only(top: 30, right: 10),
+        //         child: Text(
+        //           historyObj.sets[i].reps.toString(),
+        //           style: TextStyle(color: Colors.white, fontSize: 18),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
       ],
     );
   }

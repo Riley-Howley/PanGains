@@ -618,28 +618,46 @@ Future getAllRoutines() async {
         jsonDecode(await result.transform(utf8.decoder).join());
     if (listAllRoutines.isNotEmpty) {
       listAllRoutines.clear();
-      for (var i in jsonData) {
-        listAllRoutines.add(
-          new Routine(
-            i['routineID'],
-            i['folderID'],
-            i['routineName'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listAllRoutines.add(
-          new Routine(
-            i['routineID'],
-            i['folderID'],
-            i['routineName'],
-          ),
-        );
-      }
+    }
+    for (var i in jsonData) {
+      listAllRoutines.add(
+        new Routine(
+          i['routineID'],
+          i['folderID'],
+          i['routineName'],
+        ),
+      );
     }
   }
   print(listAllRoutines);
+}
+
+List<Routine> listAllRoutinesToBeSortedByRoutineID = [];
+
+Future getAllSpecificRoutinesForHistory(int routineID) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+  HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Routines"));
+  request.headers.add("Authorization", "Bearer " + jwt);
+  HttpClientResponse result = await request.close();
+  if (result.statusCode == 200) {
+    List<dynamic> jsonData =
+        jsonDecode(await result.transform(utf8.decoder).join());
+    for (var i in jsonData) {
+      if (i['routineID'] == routineID) {
+        listAllRoutinesToBeSortedByRoutineID.add(
+          new Routine(
+            i['routineID'],
+            i['folderID'],
+            i['routineName'],
+          ),
+        );
+      } else {
+        continue;
+      }
+    }
+  }
+  print(listAllRoutinesToBeSortedByRoutineID);
 }
 
 Future getSpecificRoutine(int folderID) async {
@@ -950,7 +968,7 @@ List<Sets> listAllSpecificSets = [];
 Future getAllSets() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
-  HttpClientRequest request = await client.putUrl(Uri.parse("$ip/Sets"));
+  HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Sets"));
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
@@ -990,44 +1008,28 @@ Future getAllSets() async {
   print(listAllSets);
 }
 
-Future getSpecificSets(int exerciseID) async {
+Future getSpecificSets(int yourExerciseID) async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
-  HttpClientRequest request = await client.putUrl(Uri.parse("$ip/Sets"));
+  HttpClientRequest request =
+      await client.getUrl(Uri.parse("$ip/Sets/$yourExerciseID"));
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
-    if (listAllSpecificSets.isNotEmpty) {
-      listAllSpecificSets.clear();
-      for (var i in jsonData) {
-        listAllSpecificSets.add(
-          new Sets(
-            i['SetID'],
-            i['YourExerciseID'],
-            i['SetRow'],
-            i['SetType'],
-            i['previous'],
-            i['kg'],
-            i['reps'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listAllSpecificSets.add(
-          new Sets(
-            i['SetID'],
-            i['YourExerciseID'],
-            i['SetRow'],
-            i['SetType'],
-            i['previous'],
-            i['kg'],
-            i['reps'],
-          ),
-        );
-      }
+    for (var i in jsonData) {
+      listAllSpecificSets.add(
+        new Sets(
+          i['setID'],
+          i['yourExerciseID'],
+          i['setRow'],
+          i['setType'],
+          i['previous'],
+          i['kg'],
+          i['reps'],
+        ),
+      );
     }
   }
   print(listAllSpecificSets);
@@ -1419,8 +1421,6 @@ Future getAllSpecificCompletedWorkouts(int accountID) async {
       );
     }
   }
-
-  print(listSpecificCompletedWorkouts);
 }
 
 Future postNewCompletedWorkout(int accountID, int routineID,
