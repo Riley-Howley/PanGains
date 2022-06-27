@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:pangains/Screens/Dashboard/edit_account_screen.dart';
 import 'package:pangains/Screens/Test%20Screens/test_screen.dart';
 import 'package:pangains/Widgets/followers_dialog_widget.dart';
 import 'package:pangains/Widgets/following_dialog_widget.dart';
@@ -80,17 +81,37 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     backgroundImage:
                         NetworkImage(listSpecificAccount[0].profilePicUrl)),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 16),
-                child: Text(
-                  listSpecificAccount[0].firstName +
-                      " " +
-                      listSpecificAccount[0].lastName,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 16),
+                    child: Text(
+                      listSpecificAccount[0].firstName +
+                          " " +
+                          listSpecificAccount[0].lastName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                      ),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EditAccountScreen(),
+                      ));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20),
+                      child: Icon(
+                        Icons.edit,
+                        size: 30,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 margin: EdgeInsets.only(top: 16),
