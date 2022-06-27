@@ -3,6 +3,7 @@ import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 
 import '../../Models/workouts_perweek.dart';
+import 'workout_history.dart';
 
 class WorkoutFinishScreen extends StatelessWidget {
   String workoutTime;
@@ -20,10 +21,31 @@ class WorkoutFinishScreen extends StatelessWidget {
     var repCount = 0;
     getSpecificYourExercise(routineId);
     getSpecificAllDaysWorkedOut(listSpecificAccount[0].accountID);
-    for (var i in listAllSpecificYourExercises) {
-      for (var s in finishedSets) {
-        // postNewSet(i.YourExerciseID, s.id, "", "", s.kg, s.rep);
+    if (getExerciseName(listAllExercises.firstWhere((element) => element.id == listAllChallengeStats[0].``)) ==
+          listAllChallenges
+              .firstWhere((element) =>
+                  element.challengesID == listOfAllLeaderboard[0].challengesID)
+              .challengeName) {
+        updateSpecificChallengeStat(
+            listAllChallengeStats
+                .firstWhere((element) =>
+                    element.AccountID == listSpecificAccount[0].accountID)
+                .ChallengeStatsID,
+            listSpecificAccount[0].accountID,
+            listAllChallengeStats
+                .firstWhere((element) =>
+                    element.AccountID == listSpecificAccount[0].accountID)
+                .LeaderBoardID,
+            listAllChallengeStats
+                    .firstWhere((element) =>
+                        element.AccountID == listSpecificAccount[0].accountID)
+                    .challengeTotalReps +
+                repCount);
       }
+    for (var i in listAllSpecificYourExercises) {
+      // for (var s in finishedSets) {
+      //   // postNewSet(i.YourExerciseID, s.id, "", "", s.kg, s.rep);
+      // }
     }
     var hour = workoutTime.split(":");
     var formatHour = hour[0].split("")[1];

@@ -203,6 +203,7 @@ class SignInScreen extends StatelessWidget {
                               await getAllSignedInFollowingsAccount(
                                   listSpecificAccount[0].accountID);
                               await getAllRoutines();
+                              await getAllChallenges();
 
                               for (var i in listSpecificDaysWorkedOut) {
                                 dataList.add(WorkoutsPerWeek(

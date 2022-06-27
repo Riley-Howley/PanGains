@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Models/exercise.dart';

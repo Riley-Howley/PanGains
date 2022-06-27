@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
+import 'package:pangains/Models/challenge_stats.dart';
 
 import '../../Widgets/dashboard_nav.dart';
 import '../../Widgets/leaderboard_widget.dart';
@@ -38,6 +40,13 @@ class LeaderboardScreen extends StatelessWidget {
           return "N/A";
       }
     }
+
+    listAllChallengeStats.sort(
+      (a, b) => a.challengeTotalReps.compareTo(b.challengeTotalReps),
+    );
+
+    List<ChallengeStats> reversedList =
+        new List.from(listAllChallengeStats.reversed);
 
     return Scaffold(
       backgroundColor: Color(0xff222831),
@@ -100,36 +109,16 @@ class LeaderboardScreen extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 16),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 16),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
               Container(
                 margin: EdgeInsets.only(top: 16),
                 child: Text(
-                  "Body Weight Pushups",
+                  listAllChallenges
+                      .firstWhere((element) =>
+                          element.challengesID ==
+                          listOfAllLeaderboard[0].challengesID)
+                      .challengeName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 36,
@@ -150,45 +139,14 @@ class LeaderboardScreen extends StatelessWidget {
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(bottom: 20),
                 child: Text(
-                  "240,368",
+                  listOfAllLeaderboard[0].totalParticipants.toString(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 36,
                       fontWeight: FontWeight.bold),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 16),
-                    child: Text(
-                      "All",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 16),
-                    child: Switch(
-                      onChanged: (swi) {},
-                      value: true,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 16),
-                    child: Text(
-                      "Following",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,11 +171,11 @@ class LeaderboardScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              LeaderboardWidget(),
-              LeaderboardWidget(),
-              LeaderboardWidget(),
-              LeaderboardWidget(),
-              LeaderboardWidget(),
+              for (int i = 0; i < reversedList.length; i++)
+                LeaderboardWidget(i, reversedList[i].AccountID),
+              Container(
+                height: 20,
+              ),
             ],
           ),
         ),

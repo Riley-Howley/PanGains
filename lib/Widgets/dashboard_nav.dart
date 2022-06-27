@@ -44,6 +44,9 @@ class DashboadNav extends StatelessWidget {
             width: 100,
             child: TextButton(
               onPressed: () async {
+                await getEveryAccount();
+                await getAllLeaderboards();
+                await getAllChallengeStats();
                 await getAllExercises();
                 await getSpecificFolders(listSpecificAccount[0].accountID);
                 Navigator.popAndPushNamed(context, "/workouts");
@@ -81,7 +84,11 @@ class DashboadNav extends StatelessWidget {
           Container(
             width: 130,
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
+                await getEveryAccount();
+                await getAllLeaderboards();
+                await getAllChallengeStats();
+
                 Navigator.popAndPushNamed(context, "/leaderboard");
               },
               child: Text(

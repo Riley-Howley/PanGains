@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:pangains/Models/challenge.dart';
+
 import '../Models/AccountRoutine.dart';
 import '../Models/account.dart';
 import '../Models/days_worked_out.dart';
@@ -78,6 +80,46 @@ Future getAllAccount() async {
     }
   }
   print(listAllAccounts);
+}
+
+List<Account> listEveryAccount = [];
+
+Future getEveryAccount() async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+
+  HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Accounts"));
+  request.headers.add("Authorization", "Bearer " + jwt);
+  HttpClientResponse result = await request.close();
+  if (result.statusCode == 200) {
+    List<dynamic> jsonData =
+        jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
+    if (listEveryAccount.isNotEmpty) {
+      listEveryAccount.clear();
+    }
+    for (var json in jsonData) {
+      listEveryAccount.add(
+        new Account(
+          json["accountID"],
+          json["firstname"],
+          json["lastname"],
+          json["email"],
+          json["password"],
+          json["title"] == null ? "NO TITLE" : json["title"],
+          json["profilePicture"] == null
+              ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
+              : json["profilePicture"],
+          json["description"],
+          json["private"],
+          json["notifications"],
+          json["averageChallengePos"],
+          json["type"] == null ? "NO TYPE" : json["type"],
+        ),
+      );
+    }
+  }
+  print(listEveryAccount);
 }
 
 Future getSpecificAccount(String email) async {
@@ -1109,70 +1151,62 @@ Future getAllLeaderboards() async {
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
-    List<dynamic> jsonData =
+    Map<String, dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
     if (listOfAllLeaderboard.isNotEmpty) {
       listOfAllLeaderboard.clear();
-      for (var i in jsonData) {
-        listOfAllLeaderboard.add(
-          new LeaderBoard(
-            i['leaderboardID'],
-            i['leaderboardDate'],
-            i['totalParticipants'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listOfAllLeaderboard.add(
-          new LeaderBoard(
-            i['leaderboardID'],
-            i['leaderboardDate'],
-            i['totalParticipants'],
-          ),
-        );
-      }
     }
+
+    listOfAllLeaderboard.add(
+      new LeaderBoard(
+        jsonData['leaderboardID'],
+        jsonData['challengesID'],
+        jsonData['leaderboardDate'],
+        jsonData['totalParticipants'],
+      ),
+    );
   }
+
   print(listOfAllLeaderboard);
 }
 
-Future getSpecificLeaderboard(String date) async {
-  client.badCertificateCallback =
-      ((X509Certificate cert, String host, int port) => true);
-  HttpClientRequest request =
-      await client.getUrl(Uri.parse("$ip/Leaderboards/$date"));
-  request.headers.add("Authorization", "Bearer " + jwt);
-  HttpClientResponse result = await request.close();
-  if (result.statusCode == 200) {
-    Map<String, dynamic> jsonData =
-        jsonDecode(await result.transform(utf8.decoder).join());
-    if (listSpecificLeaderboard.isNotEmpty) {
-      listSpecificLeaderboard.clear();
-      listSpecificLeaderboard.add(
-        new LeaderBoard(
-          jsonData['leaderboardID'],
-          jsonData['leaderboardDate'],
-          jsonData['totalParticipants'],
-        ),
-      );
-    } else {
-      listSpecificLeaderboard.add(
-        new LeaderBoard(
-          jsonData['leaderboardID'],
-          jsonData['leaderboardDate'],
-          jsonData['totalParticipants'],
-        ),
-      );
-    }
-  }
-  print(listSpecificLeaderboard);
-}
+// Future getSpecificLeaderboard(String date) async {
+//   client.badCertificateCallback =
+//       ((X509Certificate cert, String host, int port) => true);
+//   HttpClientRequest request =
+//       await client.getUrl(Uri.parse("$ip/Leaderboards/$date"));
+//   request.headers.add("Authorization", "Bearer " + jwt);
+//   HttpClientResponse result = await request.close();
+//   if (result.statusCode == 200) {
+//     Map<String, dynamic> jsonData =
+//         jsonDecode(await result.transform(utf8.decoder).join());
+//     if (listSpecificLeaderboard.isNotEmpty) {
+//       listSpecificLeaderboard.clear();
+//       listSpecificLeaderboard.add(
+//         new LeaderBoard(
+//           jsonData['leaderboardID'],
+//           jsonData['leaderboardDate'],
+//           jsonData['totalParticipants'],
+//         ),
+//       );
+//     } else {
+//       listSpecificLeaderboard.add(
+//         new LeaderBoard(
+//           jsonData['leaderboardID'],
+//           jsonData['leaderboardDate'],
+//           jsonData['totalParticipants'],
+//         ),
+//       );
+//     }
+//   }
+//   print(listSpecificLeaderboard);
+// }
 
-Future postNewLeaderboard(
-    int leaderboardID, DateTime leaderboardDate, int totalParticipants) async {
+Future postNewLeaderboard(int leaderboardID, int challengesID,
+    DateTime leaderboardDate, int totalParticipants) async {
   Map<String, dynamic> map = {
     "leaderboardID": 0,
+    "challengesID": challengesID,
     "leaderboardDate": "$leaderboardDate",
     "totalParticipants": totalParticipants
   };
@@ -1198,10 +1232,11 @@ Future deleteSpecificLeaderboard(int leaderboardID) async {
   print(result.statusCode);
 }
 
-Future updateSpecificLeaderboard(
-    int leaderboardID, leaderboardDate, totalParticipants) async {
+Future updateSpecificLeaderboard(int leaderboardID, int challengesID,
+    leaderboardDate, totalParticipants) async {
   Map<String, dynamic> map = {
     "leaderboardID": leaderboardID,
+    "challengesID": challengesID,
     "leaderboardDate": "$leaderboardDate",
     "totalParticipants": totalParticipants
   };
@@ -1228,35 +1263,25 @@ Future getAllChallengeStats() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
   HttpClientRequest request =
-      await client.putUrl(Uri.parse("$ip/ChallengeStats"));
+      await client.getUrl(Uri.parse("$ip/ChallengeStats"));
   request.headers.add("Authorization", "Bearer " + jwt);
   HttpClientResponse result = await request.close();
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
     if (listAllChallengeStats.isNotEmpty) {
       listAllChallengeStats.clear();
-      for (var i in jsonData) {
-        listAllChallengeStats.add(
-          new ChallengeStats(
-            i['ChallengeStatsID'],
-            i['AccountID'],
-            i['LeaderBoardID'],
-            i['challengeTotalReps'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listAllChallengeStats.add(
-          new ChallengeStats(
-            i['ChallengeStatsID'],
-            i['AccountID'],
-            i['LeaderBoardID'],
-            i['challengeTotalReps'],
-          ),
-        );
-      }
+    }
+    for (var i in jsonData) {
+      listAllChallengeStats.add(
+        new ChallengeStats(
+          i['challengeStatsID'],
+          i['accountID'],
+          i['leaderboardID'],
+          i['challengeTotalReps'],
+        ),
+      );
     }
   }
   print(listAllChallengeStats);
@@ -1365,31 +1390,18 @@ Future getAllCompletedWorkouts() async {
         jsonDecode(await result.transform(utf8.decoder).join());
     if (listAllCompletedWorkouts.isNotEmpty) {
       listAllCompletedWorkouts.clear();
-      for (var i in jsonData) {
-        listAllCompletedWorkouts.add(
-          new CompletedWorkout(
-            i['CompletedWorkoutID'],
-            i['AccountID'],
-            i['RoutineID'],
-            i['date'],
-            i['duration'],
-            i['totalWeightLifted'],
-          ),
-        );
-      }
-    } else {
-      for (var i in jsonData) {
-        listAllCompletedWorkouts.add(
-          new CompletedWorkout(
-            i['CompletedWorkoutID'],
-            i['AccountID'],
-            i['RoutineID'],
-            i['date'],
-            i['duration'],
-            i['totalWeightLifted'],
-          ),
-        );
-      }
+    }
+    for (var i in jsonData) {
+      listAllCompletedWorkouts.add(
+        new CompletedWorkout(
+          i['CompletedWorkoutID'],
+          i['AccountID'],
+          i['RoutineID'],
+          i['date'],
+          i['duration'],
+          i['totalWeightLifted'],
+        ),
+      );
     }
   }
   print(listAllCompletedWorkouts);
@@ -1697,4 +1709,34 @@ Future deleteSocialMedia(int yourID, int theirID) async {
       .deleteUrl(Uri.parse("$ip/Socials/$yourID?followingID=$theirID"));
   HttpClientResponse response = await request.close();
   print(response.statusCode);
+}
+
+//==============================================================================
+//                  Challenges Method
+//==============================================================================
+
+List<Challenge> listAllChallenges = [];
+
+Future getAllChallenges() async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+  HttpClientRequest request = await client.getUrl(Uri.parse("$ip/Challenges"));
+  request.headers.add("Authorization", "Bearer " + jwt);
+  HttpClientResponse result = await request.close();
+  if (result.statusCode == 200) {
+    List<dynamic> jsonData =
+        jsonDecode(await result.transform(utf8.decoder).join());
+    if (listAllChallenges.isNotEmpty) {
+      listAllChallenges.clear();
+    }
+    for (var i in jsonData) {
+      listAllChallenges.add(
+        new Challenge(
+          i['challengesID'],
+          i['challengeName'],
+        ),
+      );
+    }
+  }
+  print(listAllChallenges);
 }
