@@ -4,9 +4,9 @@ import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Auth%20Screens/upload_image.dart';
 import 'package:pangains/Screens/T&CS/t&cs_screen.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({Key? key}) : super(key: key);
   static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -14,6 +14,7 @@ class SignupScreen extends StatelessWidget {
     var lname = TextEditingController();
     var email = TextEditingController();
     var password = TextEditingController();
+
     const snackBar = SnackBar(
       content: Text(
         'Error, Register Failed',
@@ -284,19 +285,35 @@ class SignupScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            await Register(fname.text, lname.text, email.text,
-                                password.text);
+                            final key = encrypt.Key.fromUtf8(
+                                'Mv49V7r3xjO8gt3lH6sk6HBpwNchpetn');
+                            final iv = encrypt.IV.fromLength(16);
+
+                            final encrypter =
+                                encrypt.Encrypter(encrypt.AES(key));
+
+                            final encrypted =
+                                encrypter.encrypt(password.text, iv: iv);
+                            final decrypted =
+                                encrypter.decrypt(encrypted, iv: iv);
+
+                            print(
+                                decrypted); // Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                            print(encrypted
+                                .base64); // R4PxiU3h8YoIRqVowBXm36ZcCeNeZ4s
+                            // await Register(fname.text, lname.text, email.text,
+                            //     password.text);
                           }
-                          if (code != 200) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } else if (code == 200) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => UploadImageScreen(),
-                              ),
-                            );
-                          }
+                          // if (code != 200) {
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(snackBar);
+                          // } else if (code == 200) {
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(
+                          //       builder: (context) => UploadImageScreen(),
+                          //     ),
+                          //   );
+                          // }
                         },
                         child: Text("Sign Up"),
                       ),

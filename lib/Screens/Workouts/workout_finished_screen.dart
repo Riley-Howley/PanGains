@@ -21,27 +21,27 @@ class WorkoutFinishScreen extends StatelessWidget {
     var repCount = 0;
     getSpecificYourExercise(routineId);
     getSpecificAllDaysWorkedOut(listSpecificAccount[0].accountID);
-    if (getExerciseName(listAllExercises.firstWhere((element) => element.id == listAllChallengeStats[0].``)) ==
-          listAllChallenges
-              .firstWhere((element) =>
-                  element.challengesID == listOfAllLeaderboard[0].challengesID)
-              .challengeName) {
-        updateSpecificChallengeStat(
-            listAllChallengeStats
-                .firstWhere((element) =>
-                    element.AccountID == listSpecificAccount[0].accountID)
-                .ChallengeStatsID,
-            listSpecificAccount[0].accountID,
-            listAllChallengeStats
-                .firstWhere((element) =>
-                    element.AccountID == listSpecificAccount[0].accountID)
-                .LeaderBoardID,
-            listAllChallengeStats
-                    .firstWhere((element) =>
-                        element.AccountID == listSpecificAccount[0].accountID)
-                    .challengeTotalReps +
-                repCount);
-      }
+    // if (getExerciseName(listAllExercises.firstWhere((element) => element.id == listAllChallengeStats[0].``)) ==
+    //       listAllChallenges
+    //           .firstWhere((element) =>
+    //               element.challengesID == listOfAllLeaderboard[0].challengesID)
+    //           .challengeName) {
+    //     updateSpecificChallengeStat(
+    //         listAllChallengeStats
+    //             .firstWhere((element) =>
+    //                 element.AccountID == listSpecificAccount[0].accountID)
+    //             .ChallengeStatsID,
+    //         listSpecificAccount[0].accountID,
+    //         listAllChallengeStats
+    //             .firstWhere((element) =>
+    //                 element.AccountID == listSpecificAccount[0].accountID)
+    //             .LeaderBoardID,
+    //         listAllChallengeStats
+    //                 .firstWhere((element) =>
+    //                     element.AccountID == listSpecificAccount[0].accountID)
+    //                 .challengeTotalReps +
+    //             repCount);
+    //   }
     for (var i in listAllSpecificYourExercises) {
       // for (var s in finishedSets) {
       //   // postNewSet(i.YourExerciseID, s.id, "", "", s.kg, s.rep);
