@@ -4,10 +4,11 @@ import 'package:pangains/Models/folder.dart';
 import '../Http/requests.dart';
 
 class FolderWidget extends StatefulWidget {
+  int folderID;
   String folderName;
   int likes;
 
-  FolderWidget(this.folderName, this.likes);
+  FolderWidget(this.folderID, this.folderName, this.likes);
 
   @override
   State<FolderWidget> createState() => _FolderState();
@@ -33,15 +34,19 @@ class _FolderState extends State<FolderWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.folderName,
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
+                Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.folderName,
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

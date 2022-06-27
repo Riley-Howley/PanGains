@@ -356,6 +356,7 @@ class _PublicAccountScreenState extends State<PublicAccountScreen> {
                       child: ListView.builder(
                         itemBuilder: (context, index) {
                           return FolderWidget(
+                              listSpecificAllFolders[index].FolderID,
                               listSpecificAllFolders[index].FolderName,
                               listSpecificAllFolders[index].FolderLikes);
                         },

@@ -141,10 +141,12 @@ class WorkOutScreen extends StatelessWidget {
                                 builder: (context) =>
                                     DisplayAccountRoutinesScreen(
                                         listSpecificAllFolders[index]
-                                            .FolderName),
+                                            .FolderName,
+                                        listSpecificAllFolders[index].FolderID),
                               ));
                             },
                             child: FolderWidget(
+                                listSpecificAllFolders[index].FolderID,
                                 listSpecificAllFolders[index].FolderName,
                                 listSpecificAllFolders[index].FolderLikes),
                           );

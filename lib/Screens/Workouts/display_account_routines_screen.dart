@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Models/exercise.dart';
@@ -5,10 +7,18 @@ import 'package:pangains/Widgets/account_routine_widget.dart';
 
 import 'populated_workout_screen.dart';
 
-class DisplayAccountRoutinesScreen extends StatelessWidget {
+class DisplayAccountRoutinesScreen extends StatefulWidget {
   String name;
-  DisplayAccountRoutinesScreen(this.name);
+  int folderID;
+  DisplayAccountRoutinesScreen(this.name, this.folderID);
 
+  @override
+  State<DisplayAccountRoutinesScreen> createState() =>
+      _DisplayAccountRoutinesScreenState();
+}
+
+class _DisplayAccountRoutinesScreenState
+    extends State<DisplayAccountRoutinesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,19 +37,38 @@ class DisplayAccountRoutinesScreen extends StatelessWidget {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                width: 200,
-                child: Text(
-                  "${name} Folder",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 36,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 200,
+                    child: Text(
+                      "${widget.name} Folder",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 36,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                IconButton(
+                  onPressed: () async {
+                    await DeleteFolder(widget.folderID);
+                    for (var i in listSpecificRoutine) {
+                      await deleteSpecificRoutine(i.routineID);
+                    }
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                    size: 40,
+                  ),
+                ),
+              ],
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -61,6 +90,11 @@ class DisplayAccountRoutinesScreen extends StatelessWidget {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return GestureDetector(
+                    onLongPress: () async {
+                      await deleteSpecificRoutine(
+                          listSpecificRoutine[index].routineID);
+                      Navigator.pop(context);
+                    },
                     onTap: () {
                       listExercises.clear();
                       for (var i in listSpecificRoutine[index].exercises) {
