@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Workouts/populated_workout_screen.dart';
 
+import '../../Models/workouts_perweek.dart';
+
 class WorkoutFinishScreen extends StatelessWidget {
   String workoutTime;
   int routineId;
@@ -17,20 +19,40 @@ class WorkoutFinishScreen extends StatelessWidget {
     var kgCount = 0;
     var repCount = 0;
     getSpecificYourExercise(routineId);
+    getSpecificAllDaysWorkedOut(listSpecificAccount[0].accountID);
     for (var i in listAllSpecificYourExercises) {
       for (var s in finishedSets) {
         // postNewSet(i.YourExerciseID, s.id, "", "", s.kg, s.rep);
       }
     }
+    var hour = workoutTime.split(":");
+    var formatHour = hour[0].split("")[1];
 
     for (var i in finishedSets) {
       kgCount += i.kg;
       repCount += i.rep;
     }
-    print("New Completed Workout");
-    print(routineId);
+    if (int.parse(formatHour) <= 0) {
+      print("Not Valid Hour");
+    } else {
+      var id = listSpecificDaysWorkedOut
+          .firstWhere((e) => e.day == getDay(DateTime.now().weekday));
+      updateDaysWorkedOut(id.DaysWorkedOutID, listSpecificAccount[0].accountID,
+          getDay(DateTime.now().weekday), id.hours + int.parse(formatHour));
+    }
     postNewCompletedWorkout(listSpecificAccount[0].accountID, routineId,
         DateTime.now().toString(), workoutTime, kgCount);
+
+    updateStatistics(
+        listSpecificStatistic[0].StatisticsID,
+        listSpecificAccount[0].accountID,
+        listSpecificStatistic[0].TotalWorkouts + 1,
+        listSpecificStatistic[0].AvgWorkoutTime + int.parse(formatHour),
+        listSpecificStatistic[0].TotalLifted + kgCount,
+        listSpecificStatistic[0].AvgReps + repCount,
+        listSpecificStatistic[0].AvgSets + listAllSets.length);
+
+    getSpecificStatistic(listSpecificAccount[0].accountID);
 
     return Scaffold(
       backgroundColor: Color(0xff222831),
@@ -192,5 +214,26 @@ class WorkoutFinishScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+getDay(int num) {
+  switch (num) {
+    case 1:
+      return "Mon";
+    case 2:
+      return "Tue";
+    case 3:
+      return "Wed";
+    case 4:
+      return "Thu";
+    case 5:
+      return "Fri";
+    case 6:
+      return "Sat";
+    case 7:
+      return "Sun";
+    default:
+      return "N/A";
   }
 }

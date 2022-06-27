@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../Http/requests.dart';
+import '../Models/workouts_perweek.dart';
+
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class DashboadNav extends StatelessWidget {
   const DashboadNav({
@@ -22,6 +25,13 @@ class DashboadNav extends StatelessWidget {
                 await getAllFollowersAccount(listSpecificAccount[0].accountID);
                 await getAllFollowingsAccount(listSpecificAccount[0].accountID);
                 await getSpecificStatistic(listSpecificAccount[0].accountID);
+                dataList.clear();
+                await getSpecificAllDaysWorkedOut(
+                    listSpecificAccount[0].accountID);
+                for (var i in listSpecificDaysWorkedOut) {
+                  dataList.add(WorkoutsPerWeek(i.day, i.hours,
+                      charts.ColorUtil.fromDartColor(Colors.blue)));
+                }
                 Navigator.popAndPushNamed(context, "/accounts");
               },
               child: Text(

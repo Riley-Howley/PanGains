@@ -322,7 +322,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                     Container(
                       margin: EdgeInsets.only(top: 16),
                       child: Text(
-                        "Hours worked out this week:",
+                        "Total Hours Worked Out",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Models/completed_workout_history.dart';
 import 'package:pangains/Models/set.dart';
+import 'package:pangains/Screens/Workouts/comunity_routines_screen.dart';
 import 'package:pangains/Screens/Workouts/display_account_routines_screen.dart';
 import 'package:pangains/Screens/Workouts/empty_workout_screen.dart';
 import 'package:pangains/Screens/Workouts/workout_history.dart';
@@ -88,7 +89,11 @@ class WorkOutScreen extends StatelessWidget {
                 height: 48,
                 child: ElevatedButton(
                   child: Text("Browse Community Routines"),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CommunityRoutineScreen(),
+                    ));
+                  },
                 ),
               ),
               Container(
