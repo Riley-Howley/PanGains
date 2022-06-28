@@ -60,11 +60,14 @@ class HomeScreen extends StatelessWidget {
         leadingWidth: 54,
         leading: Align(
           alignment: Alignment.centerRight,
-          child: IconBackground(
-            icon: Icons.search,
-            onTap: () {
-              print('TODO search');
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
             },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
           ),
         ),
         actions: [
@@ -121,14 +124,14 @@ class __BottomNavigationBarState extends State<_BottomNavigationBar> {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return Card(
-      color: (brightness == Brightness.light) ? Colors.transparent : null,
+      color: Colors.white,
       elevation: 0,
       margin: const EdgeInsets.all(0),
       child: SafeArea(
         top: false,
         bottom: true,
         child: Padding(
-          padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
+          padding: const EdgeInsets.only(top: 16, left: 8, right: 8, bottom: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -155,6 +158,7 @@ class __BottomNavigationBarState extends State<_BottomNavigationBar> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => const Dialog(
+                        backgroundColor: Color(0xff222831),
                         child: AspectRatio(
                           aspectRatio: 8 / 7,
                           child: ContactsPage(),

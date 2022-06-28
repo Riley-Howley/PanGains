@@ -34,7 +34,10 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
     if (title == "Personal Trainer") {
       icon = Icon(Icons.medical_services, size: 40, color: Colors.white);
     } else {
-      icon = Icon(Icons.workspace_premium);
+      icon = Icon(
+        Icons.workspace_premium,
+        color: Colors.blue,
+      );
     }
     return Scaffold(
       backgroundColor: Color(0xff222831),
@@ -302,7 +305,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 ),
                 title: Text(
                   listSpecificStatistic[0].AvgWorkoutTime.toString().isNotEmpty
-                      ? "${listSpecificStatistic[0].AvgWorkoutTime} Minutes AVG Workout Time"
+                      ? "${listSpecificStatistic[0].AvgWorkoutTime} Hours Workout Time"
                       : "NO WORKOUTS COMPLETED",
                   style: TextStyle(color: Colors.white),
                 ),

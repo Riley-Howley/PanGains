@@ -117,10 +117,10 @@ class _MessageTile extends StatelessWidget {
                         Helpers.getChannelName(channel, context.currentUser!),
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          letterSpacing: 0.2,
-                          wordSpacing: 1.5,
-                          fontWeight: FontWeight.w900,
-                        ),
+                            letterSpacing: 0.2,
+                            wordSpacing: 1.5,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white),
                       ),
                     ),
                     SizedBox(

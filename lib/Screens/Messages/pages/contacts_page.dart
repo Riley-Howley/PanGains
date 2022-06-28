@@ -70,7 +70,10 @@ class _ContactTile extends StatelessWidget {
       },
       child: ListTile(
         leading: Avatar.small(url: user.image),
-        title: Text(user.name),
+        title: Text(
+          user.name,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

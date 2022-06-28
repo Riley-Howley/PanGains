@@ -5,11 +5,14 @@ import 'package:pangains/Screens/Auth%20Screens/signup_screen.dart';
 import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import '../../Models/completed_workout_history.dart';
 import '../../Models/workouts_perweek.dart';
 
 class SignInScreen extends StatelessWidget {
+  final StreamChatClient client;
+  SignInScreen(this.client);
   static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
@@ -42,7 +45,7 @@ class SignInScreen extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SignupScreen(),
+                  builder: (context) => SignupScreen(client),
                 ));
               },
               child: Text(
@@ -166,6 +169,7 @@ class SignInScreen extends StatelessWidget {
                       ],
                     ),
                     TextFormField(
+                      obscureText: true,
                       controller: passwordController,
                       decoration: InputDecoration(
                         hintText: "Enter your password",
@@ -178,9 +182,22 @@ class SignInScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            final key = encrypt.Key.fromUtf8(
+                                'Mv49V7r3xjO8gt3lH6sk6HBpwNchpetn');
+                            final iv = encrypt.IV.fromLength(16);
+
+                            final encrypter =
+                                encrypt.Encrypter(encrypt.AES(key));
+
+                            final encrypted = encrypter
+                                .encrypt(passwordController.text, iv: iv);
+                            final decrypted =
+                                encrypter.decrypt(encrypted, iv: iv);
+
+                            // R4P
                             //Login would go here but for the moment
                             //I am using just the specific get account
-                            await getSpecificAccount(emailController.text);
+                            await Login(emailController.text, encrypted.base64);
 
                             if (code != 200) {
                               ScaffoldMessenger.of(context)
@@ -204,6 +221,15 @@ class SignInScreen extends StatelessWidget {
                                   listSpecificAccount[0].accountID);
                               await getAllRoutines();
                               await getAllChallenges();
+
+                              await client.connectUser(
+                                  User(
+                                      id: '${listSpecificAccount[0].firstName}-${listSpecificAccount[0].lastName}',
+                                      extraData: {
+                                        "image":
+                                            '${listSpecificAccount[0].profilePicUrl}',
+                                      }),
+                                  "${listSpecificAccount[0].MessageToken}");
 
                               for (var i in listSpecificDaysWorkedOut) {
                                 dataList.add(WorkoutsPerWeek(

@@ -29,11 +29,7 @@ void main() async {
   // }
   //email == null || pass == null ? SplashScreen() :
   final client = StreamChatClient(streamKey);
-  await client.connectUser(
-      User(id: 'Theo-Mcmullien', extraData: {
-        "image": 'https://getstream.io/random_svg/?name=John',
-      }),
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiVGhlby1NY211bGxpZW4ifQ.8tw2qO1arRGD6VUyOJ1R5epHCLZHd-KGtzqUToZ0sUk");
+
   runApp(MyApp(client));
 }
 
@@ -43,6 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return StreamChatCore(
           client: client,
@@ -63,7 +60,7 @@ class MyApp extends StatelessWidget {
         '/community': (context) => CommunityScreen(),
         '/leaderboard': (context) => LeaderboardScreen(),
       },
-      home: SplashScreen(),
+      home: SplashScreen(client),
     );
   }
 }

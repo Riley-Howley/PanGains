@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Auth%20Screens/signup_screen.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  final StreamChatClient client;
+  SplashScreen(this.client);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class SplashScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SignInScreen(),
+                        builder: (context) => SignInScreen(client),
                       ));
                     },
                     child: Container(
@@ -54,7 +57,7 @@ class SplashScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SignupScreen(),
+                      builder: (context) => SignupScreen(client),
                     ));
                   },
                   child: Text("Sign Up"),

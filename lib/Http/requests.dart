@@ -17,7 +17,6 @@ import '../Models/challenge_stats.dart';
 import '../Models/completed_workout.dart';
 import '../Models/leaderboard.dart';
 import '../Models/set.dart';
-import '../Widgets/set_row.dart';
 
 HttpClient client = new HttpClient();
 
@@ -69,11 +68,14 @@ Future getAllAccount() async {
             json["profilePicture"] == null
                 ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
                 : json["profilePicture"],
-            json["description"],
+            json["description"] == null
+                ? "No Description"
+                : json["description"],
             json["private"],
             json["notifications"],
             json["averageChallengePos"],
             json["type"] == null ? "NO TYPE" : json["type"],
+            json["messageToken"],
           ),
         );
       }
@@ -110,11 +112,12 @@ Future getEveryAccount() async {
           json["profilePicture"] == null
               ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
               : json["profilePicture"],
-          json["description"],
+          json["description"] == null ? "No Description" : json["description"],
           json["private"],
           json["notifications"],
           json["averageChallengePos"],
           json["type"] == null ? "NO TYPE" : json["type"],
+          json["messageToken"],
         ),
       );
     }
@@ -149,11 +152,14 @@ Future getSpecificAccount(String email) async {
         jsonData["profilePicture"] == null
             ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
             : jsonData["profilePicture"],
-        jsonData["description"],
+        jsonData["description"] == null
+            ? "No Description"
+            : jsonData["description"],
         jsonData["private"],
         jsonData["notifications"],
         jsonData["averageChallengePos"],
         jsonData["type"] == null ? "NO TYPE" : jsonData["type"],
+        jsonData["messageToken"],
       ),
     );
   }
@@ -1585,11 +1591,12 @@ Future getAllFollowersAccount(int accountID) async {
           json["profilePicture"] == null
               ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
               : json["profilePicture"],
-          json["description"],
+          json["description"] == null ? "No Description" : json["description"],
           json["private"],
           json["notifications"],
           json["averageChallengePos"],
           json["type"] == null ? "NO TYPE" : json["type"],
+          json["messageToken"],
         ),
       );
     }
@@ -1631,11 +1638,12 @@ Future getAllFollowingsAccount(int accountID) async {
           json["profilePicture"] == null
               ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
               : json["profilePicture"],
-          json["description"],
+          json["description"] == null ? "No Description" : json["description"],
           json["private"],
           json["notifications"],
           json["averageChallengePos"],
           json["type"] == null ? "NO TYPE" : json["type"],
+          json["messageToken"],
         ),
       );
     }
@@ -1670,11 +1678,12 @@ Future getAllSignedInFollowingsAccount(int accountID) async {
           json["profilePicture"] == null
               ? "https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png"
               : json["profilePicture"],
-          json["description"],
+          json["description"] == null ? "No Description" : json["description"],
           json["private"],
           json["notifications"],
           json["averageChallengePos"],
           json["type"] == null ? "NO TYPE" : json["type"],
+          json["messageToken"],
         ),
       );
     }

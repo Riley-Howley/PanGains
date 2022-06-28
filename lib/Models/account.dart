@@ -11,6 +11,7 @@ class Account {
   bool notifications;
   int averageChallengePos;
   String type;
+  String MessageToken;
 
   Account(
     this.accountID,
@@ -25,5 +26,6 @@ class Account {
     this.notifications,
     this.averageChallengePos,
     this.type,
+    this.MessageToken,
   );
 }

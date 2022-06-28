@@ -70,9 +70,9 @@ class _ChatScreenState extends State<ChatScreen> {
           leadingWidth: 54,
           leading: Align(
             alignment: Alignment.centerRight,
-            child: IconBackground(
-              icon: CupertinoIcons.back,
-              onTap: () {
+            child: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
@@ -82,18 +82,18 @@ class _ChatScreenState extends State<ChatScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Center(
-                child: IconBorder(
-                  icon: CupertinoIcons.video_camera_solid,
-                  onTap: () {},
+                child: IconButton(
+                  icon: Icon(Icons.video_call, color: Colors.white),
+                  onPressed: () {},
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Center(
-                child: IconBorder(
-                  icon: CupertinoIcons.phone_solid,
-                  onTap: () {},
+                child: IconButton(
+                  icon: Icon(Icons.phone, color: Colors.white),
+                  onPressed: () {},
                 ),
               ),
             ),
@@ -615,9 +615,7 @@ class __ActionBarState extends State<_ActionBar> {
             ),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(
-                CupertinoIcons.camera_fill,
-              ),
+              child: Icon(CupertinoIcons.camera_fill, color: Colors.white),
             ),
           ),
           Expanded(
@@ -628,9 +626,10 @@ class __ActionBarState extends State<_ActionBar> {
                 onChanged: (val) {
                   StreamChannel.of(context).channel.keyStroke();
                 },
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14, color: Colors.white),
                 decoration: const InputDecoration(
                   hintText: 'Type something...',
+                  hintStyle: TextStyle(color: Colors.white),
                   border: InputBorder.none,
                 ),
                 onSubmitted: (_) => _sendMessage(),
@@ -643,7 +642,7 @@ class __ActionBarState extends State<_ActionBar> {
               right: 24.0,
             ),
             child: GlowingActionButton(
-              color: AppColors.accent,
+              color: Color.fromARGB(255, 7, 10, 171),
               icon: Icons.send_rounded,
               onPressed: _sendMessage,
             ),
