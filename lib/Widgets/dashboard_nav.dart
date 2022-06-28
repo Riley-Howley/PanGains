@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pangains/Screens/Messages/screens/home_screen.dart';
 
 import '../Http/requests.dart';
 import '../Models/workouts_perweek.dart';
@@ -61,7 +62,9 @@ class DashboadNav extends StatelessWidget {
             width: 110,
             child: TextButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, "");
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ));
               },
               child: Text(
                 "Messages",

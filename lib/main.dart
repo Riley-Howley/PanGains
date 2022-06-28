@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 import 'Functions/PopulateAccountFolders.dart';
 import 'Http/requests.dart';
@@ -8,6 +9,7 @@ import 'Screens/Community/community_screen.dart';
 import 'Screens/Community/public_account_screen.dart';
 import 'Screens/Dashboard/home_dashboard.dart';
 import 'Screens/LeaderBoard/leaderboard_screen.dart';
+import 'Screens/Messages/app.dart';
 import 'Screens/Workouts/populated_workout_screen.dart';
 import 'Screens/Workouts/workout_screen.dart';
 import 'Screens/splash_screen.dart';
@@ -26,90 +28,42 @@ void main() async {
   //   }
   // }
   //email == null || pass == null ? SplashScreen() :
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: SignInScreen(),
-    //make a nice login spinner screen to say auto logging in
-    theme: ThemeData(
-      colorScheme: ColorScheme(
-        primary: Color(0xff335Ef5),
-        onPrimary: Colors.white,
-        background: Colors.white,
-        onBackground: Colors.white,
-        secondary: Color(0xff335Ef5),
-        onSecondary: Colors.white,
-        error: Colors.white,
-        onError: Colors.white,
-        surface: Colors.white,
-        onSurface: Colors.black,
-        brightness: Brightness.light,
-      ),
-    ),
-    routes: {
-      '/accounts': (context) => HomeDashboardScreen(),
-      '/workouts': (context) => WorkOutScreen(),
-      '/community': (context) => CommunityScreen(),
-      '/leaderboard': (context) => LeaderboardScreen(),
-    },
-  ));
+  final client = StreamChatClient(streamKey);
+  await client.connectUser(
+      User(id: 'Theo-Mcmullien', extraData: {
+        "image": 'https://getstream.io/random_svg/?name=John',
+      }),
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiVGhlby1NY211bGxpZW4ifQ.8tw2qO1arRGD6VUyOJ1R5epHCLZHd-KGtzqUToZ0sUk");
+  runApp(MyApp(client));
 }
 
 class MyApp extends StatelessWidget {
+  final StreamChatClient client;
+  MyApp(this.client);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return StreamChatCore(
+          client: client,
+          child: ChannelsBloc(
+            child: UsersBloc(
+              child: child!,
+            ),
+          ),
+        );
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      routes: {
+        '/accounts': (context) => HomeDashboardScreen(),
+        '/workouts': (context) => WorkOutScreen(),
+        '/community': (context) => CommunityScreen(),
+        '/leaderboard': (context) => LeaderboardScreen(),
+      },
+      home: SplashScreen(),
     );
   }
 }
