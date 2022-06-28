@@ -14,6 +14,7 @@ import 'Screens/Workouts/populated_workout_screen.dart';
 import 'Screens/Workouts/workout_screen.dart';
 import 'Screens/splash_screen.dart';
 
+final clientMessage = StreamChatClient(streamKey);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -28,9 +29,8 @@ void main() async {
   //   }
   // }
   //email == null || pass == null ? SplashScreen() :
-  final client = StreamChatClient(streamKey);
 
-  runApp(MyApp(client));
+  runApp(MyApp(clientMessage));
 }
 
 class MyApp extends StatelessWidget {

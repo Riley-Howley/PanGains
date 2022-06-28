@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Messages/screens/home_screen.dart';
+import 'package:pangains/main.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 import '../Http/requests.dart';
 import '../Models/workouts_perweek.dart';
@@ -61,7 +63,7 @@ class DashboadNav extends StatelessWidget {
           Container(
             width: 110,
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => HomeScreen(),
                 ));

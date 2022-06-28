@@ -226,13 +226,15 @@ Future updateSpecificAccount(
     "lastname": "$lastname",
     "email": "$email",
     "password": "$password",
-    "Title": "$title",
-    "ProfilePicture": "$profilePicture",
-    "Description": "$description",
-    "Private": private,
-    "Notifications": notifications,
-    "AverageChallengePos": 1,
-    "Type": "$type",
+    "title": "$title",
+    "profilePicture": "$profilePicture",
+    "description": "$description",
+    "private": private,
+    "notifications": notifications,
+    "averageChallengePos": listSpecificAccount[0].averageChallengePos,
+    "type": "Standard",
+    "role": "Account",
+    "messageToken": listSpecificAccount[0].MessageToken,
   };
   print(map);
   client.badCertificateCallback =
@@ -1394,6 +1396,7 @@ Future getAllCompletedWorkouts() async {
   if (result.statusCode == 200) {
     List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
+    print(jsonData);
     if (listAllCompletedWorkouts.isNotEmpty) {
       listAllCompletedWorkouts.clear();
     }
@@ -1439,6 +1442,7 @@ Future getAllSpecificCompletedWorkouts(int accountID) async {
       );
     }
   }
+  print(listSpecificCompletedWorkouts);
 }
 
 Future postNewCompletedWorkout(int accountID, int routineID,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Messages/app.dart';
 import 'package:pangains/Screens/Messages/screens/profile_screen.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 import '../pages/calls_page.dart';
 import '../pages/contacts_page.dart';
@@ -61,7 +62,7 @@ class HomeScreen extends StatelessWidget {
         leading: Align(
           alignment: Alignment.centerRight,
           child: IconButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
             },
             icon: Icon(

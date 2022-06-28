@@ -9,6 +9,7 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import '../../Models/completed_workout_history.dart';
 import '../../Models/workouts_perweek.dart';
+import '../../main.dart';
 
 class SignInScreen extends StatelessWidget {
   final StreamChatClient client;
@@ -221,8 +222,10 @@ class SignInScreen extends StatelessWidget {
                                   listSpecificAccount[0].accountID);
                               await getAllRoutines();
                               await getAllChallenges();
-
-                              await client.connectUser(
+                              await StreamChatCore.of(context)
+                                  .client
+                                  .disconnectUser();
+                              await clientMessage.connectUser(
                                   User(
                                       id: '${listSpecificAccount[0].firstName}-${listSpecificAccount[0].lastName}',
                                       extraData: {
@@ -230,7 +233,6 @@ class SignInScreen extends StatelessWidget {
                                             '${listSpecificAccount[0].profilePicUrl}',
                                       }),
                                   "${listSpecificAccount[0].MessageToken}");
-
                               for (var i in listSpecificDaysWorkedOut) {
                                 dataList.add(WorkoutsPerWeek(
                                     i.day,

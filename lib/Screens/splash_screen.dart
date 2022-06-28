@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Auth%20Screens/signup_screen.dart';
+import 'package:pangains/Screens/Guest/guest_screen.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -63,14 +64,21 @@ class SplashScreen extends StatelessWidget {
                   child: Text("Sign Up"),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 32),
-                child: Text(
-                  "Continue As Guest",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => GuestScreen(client),
+                  ));
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 32),
+                  child: Text(
+                    "Continue As Guest",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ],

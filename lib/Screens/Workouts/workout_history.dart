@@ -43,108 +43,37 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                   ),
                 ],
               ),
-              home == false
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 16),
-                          child: TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  home == true;
-                                },
-                              );
-                            },
-                            child: Text(
-                              "Mine",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 16),
-                          child: TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  home == false;
-                                },
-                              );
-                            },
-                            child: Text(
-                              "Friends",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 16),
-                          child: TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  home == true;
-                                },
-                              );
-                            },
-                            child: Text(
-                              "Mine",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 16),
-                          child: TextButton(
-                            onPressed: () {
-                              setState(
-                                () {
-                                  home == false;
-                                },
-                              );
-                            },
-                            child: Text(
-                              "Friends",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-              Column(
-                children: [
-                  for (int i = 0; i < listHistory.length; i++)
-                    ExerciseTableWidget(
-                      listHistory[i],
-                    ),
-                  // listSpecificCompletedWorkouts[i] listAllRoutinesToBeSortedByRoutineID
-                  // ExerciseTableWidget(date, routineName, duration, totalKg, reps, exerciseName, setid, kg, rep);
-                ],
+              Container(
+                margin: EdgeInsets.only(top: 20),
               ),
+              for (var i in listSpecificCompletedWorkouts)
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                  ),
+                  margin: EdgeInsets.only(bottom: 40),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Routine Completed: ${getRoutineName(i.RoutineID)}",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Text(
+                        "Completed on ${i.date.split(" ")[0]}",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Text(
+                        "Duration ${i.duration} hours",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Text(
+                        "Total Lifted: ${i.totalWeightLifted}kg",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),

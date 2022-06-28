@@ -3,6 +3,8 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pangains/Http/requests.dart';
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Auth%20Screens/upload_image.dart';
+import 'package:pangains/Screens/Guest/guest_screen.dart';
+import 'package:pangains/Screens/Payment/payment_ui.dart';
 import 'package:pangains/Screens/T&CS/t&cs_screen.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,9 +16,9 @@ import '../Dashboard/home_dashboard.dart';
 class SignupScreen extends StatefulWidget {
   final StreamChatClient client;
   SignupScreen(this.client);
-  static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
+  static GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
@@ -369,68 +371,63 @@ class _SignupScreenState extends State<SignupScreen> {
                                 .base64); // R4PxiU3h8YoIRqVowBXm36ZcCeNeZ4s
                             await Register(fname.text, lname.text, email.text,
                                 encrypted.base64);
-                            if (code == 201) {
-                              await Login(email.text, encrypted.base64);
-                              if (code == 200) {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.setString('email', email.text);
-                                prefs.setString('pass', password.text);
-                                await getSpecificAccount(email.text);
-                                await getSpecificStatistic(
-                                    listSpecificAccount[0].accountID);
-                                await getSpecificAllDaysWorkedOut(
-                                    listSpecificAccount[0].accountID);
-                                await getAllFollowersAccount(
-                                    listSpecificAccount[0].accountID);
-                                await getAllFollowingsAccount(
-                                    listSpecificAccount[0].accountID);
-                                await getAllAccount();
-                                await getAllSignedInFollowingsAccount(
-                                    listSpecificAccount[0].accountID);
-                                await getAllRoutines();
-                                await getAllChallenges();
+                            await Login(email.text, encrypted.base64);
 
-                                await widget.client.connectUser(
-                                    User(
-                                        id: '${listSpecificAccount[0].firstName}-${listSpecificAccount[0].lastName}',
-                                        extraData: {
-                                          "image":
-                                              '${listSpecificAccount[0].profilePicUrl}',
-                                        }),
-                                    "${listSpecificAccount[0].MessageToken}");
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.setString('email', email.text);
+                            prefs.setString('pass', password.text);
+                            await getSpecificAccount(email.text);
+                            await getSpecificStatistic(
+                                listSpecificAccount[0].accountID);
+                            await getSpecificAllDaysWorkedOut(
+                                listSpecificAccount[0].accountID);
+                            await getAllFollowersAccount(
+                                listSpecificAccount[0].accountID);
+                            await getAllFollowingsAccount(
+                                listSpecificAccount[0].accountID);
+                            await getAllAccount();
+                            await getAllSignedInFollowingsAccount(
+                                listSpecificAccount[0].accountID);
+                            await getAllRoutines();
+                            await getAllChallenges();
 
-                                for (var i in listSpecificDaysWorkedOut) {
-                                  dataList.add(WorkoutsPerWeek(
-                                      i.day,
-                                      i.hours,
-                                      charts.ColorUtil.fromDartColor(
-                                          Colors.blue)));
-                                }
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeDashboardScreen(),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(loginBar);
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(registerBar);
+                            await widget.client.connectUser(
+                                User(
+                                    id: '${listSpecificAccount[0].firstName}-${listSpecificAccount[0].lastName}',
+                                    extraData: {
+                                      "image":
+                                          '${listSpecificAccount[0].profilePicUrl}',
+                                    }),
+                                "${listSpecificAccount[0].MessageToken}");
+
+                            for (var i in listSpecificDaysWorkedOut) {
+                              dataList.add(WorkoutsPerWeek(i.day, i.hours,
+                                  charts.ColorUtil.fromDartColor(Colors.blue)));
                             }
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PaymentUIScreen(),
+                              ),
+                            );
                           }
                         },
                         child: Text("Sign Up"),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 32, bottom: 50),
-                      child: Text(
-                        "Continue as guest",
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xff4f4f4f)),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => GuestScreen(widget.client),
+                        ));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 32, bottom: 50),
+                        child: Text(
+                          "Continue as guest",
+                          style:
+                              TextStyle(fontSize: 18, color: Color(0xff4f4f4f)),
+                        ),
                       ),
                     ),
                   ],

@@ -208,24 +208,24 @@ class WorkOutScreen extends StatelessWidget {
                   onPressed: () async {
                     await getAllSpecificCompletedWorkouts(
                         listSpecificAccount[0].accountID);
-                    for (var i in listSpecificCompletedWorkouts) {
-                      historyObj.date = i.date;
-                      historyObj.routineName = getRoutineName(i.RoutineID);
-                      historyObj.totalWorkoutTime = i.duration;
-                      historyObj.weightLifted = i.totalWeightLifted.toString();
-                      historyObj.workoutReps = 999.toString();
+                    // for (var i in listSpecificCompletedWorkouts) {
+                    //   historyObj.date = i.date;
+                    //   historyObj.routineName = getRoutineName(i.RoutineID);
+                    //   historyObj.totalWorkoutTime = i.duration;
+                    //   historyObj.weightLifted = i.totalWeightLifted.toString();
+                    //   historyObj.workoutReps = 999.toString();
 
-                      await getAllSpecificRoutinesForHistory(i.RoutineID);
-                      await getSpecificYourExercise(i.RoutineID);
-                    }
-                    for (var i in listAllSpecificYourExercises) {
-                      historyObj.exerciseName = getExerciseName(i.ExerciseID);
-                      await getSpecificSets(i.ExerciseID);
-                    }
-                    for (var i in listAllSpecificSets) {
-                      historyObj.sets.add(new Sets(i.SetID, i.YourExerciseID,
-                          i.SetRow, i.SetType, i.previous, i.kg, i.reps));
-                    }
+                    //   await getAllSpecificRoutinesForHistory(i.RoutineID);
+                    //   await getSpecificYourExercise(i.RoutineID);
+                    // }
+                    // for (var i in listAllSpecificYourExercises) {
+                    //   historyObj.exerciseName = getExerciseName(i.ExerciseID);
+                    //   await getSpecificSets(i.ExerciseID);
+                    // }
+                    // for (var i in listAllSpecificSets) {
+                    //   historyObj.sets.add(new Sets(i.SetID, i.YourExerciseID,
+                    //       i.SetRow, i.SetType, i.previous, i.kg, i.reps));
+                    // }
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => WorkoutHistoryScreen(),
