@@ -56,7 +56,7 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                   child: Column(
                     children: [
                       Text(
-                        "Routine Completed: ${getRoutineName(i.RoutineID)}",
+                        "Routine Completed: ${i.RoutineID}",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       Text(
@@ -73,7 +73,7 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
                       ),
                     ],
                   ),
-                ),
+                )
             ],
           ),
         ),
@@ -84,4 +84,10 @@ class _WorkoutHistoryScreenState extends State<WorkoutHistoryScreen> {
 
 String getExerciseName(int id) {
   return listAllExercises.firstWhere((e) => e.id == id).ExerciseName;
+}
+
+String getRoutineName(int routineID) {
+  return listAllRoutines
+      .firstWhere((element) => element.RoutineID == routineID)
+      .RoutineName;
 }

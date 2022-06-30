@@ -10,14 +10,11 @@ import 'package:pangains/Widgets/folder_widget.dart';
 
 import '../../Widgets/dashboard_nav.dart';
 
-List<CompletedWorkoutHistory> listHistory = [];
-
 class WorkOutScreen extends StatelessWidget {
   const WorkOutScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var historyObj = CompletedWorkoutHistory("", "", "", "", "", "", []);
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: Padding(
@@ -137,6 +134,8 @@ class WorkOutScreen extends StatelessWidget {
                             onTap: () async {
                               await getSpecificRoutine(
                                   listSpecificAllFolders[index].FolderID);
+                              await getAllSpecificCompletedWorkouts(
+                                  listSpecificAccount[0].accountID);
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
                                     DisplayAccountRoutinesScreen(
@@ -153,29 +152,6 @@ class WorkOutScreen extends StatelessWidget {
                         },
                         itemCount: listSpecificAllFolders.length,
                       )),
-              listSpecificAllFolders.isEmpty
-                  ? Container(
-                      margin: EdgeInsets.only(
-                        top: 24,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      height: 48,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text("Create Folder"),
-                      ),
-                    )
-                  : Container(
-                      margin: EdgeInsets.only(
-                        top: 24,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      height: 48,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text("View Your Folders"),
-                      ),
-                    ),
               Row(
                 children: [
                   Container(
@@ -208,16 +184,6 @@ class WorkOutScreen extends StatelessWidget {
                   onPressed: () async {
                     await getAllSpecificCompletedWorkouts(
                         listSpecificAccount[0].accountID);
-                    for (var i in listSpecificCompletedWorkouts) {
-                      //   historyObj.date = i.date;
-                      //   historyObj.routineName = getRoutineName(i.RoutineID);
-                      //   historyObj.totalWorkoutTime = i.duration;
-                      //   historyObj.weightLifted = i.totalWeightLifted.toString();
-                      //   historyObj.workoutReps = 999.toString();
-
-                      await getAllSpecificRoutinesForHistory(i.RoutineID);
-                      //   await getSpecificYourExercise(i.RoutineID);
-                    }
                     // for (var i in listAllSpecificYourExercises) {
                     //   historyObj.exerciseName = getExerciseName(i.ExerciseID);
                     //   await getSpecificSets(i.ExerciseID);
@@ -241,10 +207,4 @@ class WorkOutScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-String getRoutineName(int routineID) {
-  return listAllRoutines
-      .firstWhere((element) => element.RoutineID == routineID)
-      .RoutineName;
 }

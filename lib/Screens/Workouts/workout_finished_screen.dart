@@ -21,32 +21,7 @@ class WorkoutFinishScreen extends StatelessWidget {
     var repCount = 0;
     getSpecificYourExercise(routineId);
     getSpecificAllDaysWorkedOut(listSpecificAccount[0].accountID);
-    // if (getExerciseName(listAllExercises.firstWhere((element) => element.id == listAllChallengeStats[0].``)) ==
-    //       listAllChallenges
-    //           .firstWhere((element) =>
-    //               element.challengesID == listOfAllLeaderboard[0].challengesID)
-    //           .challengeName) {
-    //     updateSpecificChallengeStat(
-    //         listAllChallengeStats
-    //             .firstWhere((element) =>
-    //                 element.AccountID == listSpecificAccount[0].accountID)
-    //             .ChallengeStatsID,
-    //         listSpecificAccount[0].accountID,
-    //         listAllChallengeStats
-    //             .firstWhere((element) =>
-    //                 element.AccountID == listSpecificAccount[0].accountID)
-    //             .LeaderBoardID,
-    //         listAllChallengeStats
-    //                 .firstWhere((element) =>
-    //                     element.AccountID == listSpecificAccount[0].accountID)
-    //                 .challengeTotalReps +
-    //             repCount);
-    //   }
-    for (var i in listAllSpecificYourExercises) {
-      // for (var s in finishedSets) {
-      //   // postNewSet(i.YourExerciseID, s.id, "", "", s.kg, s.rep);
-      // }
-    }
+
     var hour = workoutTime.split(":");
     var formatHour = hour[0].split("")[1];
 
@@ -62,12 +37,6 @@ class WorkoutFinishScreen extends StatelessWidget {
       updateDaysWorkedOut(id.DaysWorkedOutID, listSpecificAccount[0].accountID,
           getDay(DateTime.now().weekday), id.hours + int.parse(formatHour));
     }
-    if (routineId == 0) {
-      print("Invalid");
-    } else {
-      postNewCompletedWorkout(listSpecificAccount[0].accountID, routineId,
-          DateTime.now().toString(), workoutTime, kgCount);
-    }
 
     updateStatistics(
         listSpecificStatistic[0].StatisticsID,
@@ -79,6 +48,13 @@ class WorkoutFinishScreen extends StatelessWidget {
         listSpecificStatistic[0].AvgSets + listAllSets.length);
 
     getSpecificStatistic(listSpecificAccount[0].accountID);
+
+    if (routineId == 0) {
+      print("Invalid");
+    } else {
+      postNewCompletedWorkout(listSpecificAccount[0].accountID, routineId,
+          DateTime.now().toString(), workoutTime, kgCount);
+    }
 
     return Scaffold(
       backgroundColor: Color(0xff222831),

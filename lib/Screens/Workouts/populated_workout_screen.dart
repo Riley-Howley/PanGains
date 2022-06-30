@@ -309,6 +309,8 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                                       .routineID,
                                   i.id);
                             }
+                            getSpecificFolders(
+                                listSpecificAccount[0].accountID);
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                               builder: (context) => WorkoutFinishScreen(

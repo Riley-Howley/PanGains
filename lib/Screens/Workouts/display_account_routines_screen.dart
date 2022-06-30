@@ -57,6 +57,11 @@ class _DisplayAccountRoutinesScreenState
                     await DeleteFolder(widget.folderID);
                     for (var i in listSpecificRoutine) {
                       await deleteSpecificRoutine(i.routineID);
+                      await deleteSpecificCompletedWorkout(
+                          listSpecificCompletedWorkouts
+                              .firstWhere(
+                                  (element) => element.RoutineID == i.routineID)
+                              .CompletedWorkoutID);
                     }
                     Navigator.pop(context);
                   },
@@ -91,6 +96,12 @@ class _DisplayAccountRoutinesScreenState
                     onLongPress: () async {
                       await deleteSpecificRoutine(
                           listSpecificRoutine[index].routineID);
+                      await deleteSpecificCompletedWorkout(
+                          listAllCompletedWorkouts
+                              .firstWhere((element) =>
+                                  element.RoutineID ==
+                                  listSpecificRoutine[index].routineID)
+                              .CompletedWorkoutID);
                       Navigator.pop(context);
                     },
                     onTap: () {
