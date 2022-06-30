@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Payment/payment_card.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 class PaymentUIScreen extends StatelessWidget {
-  const PaymentUIScreen({Key? key}) : super(key: key);
+  final StreamChatClient client;
+  PaymentUIScreen(this.client);
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +153,7 @@ class PaymentUIScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => PaymentCardScreen(),
+                    builder: (context) => PaymentCardScreen(client),
                   ));
                 },
                 child: Text("Subscribe Anually"),

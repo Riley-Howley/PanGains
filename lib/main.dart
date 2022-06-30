@@ -14,10 +14,12 @@ import 'Screens/Workouts/populated_workout_screen.dart';
 import 'Screens/Workouts/workout_screen.dart';
 import 'Screens/splash_screen.dart';
 
-final clientMessage = StreamChatClient(streamKey);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  final client = StreamChatClient(streamKey);
+  // final channel = client.channel('messaging', id: 'pangains');
+
   // var email = prefs.getString('email');
   // var pass = prefs.getString('pass');
 
@@ -30,7 +32,7 @@ void main() async {
   // }
   //email == null || pass == null ? SplashScreen() :
 
-  runApp(MyApp(clientMessage));
+  runApp(MyApp(client));
 }
 
 class MyApp extends StatelessWidget {
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/accounts': (context) => HomeDashboardScreen(),
+        '/accounts': (context) => HomeDashboardScreen(client),
         '/workouts': (context) => WorkOutScreen(),
         '/community': (context) => CommunityScreen(),
         '/leaderboard': (context) => LeaderboardScreen(),

@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: IconButton(
             onPressed: () async {
+              // await StreamChatCore.of(context).client.disconnectUser();
               Navigator.pop(context);
             },
             icon: Icon(

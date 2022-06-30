@@ -391,7 +391,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                 listSpecificAccount[0].accountID);
                             await getAllRoutines();
                             await getAllChallenges();
-
+                            await StreamChatCore.of(context)
+                                .client
+                                .disconnectUser();
                             await widget.client.connectUser(
                                 User(
                                     id: '${listSpecificAccount[0].firstName}-${listSpecificAccount[0].lastName}',
@@ -407,7 +409,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             }
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => PaymentUIScreen(),
+                                builder: (context) =>
+                                    PaymentUIScreen(widget.client),
                               ),
                             );
                           }

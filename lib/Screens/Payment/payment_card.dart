@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/main.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 import '../Dashboard/home_dashboard.dart';
 
 class PaymentCardScreen extends StatelessWidget {
-  const PaymentCardScreen({Key? key}) : super(key: key);
+  final StreamChatClient client;
+  PaymentCardScreen(this.client);
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +128,7 @@ class PaymentCardScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HomeDashboardScreen(),
+                    builder: (context) => HomeDashboardScreen(client),
                   ));
                 },
                 child: Text("Subscribe"),

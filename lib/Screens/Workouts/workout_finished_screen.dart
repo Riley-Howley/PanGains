@@ -62,8 +62,12 @@ class WorkoutFinishScreen extends StatelessWidget {
       updateDaysWorkedOut(id.DaysWorkedOutID, listSpecificAccount[0].accountID,
           getDay(DateTime.now().weekday), id.hours + int.parse(formatHour));
     }
-    postNewCompletedWorkout(listSpecificAccount[0].accountID, routineId,
-        DateTime.now().toString(), workoutTime, kgCount);
+    if (routineId == 0) {
+      print("Invalid");
+    } else {
+      postNewCompletedWorkout(listSpecificAccount[0].accountID, routineId,
+          DateTime.now().toString(), workoutTime, kgCount);
+    }
 
     updateStatistics(
         listSpecificStatistic[0].StatisticsID,

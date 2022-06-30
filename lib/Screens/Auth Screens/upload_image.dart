@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pangains/Screens/Dashboard/home_dashboard.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 class UploadImageScreen extends StatelessWidget {
-  const UploadImageScreen({Key? key}) : super(key: key);
+  final StreamChatClient client;
+  UploadImageScreen(this.client);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class UploadImageScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => HomeDashboardScreen(),
+                      builder: (context) => HomeDashboardScreen(client),
                     ),
                   );
                 },

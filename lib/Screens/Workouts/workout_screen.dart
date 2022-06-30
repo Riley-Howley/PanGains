@@ -208,16 +208,16 @@ class WorkOutScreen extends StatelessWidget {
                   onPressed: () async {
                     await getAllSpecificCompletedWorkouts(
                         listSpecificAccount[0].accountID);
-                    // for (var i in listSpecificCompletedWorkouts) {
-                    //   historyObj.date = i.date;
-                    //   historyObj.routineName = getRoutineName(i.RoutineID);
-                    //   historyObj.totalWorkoutTime = i.duration;
-                    //   historyObj.weightLifted = i.totalWeightLifted.toString();
-                    //   historyObj.workoutReps = 999.toString();
+                    for (var i in listSpecificCompletedWorkouts) {
+                      //   historyObj.date = i.date;
+                      //   historyObj.routineName = getRoutineName(i.RoutineID);
+                      //   historyObj.totalWorkoutTime = i.duration;
+                      //   historyObj.weightLifted = i.totalWeightLifted.toString();
+                      //   historyObj.workoutReps = 999.toString();
 
-                    //   await getAllSpecificRoutinesForHistory(i.RoutineID);
-                    //   await getSpecificYourExercise(i.RoutineID);
-                    // }
+                      await getAllSpecificRoutinesForHistory(i.RoutineID);
+                      //   await getSpecificYourExercise(i.RoutineID);
+                    }
                     // for (var i in listAllSpecificYourExercises) {
                     //   historyObj.exerciseName = getExerciseName(i.ExerciseID);
                     //   await getSpecificSets(i.ExerciseID);

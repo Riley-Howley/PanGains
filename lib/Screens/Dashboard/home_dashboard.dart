@@ -4,16 +4,20 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pangains/Screens/Auth%20Screens/signin_screen.dart';
 import 'package:pangains/Screens/Dashboard/edit_account_screen.dart';
 import 'package:pangains/Screens/Test%20Screens/test_screen.dart';
+import 'package:pangains/Screens/splash_screen.dart';
 import 'package:pangains/Widgets/followers_dialog_widget.dart';
 import 'package:pangains/Widgets/following_dialog_widget.dart';
 import 'package:pangains/Widgets/workout_week_chart.dart';
 import 'package:pangains/main.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import '../../Widgets/dashboard_nav.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../Widgets/row_user_widget.dart';
 
 class HomeDashboardScreen extends StatefulWidget {
+  final StreamChatClient? client;
+  HomeDashboardScreen(this.client);
   @override
   State<HomeDashboardScreen> createState() => _HomeDashboardScreenState();
 }
@@ -414,7 +418,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SignInScreen(clientMessage),
+                      builder: (context) => SplashScreen(widget.client),
                     ));
                   },
                   child: Text("Sign Out"),

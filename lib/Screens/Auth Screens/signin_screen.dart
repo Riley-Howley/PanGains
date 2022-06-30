@@ -225,7 +225,7 @@ class SignInScreen extends StatelessWidget {
                               await StreamChatCore.of(context)
                                   .client
                                   .disconnectUser();
-                              await clientMessage.connectUser(
+                              await client.connectUser(
                                   User(
                                       id: '${listSpecificAccount[0].firstName}-${listSpecificAccount[0].lastName}',
                                       extraData: {
@@ -242,7 +242,8 @@ class SignInScreen extends StatelessWidget {
                               }
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => HomeDashboardScreen(),
+                                  builder: (context) =>
+                                      HomeDashboardScreen(client),
                                 ),
                               );
                             }
