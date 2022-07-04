@@ -222,6 +222,7 @@ class SignInScreen extends StatelessWidget {
                                   listSpecificAccount[0].accountID);
                               await getAllRoutines();
                               await getAllChallenges();
+                              await getAllLeaderboards();
                               await StreamChatCore.of(context)
                                   .client
                                   .disconnectUser();

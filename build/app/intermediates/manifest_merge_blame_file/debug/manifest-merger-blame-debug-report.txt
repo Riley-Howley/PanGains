@@ -12,11 +12,11 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\howle\Documents\GitHub\PanGains\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->C:\Users\howle\Documents\GitHub\PanGains\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->C:\Users\howle\development\PanGains\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\howle\development\PanGains\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-15-->[:connectivity_plus] C:\Users\howle\Documents\GitHub\PanGains\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
-15-->[:connectivity_plus] C:\Users\howle\Documents\GitHub\PanGains\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+15-->[:connectivity_plus] C:\Users\howle\development\PanGains\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+15-->[:connectivity_plus] C:\Users\howle\development\PanGains\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
 16
 17    <application
 18        android:name="android.app.Application"

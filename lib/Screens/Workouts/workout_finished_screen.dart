@@ -56,6 +56,31 @@ class WorkoutFinishScreen extends StatelessWidget {
           DateTime.now().toString(), workoutTime, kgCount);
     }
 
+    var challengeNameID = listAllChallenges
+        .firstWhere(((element) =>
+            element.challengesID == listOfAllLeaderboard[0].challengesID))
+        .challengeName;
+
+    for (var i in listExercises) {
+      if (i.ExerciseName == challengeNameID) {
+        try {
+          var userChallenge = listAllChallengeStats.firstWhere((element) =>
+              element.AccountID == listSpecificAccount[0].accountID);
+          updateSpecificChallengeStat(
+              userChallenge.ChallengeStatsID,
+              userChallenge.AccountID,
+              userChallenge.LeaderBoardID,
+              userChallenge.challengeTotalReps + repCount);
+        } catch (e) {
+          postNewChallengeStats(
+            listSpecificAccount[0].accountID,
+            listOfAllLeaderboard[0].LeaderBoardID,
+            repCount,
+          );
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: Color(0xff222831),
       body: SingleChildScrollView(

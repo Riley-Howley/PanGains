@@ -196,23 +196,6 @@ class _PopulatedWorkoutScreenState extends State<PopulatedWorkoutScreen> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 16),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffBDBDBD))),
-                        hintText: "Search for...",
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        suffixIcon: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
                       margin: EdgeInsets.only(top: 32),
                       height: MediaQuery.of(context).size.height / 2,
                       child: ListView.builder(

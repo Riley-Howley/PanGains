@@ -93,6 +93,18 @@ class DashboadNav extends StatelessWidget {
                 await getEveryAccount();
                 await getAllLeaderboards();
                 await getAllChallengeStats();
+                if (listAllChallengeStats.length <
+                        listOfAllLeaderboard[0].totalParticipants ||
+                    listAllChallengeStats.length >
+                        listOfAllLeaderboard[0].totalParticipants) {
+                  await updateSpecificLeaderboard(
+                      listOfAllLeaderboard[0].LeaderBoardID,
+                      listOfAllLeaderboard[0].challengesID,
+                      listOfAllLeaderboard[0].date,
+                      listAllChallengeStats.length);
+                }
+                await getAllLeaderboards();
+                await getAllChallengeStats();
 
                 Navigator.popAndPushNamed(context, "/leaderboard");
               },

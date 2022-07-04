@@ -111,71 +111,89 @@ class LeaderboardScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(top: 16),
-                child: Text(
-                  listAllChallenges
-                      .firstWhere((element) =>
-                          element.challengesID ==
-                          listOfAllLeaderboard[0].challengesID)
-                      .challengeName,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 48,
-                ),
-                child: Text(
-                  "Total Participants",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: Text(
-                  listOfAllLeaderboard[0].totalParticipants.toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text(
-                      "Rank",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      "Name",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      "Amount",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-              for (int i = 0; i < reversedList.length; i++)
-                LeaderboardWidget(i, reversedList[i].AccountID),
-              Container(
-                height: 20,
-              ),
+              listOfAllLeaderboard.isEmpty
+                  ? Center(
+                      child: Text(
+                      "No Monthly Challenge Set",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ))
+                  : Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 16),
+                          child: Text(
+                            listAllChallenges
+                                .firstWhere((element) =>
+                                    element.challengesID ==
+                                    listOfAllLeaderboard[0].challengesID)
+                                .challengeName,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 48,
+                          ),
+                          child: Text(
+                            "Total Participants",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            listOfAllLeaderboard[0]
+                                .totalParticipants
+                                .toString(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 36,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Text(
+                                "Rank",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                "Name",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                "Amount",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                        for (int i = 0; i < reversedList.length; i++)
+                          LeaderboardWidget(i, reversedList[i].AccountID),
+                        Container(
+                          height: 20,
+                        ),
+                      ],
+                    )
             ],
           ),
         ),
